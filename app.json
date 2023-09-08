@@ -4,6 +4,7 @@
     "web": {
       "bundler": "metro"
     },
+    "orientation": "portrait",
     "plugins": [
       "expo-router"
     ],
