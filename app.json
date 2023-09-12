@@ -9,6 +9,27 @@
       "expo-router"
     ],
     "name": "ITIApp",
-    "slug": "ITIApp"
+    "slug": "ITIApp",
+    "android": {
+      "package": "com.hndrx022.ITIApp",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyC1YDKCTkx-ib9y0iAX_B-wSQc0Hf2AqSo"
+        }
+      }
+    },
+    "ios": {
+      "config": {
+        "googleMapsApiKey": "AIzaSyC1YDKCTkx-ib9y0iAX_B-wSQc0Hf2AqSo"
+      }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "4f6482f8-c4a4-409e-bb76-ff052b627ad9"
+      }
+    }
   }
 }

@@ -1,3 +1,3 @@
-import { nightStyle, noonStyle } from "./styleMap";
+import { nightStyle, noonStyle, lateStyle } from "./styleMap";
 
-export { nightStyle, noonStyle }
+export { nightStyle, noonStyle, lateStyle }

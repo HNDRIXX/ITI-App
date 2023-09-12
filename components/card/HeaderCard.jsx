@@ -7,7 +7,9 @@ export default function HeaderCard({ item, index }) {
     const [fontsLoaded] = useFonts()
 
     if (!fontsLoaded) { 
-        return  <View>
+        return  
+        
+        <View>
             <ActivityIndicator color={COLORS.baseOrange} size={'large'} />
         </View>
     }
@@ -43,7 +45,7 @@ const styles = StyleSheet.create({
 
     image: {
         width: 200,
-        height: 400,
+        height: 250,
     },
 
     overlay: {
