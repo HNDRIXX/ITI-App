@@ -1,6 +1,7 @@
 {
   "expo": {
     "scheme": "acme",
+    "owner": "itiapp",
     "web": {
       "bundler": "metro"
     },

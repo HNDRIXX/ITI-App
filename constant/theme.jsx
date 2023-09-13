@@ -8,9 +8,10 @@ const COLORS = {
     orange: '#FC732E',
     baseOrange: '#FF5003',
 
+    babyBlue: '#87BFFF',
     lightBlue: '#5D9FEF',
     blue: '#2F78D1',
-    darkBlue: '',
+    darkBlue: '#073DCC',
 
     tr_gray: '#2A2A2A73',
     lightGray: '#EAEAEA',

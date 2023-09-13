@@ -51,7 +51,7 @@ export default class App extends Component {
         <View style={styles.bodyCntr}>
           <View style={styles.bodyTxtCtnr}>
             <Text style={styles.bodyTxtTitle}>Test Page</Text>
-            <Text style={styles.bodyTxtSub}>The dolor sit al.</Text>
+            <Text style={styles.bodyTxtSub}>The dolor sit al</Text>
           </View>
 
           <Table borderStyle={{ borderColor: 'transparent' }}>
@@ -82,8 +82,8 @@ const styles = StyleSheet.create({
 
   topContainer: {
     backgroundColor: COLORS.blue,
-    paddingTop: '12%',
-    paddingBottom: '5%'
+    paddingTop: 40,
+    paddingBottom: 10,
   },
 
   backButton: {
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
   },
 
   bodyCntr: {
-    padding: 10,
+    margin: 13,
   },
 
   bodyTxtCtnr: {

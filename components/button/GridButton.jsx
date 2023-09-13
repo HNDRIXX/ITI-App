@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Button, TouchableOpacity, StyleSheet, ScrollView } from 'react-native'
+import { View, Text, Button, TouchableOpacity, StyleSheet, ScrollView, Platform} from 'react-native'
 import { COLORS } from '../../constant'
 import { Ionicons, SimpleLineIcons, MaterialCommunityIcons, FontAwesome5, FontAwesome, Entypo, AntDesign } from '@expo/vector-icons'
 
@@ -9,8 +9,8 @@ function GridButton({ onPress }) {
     <ScrollView 
         contentContainerStyle={{ 
             justifyContent: 'center', 
-        }} 
-        showsVerticalScrollIndicator={false}
+        }}
+        showsVerticalScrollIndicator={ Platform.OS == 'web' ? true : false }
     >
         <View style={styles.buttonWrapper}>
             <View style={styles.buttonContainer}>
@@ -152,13 +152,13 @@ const styles = StyleSheet.create({
 
     iconOverlay: {
         color: COLORS.clearWhite,
-        marginTop: '22%',
+        marginTop: 40,
     },
 
     textButtonWrapper: {
         position: 'absolute',
-        bottom: '10%',
-        left: '10%',
+        bottom: 20,
+        left: 20,
     },
 
     textButton: {

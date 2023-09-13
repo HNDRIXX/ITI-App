@@ -16,9 +16,9 @@ export default function App () {
     const list = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5', 'Item 6']
 
     if(!fontsLoaded) { 
-        return <View>
+        return <>
             <ActivityIndicator size={'large'} color={COLORS.baseOrange} />
-        </View>
+        </>
     }
 
     const onPress = () => {
@@ -79,7 +79,7 @@ export default function App () {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 13,
+        margin: 13,
     },
 
     headerWrapper: {

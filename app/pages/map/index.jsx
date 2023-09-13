@@ -33,7 +33,7 @@ export default function MapIndex () {
             } catch (error) { console.error("Error checking location services:", error) }
         }, 1000)
 
-        return () => clearInterval(interval);
+        return () => clearInterval(interval)
     }, [])
 
     useEffect(() => {
@@ -76,6 +76,7 @@ export default function MapIndex () {
                 region={mapRegion}
                 showsUserLocation={true}
                 followsUserLocation={true}
+                customMapStyle={noonStyle}
                 showsTraffic={true}
                 showsBuildings={true}
                 loadingEnabled={true}
