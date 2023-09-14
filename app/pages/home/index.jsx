@@ -5,8 +5,10 @@ import { useRouter } from 'expo-router'
 import { COLORS, useFonts } from '../../../constant'
 import { StatusBar } from 'expo-status-bar'
 
+import HomeButton from '../../../components/button/HomeButton'
 import HeaderCard from '../../../components/card/HeaderCard'
 import GridButton from '../../../components/button/GridButton'
+import { loadAsync } from 'expo-font'
 
 export default function App () {
     const router = useRouter()
@@ -69,8 +71,11 @@ export default function App () {
                 </>
             </View> */}
 
-            <GridButton 
+            {/* <GridButton 
                 onPress={onPress}
+            /> */}
+
+            <HomeButton 
             />
         </SafeAreaView>
     )

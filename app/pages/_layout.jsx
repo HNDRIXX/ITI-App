@@ -60,6 +60,7 @@ export default function Layout() {
                 drawerCloseAnimation: 'slide',
                 headerShadowVisible: true,
             }}
+            
             drawerContent={props => <CustomSidebarMenu {...props} />}
         >
             <Drawer.Screen

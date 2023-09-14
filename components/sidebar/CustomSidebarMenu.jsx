@@ -20,13 +20,13 @@ const CustomSidebarMenu = (props) => {
   }
 
   const toggleDropdown = () => {
-    setDropdownOpen(!isDropdownOpen);
+    setDropdownOpen(!isDropdownOpen)
 
     Animated.timing(dropdownHeight, {
       toValue: isDropdownOpen ? 0 : 100,
       duration: 300,
       useNativeDriver: false,
-    }).start();
+    }).start()
   }
   
   return (
@@ -48,6 +48,7 @@ const CustomSidebarMenu = (props) => {
             style={styles.dropdownButton}
             onPress={toggleDropdown}
           >
+            <Text style></Text>
             <Text style={styles.dropdownButtonText}>Dropdown</Text>
             <Entypo
               name={isDropdownOpen ? 'chevron-up' : 'chevron-down'}
