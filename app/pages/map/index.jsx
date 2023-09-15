@@ -49,7 +49,7 @@ export default function MapIndex () {
 
       return () => backHandler.remove()
     }, [navigation, isFocused])
-  
+
     const [mapRegion, setMapRegion] = useState({
         latitude: 14.643779,
         longitude: 121.026478,

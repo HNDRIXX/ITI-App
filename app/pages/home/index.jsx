@@ -75,8 +75,7 @@ export default function App () {
                 onPress={onPress}
             /> */}
 
-            <HomeButton 
-            />
+            <HomeButton />
         </SafeAreaView>
     )
 }

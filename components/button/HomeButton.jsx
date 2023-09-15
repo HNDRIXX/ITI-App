@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, Button, TouchableOpacity, StyleSheet, ScrollView, Platform} from 'react-native'
 import { COLORS } from '../../constant'
 import { useRouter, router } from 'expo-router'
-import { Ionicons, SimpleLineIcons, MaterialCommunityIcons, FontAwesome5, FontAwesome, Entypo, AntDesign, MaterialIcons } from '@expo/vector-icons'
+import { Ionicons, MaterialIcons, Entypo } from '@expo/vector-icons'
 
 export default function HomeButton () {
   return (
@@ -42,11 +42,14 @@ export default function HomeButton () {
 
         <View style={styles.buttonWrapper}>
             <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.gridButton}>
-                    <Ionicons name="file-tray-sharp" size={70} style={styles.iconOverlay}/>
+                <TouchableOpacity 
+                    style={styles.gridButton}
+                    onPress={() => router.push(`/access/home/geo`)}
+                >
+                    <Entypo name="location" size={70} style={styles.iconOverlay}/>
 
                     <View style={styles.textButtonWrapper}>
-                        <Text style={styles.textButton}>Reports</Text>
+                        <Text style={styles.textButton}>Maps</Text>
                     </View>
                 </TouchableOpacity>
             </View>

@@ -1,14 +1,11 @@
 import React from 'react'
 import { View, Text, SafeAreaView, StyleSheet, TouchableOpacity} from 'react-native'
 import { COLORS } from '../../../constant'
-import { AntDesign } from '@expo/vector-icons'
+import { AntDesign, FontAwesome } from '@expo/vector-icons'
 import { router } from 'expo-router'
 
 function ProfilePage() {
-
-    const onGoBack = () => {
-        router.back()
-    }    
+    const onGoBack = () => { router.back() }    
 
     return (
         <SafeAreaView style={styles.container}>
@@ -19,7 +16,26 @@ function ProfilePage() {
             </View>
 
             <View style={styles.bodyContainer}>
-                <Text>Profile Page</Text>
+                <View style={styles.profileImgContainer}>
+                    <FontAwesome name='user-circle' size={120} color={COLORS.blue} />
+                </View>
+
+                <View style={styles.detailContainer}>
+                    <View style={styles.detailWrapper}>
+                        <Text style={styles.detailTitle}>Name</Text>
+                        <Text style={styles.detailData}>Lorem Ipsum</Text>
+                    </View>
+
+                    <View style={styles.detailWrapper}>
+                        <Text style={styles.detailTitle}>Position</Text>
+                        <Text style={styles.detailData}>Lorem Ipsum</Text>
+                    </View>
+
+                    <View style={styles.detailWrapper}>
+                        <Text style={styles.detailTitle}>Role</Text>
+                        <Text style={styles.detailData}>Lorem Ipsum</Text>
+                    </View>
+                </View>
             </View>
         </SafeAreaView>
     )
@@ -42,7 +58,29 @@ const styles = StyleSheet.create({
 
     bodyContainer: {
         margin: 13,
+        marginTop: 50,
+        flex: 1,
     },
+
+    profileImgContainer: {
+        verticalAlign: 'middle', alignSelf: 'center', alignItems: 'center', justifyContent: 'center',
+        padding: 20
+    },
+
+    detailWrapper: {
+        marginBottom: 10
+    },
+
+    detailTitle: {
+        fontFamily: 'DMSans_700Bold',
+        color: COLORS.baseOrange,
+        fontSize: 20
+    },
+
+    detailData: {
+        fontFamily: 'DMSans_400Regular',
+
+    }
 })
 
 export default ProfilePage
