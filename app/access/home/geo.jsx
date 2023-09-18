@@ -5,6 +5,7 @@ import { noonStyle, lateStyle, nightStyle } from '../../../components/styleMap';
 import * as Location from 'expo-location';
 import { router } from 'expo-router';
 import { Ionicons, AntDesign } from '@expo/vector-icons';
+import { PROVIDER_GOOGLE } from 'react-native-maps'
 
 import { COLORS } from '../../../constant';
 
@@ -21,6 +22,8 @@ export default function Geo () {
         let interval
         const requestLocationPermission = async () => {
             try {
+ 
+                
                 const isLocationEnabled = await Location.getProviderStatusAsync()
 
                 if (isLocationEnabled.locationServicesEnabled){
@@ -40,6 +43,8 @@ export default function Geo () {
                     setOnLocation(false)
                     setIsLoading(false)
                 }else {
+                    Location.requestForegroundPermissionsAsync()
+                    Location.requestPermissionsAsync()
                     setIsLoading(true)
                     setOnLocation(true)
                 }
@@ -78,7 +83,7 @@ export default function Geo () {
     }
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
+        <View style={{ flex: 1 }}>
             <View style={styles.topContainer}>
                 <TouchableOpacity style={styles.backButton} onPress={ () => router.back() }>
                     <AntDesign name='back' size={30} color={COLORS.clearWhite} />
@@ -95,7 +100,8 @@ export default function Geo () {
                             latitudeDelta: 0.0005,
                             longitudeDelta: 0.0005,
                         }}
-                        customMapStyle={noonStyle}
+                        customMapStyle={lateStyle}
+                        provider={PROVIDER_GOOGLE}
                         showsBuildings={false}
                         showsTraffic={true}
                         showsUserLocation={true}
@@ -178,7 +184,7 @@ export default function Geo () {
                     </TouchableOpacity>
                 </View>
             ) : ( <></> )}
-        </SafeAreaView>
+        </View>
     )
 }
 

@@ -6,6 +6,7 @@ import { Agenda } from 'react-native-calendars';
 import { router } from 'expo-router';
 import { AntDesign, FontAwesome, Ionicons } from '@expo/vector-icons';
 import { COLORS } from '../../../constant';
+import Stack from 'expo-router';
 
 const events = [
   {
@@ -16,7 +17,7 @@ const events = [
   {
     title: 'Assesment',
     start: new Date(2023, 8, 12, 1, 45),
-    end: new Date(2023, 8, 12, 9, 30),
+    end: new Date(2023, 8, 13, 9, 30),
   },
   {
     title: 'Rest Time',
@@ -50,7 +51,7 @@ export default function EventCalendar () {
   }, [])
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
         <View style={styles.topContainer}>
           <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
             <AntDesign name='back' size={30} color={COLORS.clearWhite} />
@@ -68,7 +69,7 @@ export default function EventCalendar () {
               events={events} 
               height={130}
               isRTL={false}
-              mode='3days'
+              mode='month'
               hourRowHeight={30} 
               onPressEvent={handleEventPress}
             />
@@ -98,7 +99,7 @@ export default function EventCalendar () {
             </View>
           </>
         ) : ( <View style={styles.loader}><ActivityIndicator size={'large'} color={COLORS.baseOrange} /></View> ) }
-    </SafeAreaView>
+    </View>
   )
 }
 

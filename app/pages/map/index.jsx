@@ -120,8 +120,8 @@ const styles = StyleSheet.create({
 
   floatContainer: {
     position: 'absolute',
-    top: '1.5%',
-    left: '3%',
+    top: 10,
+    left: 10,
     elevation: 9, 
     backgroundColor: COLORS.white, 
     width: 300,
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     shadowColor: 'black',
     padding: 10,
     paddingHorizontal: 15,
-    shadowOffset: { width: 100, height: 100 },
+    shadowOffset: { width: 2, height: 5 },
     shadowOpacity: 0.2, 
     shadowRadius: 2, 
   },

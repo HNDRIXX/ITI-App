@@ -39,6 +39,13 @@ export default function App () {
                 <Text style={styles.headerSubText}>Let's explore the app.</Text>
             </View>
 
+            <View style={styles.imageContainer}> 
+                <Image 
+                    source={require('../../../assets/img/mntn.jpg')}
+                    style={styles.imageHeader}
+                /> 
+            </View>
+
             {/* <FlatList 
                 data={data}
                 renderItem={({ item, index }) => (
@@ -75,6 +82,10 @@ export default function App () {
                 onPress={onPress}
             /> */}
 
+            <View style={styles.homeButtonHeader}>
+                <Text style={styles.homeButtonHeaderText}>On Task Access</Text>
+            </View>
+
             <HomeButton />
         </SafeAreaView>
     )
@@ -91,14 +102,14 @@ const styles = StyleSheet.create({
     },
 
     headerText: {
-        fontFamily: 'DMSans_700Bold',
-        letterSpacing: -1.7,
-        color: COLORS.baseOrange,
+        fontFamily: 'Montserrat_800ExtraBold',
+        letterSpacing: -1,
+        color: COLORS.orange,
         fontSize: 33,
     },
 
     headerSubText: {
-        fontFamily: 'DMSans_500Medium_Italic'
+        fontFamily: 'Montserrat_500Medium_Italic'
     },
     
     belowHeader: { paddingBottom: 20 },
@@ -119,7 +130,7 @@ const styles = StyleSheet.create({
     },
 
     belowSubText: {
-        fontFamily: 'DMSans_500Medium_Italic',
+        fontFamily: 'Montserrat_600SemiBold',
     },
 
     itemWrapper: {
@@ -133,5 +144,27 @@ const styles = StyleSheet.create({
         color: COLORS.white,
         fontSize: 20,
         fontFamily: 'DMSans_700Bold'
+    },
+
+    imageContainer: {
+        marginBottom: 10,
+    },
+
+    imageHeader: {
+        width: '100%', 
+        height: 100,
+        borderRadius: 15,
+    },
+
+    homeButtonHeader: {
+        marginHorizontal: 5,
+        marginVertical: 5
+    },
+
+    homeButtonHeaderText: {
+        fontFamily: 'Montserrat_700Bold',
+        color: COLORS.orange,
+        letterSpacing: -.4,
+
     }
 })

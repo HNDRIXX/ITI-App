@@ -1,5 +1,5 @@
 const COLORS = {
-    black: '#0000',
+    black: '#000',
 
     white: '#F2F1F0',
     clearWhite : '#FFFF',
@@ -18,6 +18,7 @@ const COLORS = {
     lightGray2: '#EFEFEF',
     gray: '#DDDD',
     darkGray: '#585858',
+    shadowGray: 'rgba(119, 119, 119, 0.06)',
 }
 
 export { COLORS }

@@ -1,10 +1,22 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, Button, TouchableOpacity, StyleSheet, ScrollView, Platform} from 'react-native'
+import { LinearGradient } from 'expo-linear-gradient'
 import { COLORS } from '../../constant'
 import { useRouter, router } from 'expo-router'
 import { Ionicons, MaterialIcons, Entypo } from '@expo/vector-icons'
+import { Image } from 'expo-image'
+import { Skeleton } from '@rneui/themed'
 
 export default function HomeButton () {
+    const [isLoading, setIsLoading] = useState(true);
+
+    // Simulate loading data (you can replace this with your actual data fetching logic)
+    useEffect(() => {
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 2000); // Simulating a 2-second delay for loading
+    }, []);
+
   return (
     <ScrollView 
         contentContainerStyle={{ 
@@ -13,28 +25,66 @@ export default function HomeButton () {
         showsVerticalScrollIndicator={ Platform.OS == 'web' ? true : false }
     >
         <View style={styles.buttonWrapper}>
-            <View style={styles.buttonContainer}>
-                <TouchableOpacity 
-                    style={styles.gridButton} 
-                    onPress={() => router.push(`/access/home/profile`)}
-                >
-                    <MaterialIcons  name="face" size={75} style={styles.iconOverlay}/>
+            
+            {isLoading ? (
+                <Skeleton
+                width={32}
+                height={32}
+                marginBottom={10}
+                borderRadius={10}
+                shimmerColors={['#e0e0e0', '#d0d0d0', '#e0e0e0']}
+                />
+            ) : ( 
+                <>
+                    <View style={styles.buttonContainer}>
+                    <TouchableOpacity 
+                        style={styles.gridButton} 
+                        onPress={() => router.push(`/access/home/profile`)}
+                    >
+                        <Image source={require('../../assets/img/icons/profile.png')} style={styles.iconOverlay} />
 
-                    <View style={styles.textButtonWrapper}>
-                        <Text style={styles.textButton}>Profile</Text>
+                        <View style={styles.textButtonWrapper}>
+                            <Text style={styles.textButton}>User</Text>
+                        </View>
+                    </TouchableOpacity>
                     </View>
-                </TouchableOpacity>
-            </View>
+                </>
+            )}
+
+            
 
             <View style={styles.buttonContainer}>
                 <TouchableOpacity 
                     style={styles.gridButton}  
                     onPress={() => router.push(`/access/home/calendar`)}
                 > 
-                    <Ionicons name="ios-calendar" size={65} style={styles.iconOverlay} />
+                    <Image source={require('../../assets/img/icons/calendar.png')} style={styles.iconOverlay} />
 
                     <View style={styles.textButtonWrapper}>
                         <Text style={styles.textButton}>Calendar</Text>
+                    </View>
+                </TouchableOpacity>
+            </View>
+
+            <View style={styles.buttonContainer}>
+                <TouchableOpacity 
+                    style={styles.gridButton}
+                    onPress={() => router.push(`/access/home/geo`)}
+                >
+                    <Image source={require('../../assets/img/icons/map.png')} style={styles.iconOverlay} />
+
+                    <View style={styles.textButtonWrapper}>
+                        <Text style={styles.textButton}>Maps</Text>
+                    </View>
+                </TouchableOpacity>
+            </View>
+
+            <View style={styles.buttonContainer}>
+                <TouchableOpacity style={styles.gridButton}>
+                    <Image source={require('../../assets/img/icons/clock.png')} style={styles.iconOverlay} />
+
+                    <View style={styles.textButtonWrapper}>
+                        <Text style={styles.textButton}>Clock</Text>
                     </View>
                 </TouchableOpacity>
             </View>
@@ -46,30 +96,50 @@ export default function HomeButton () {
                     style={styles.gridButton}
                     onPress={() => router.push(`/access/home/geo`)}
                 >
-                    <Entypo name="location" size={70} style={styles.iconOverlay}/>
+                    <Image source={require('../../assets/img/icons/cash.png')} style={styles.iconOverlay} />
 
                     <View style={styles.textButtonWrapper}>
-                        <Text style={styles.textButton}>Maps</Text>
+                        <Text style={styles.textButton}>Money</Text>
                     </View>
                 </TouchableOpacity>
             </View>
 
             <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.gridButton}>
-                    <Ionicons name="ios-time" size={75} color={COLORS.orange} style={styles.iconOverlay} />
+                    <Image source={require('../../assets/img/icons/building.png')} style={styles.iconOverlay} />
 
                     <View style={styles.textButtonWrapper}>
-                        <Text style={styles.textButton}>Time</Text>
+                        <Text style={styles.textButton}>Building</Text>
+                    </View>
+                </TouchableOpacity>
+            </View>
+
+            <View style={styles.buttonContainer}>
+                <TouchableOpacity style={styles.gridButton}>
+                    <Image source={require('../../assets/img/icons/list.png')} style={styles.iconOverlay} />
+
+                    <View style={styles.textButtonWrapper}>
+                        <Text style={styles.textButton}>List</Text>
+                    </View>
+                </TouchableOpacity>
+            </View>
+
+            <View style={styles.buttonContainer}>
+                <TouchableOpacity style={styles.gridButton}>
+                    <Image source={require('../../assets/img/icons/cogs.png')} style={styles.iconOverlay} />
+
+                    <View style={styles.textButtonWrapper}>
+                        <Text style={styles.textButton}>Cogs</Text>
                     </View>
                 </TouchableOpacity>
             </View>
         </View>
 
-        <View style={styles.hairline} />
+        {/* <View style={styles.hairline} />
 
         <View style={styles.partitionWrapper}>
             <Text style={styles.textPartition}>Section Partition</Text>
-        </View>
+        </View> */}
     </ScrollView>
   )
 }
@@ -86,39 +156,46 @@ const styles = StyleSheet.create({
     buttonWrapper: {
         flex: 1, 
         flexDirection: 'row',
-        marginVertical: 4,
+        marginVertical: 5,
+        marginHorizontal: 0,
     }, 
 
     buttonContainer: {
         flex: 1,
+        // alignItems: 'center',
+        // justifyContent: 'center',
     },
 
     gridButton: {
-        borderRadius: 6,
-        marginHorizontal: 4,
-        height: 180,
-        backgroundColor: COLORS.orange,
+        borderRadius: 10,
+        marginHorizontal: 5,
+        height: 100,
+        backgroundColor: COLORS.white,
         elevation: 3,
+        shadowColor: 'rgba(0, 0, 0, 0.1)',
+        shadowOpacity: 0.5,
+        shadowRadius: 15 ,
+        shadowOffset : { width: 1, height: 5},
         alignItems: 'center',
+        justifyContent: 'center',
     },
 
     iconOverlay: {
-        color: COLORS.clearWhite,
-        marginTop: 35,
+        width: 32,
+        height: 32,
+        // marginTop: 10,
     },
 
     textButtonWrapper: {
-        position: 'absolute',
-        bottom: 15,
-        left: 15,
+      marginTop: 10,
     },
 
     textButton: {
-        fontFamily: 'DMSans_700Bold',
-        color: COLORS.white,
-        fontSize: 17,
+        fontFamily: 'Montserrat_500Medium',
+        color: COLORS.darkGray,
+        fontSize: 12,
         lineHeight: 17,
-        letterSpacing: -1
+        letterSpacing: -.5,
     },
 
     partitionWrapper: { 
@@ -153,5 +230,30 @@ const styles = StyleSheet.create({
     buttonTextWrapper: {
         paddingLeft: 10,
         paddingTop: 5,
-    }
+    },
+
+
+    linearGradient: {
+        height: 150,
+        width: 200,
+        elevation: 1,
+        borderRadius: 17, // <-- Outer Border Radius
+    },
+
+      innerContainer: {
+        borderRadius: 15, // <-- Inner Border Radius
+        flex: 1,
+        margin: 2.5, // <-- Border Width
+        backgroundColor: '#fff',
+        justifyContent: 'center',
+      },
+      buttonText: {
+        fontSize: 18,
+        fontFamily: 'Gill Sans',
+        fontWeight: 'bold',
+        textAlign: 'center',
+        margin: 10,
+        color: '#cc2b5e',
+        backgroundColor: 'transparent',
+      },
 })
