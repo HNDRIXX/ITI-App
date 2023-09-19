@@ -3,10 +3,12 @@ const COLORS = {
 
     white: '#F2F1F0',
     clearWhite : '#FFFF',
+    grayWhite: '#F8F8F8',
 
     lightOrange: '#FD8A50',
     orange: '#FC732E',
     baseOrange: '#FF5003',
+    lighterOrange: '#FF9C66',
 
     babyBlue: '#87BFFF',
     lightBlue: '#5D9FEF',

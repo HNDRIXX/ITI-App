@@ -6,134 +6,126 @@ import { useRouter, router } from 'expo-router'
 import { Ionicons, MaterialIcons, Entypo } from '@expo/vector-icons'
 import { Image } from 'expo-image'
 import { Skeleton } from '@rneui/themed'
+import HomeButtonLoader from '../loader/HomeButtonLoader'
 
 export default function HomeButton () {
     const [isLoading, setIsLoading] = useState(true);
 
-    // Simulate loading data (you can replace this with your actual data fetching logic)
     useEffect(() => {
         setTimeout(() => {
-            setIsLoading(false);
-        }, 2000); // Simulating a 2-second delay for loading
-    }, []);
+            setIsLoading(false)
+        }, 2000)
+    }, [])
 
   return (
     <ScrollView 
         contentContainerStyle={{ 
             justifyContent: 'center', 
         }}
+        scrollEnabled={false}
         showsVerticalScrollIndicator={ Platform.OS == 'web' ? true : false }
-    >
-        <View style={styles.buttonWrapper}>
-            
-            {isLoading ? (
-                <Skeleton
-                width={32}
-                height={32}
-                marginBottom={10}
-                borderRadius={10}
-                shimmerColors={['#e0e0e0', '#d0d0d0', '#e0e0e0']}
-                />
+    >     
+            { isLoading ? (
+                <HomeButtonLoader />
             ) : ( 
                 <>
-                    <View style={styles.buttonContainer}>
-                    <TouchableOpacity 
-                        style={styles.gridButton} 
-                        onPress={() => router.push(`/access/home/profile`)}
-                    >
-                        <Image source={require('../../assets/img/icons/profile.png')} style={styles.iconOverlay} />
+                    <View style={styles.buttonWrapper}>
+                        <View style={styles.buttonContainer}>
+                            <TouchableOpacity 
+                                style={styles.gridButton} 
+                                onPress={() => router.push(`/pages/profile/`)}
+                            >
+                                <Image source={require('../../assets/img/icons/profile.png')} style={styles.iconOverlay} />
 
-                        <View style={styles.textButtonWrapper}>
-                            <Text style={styles.textButton}>User</Text>
+                                <View style={styles.textButtonWrapper}>
+                                    <Text style={styles.textButton}>User</Text>
+                                </View>
+                            </TouchableOpacity>
                         </View>
-                    </TouchableOpacity>
+
+                        <View style={styles.buttonContainer}>
+                            <TouchableOpacity 
+                                style={styles.gridButton}  
+                                onPress={() => router.push(`/access/home/calendar`)}
+                            > 
+                                <Image source={require('../../assets/img/icons/calendar.png')} style={styles.iconOverlay} />
+
+                                <View style={styles.textButtonWrapper}>
+                                    <Text style={styles.textButton}>Calendar</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+
+                        <View style={styles.buttonContainer}>
+                            <TouchableOpacity 
+                                style={styles.gridButton}
+                                onPress={() => router.push(`/access/home/`)}
+                            >
+                                <Image source={require('../../assets/img/icons/map.png')} style={styles.iconOverlay} />
+
+                                <View style={styles.textButtonWrapper}>
+                                    <Text style={styles.textButton}>Maps</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+
+                        <View style={styles.buttonContainer}>
+                            <TouchableOpacity style={styles.gridButton}>
+                                <Image source={require('../../assets/img/icons/clock.png')} style={styles.iconOverlay} />
+
+                                <View style={styles.textButtonWrapper}>
+                                    <Text style={styles.textButton}>Clock</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+
+                    <View style={styles.buttonWrapper}>
+                        <View style={styles.buttonContainer}>
+                            <TouchableOpacity 
+                                style={styles.gridButton}
+                                onPress={() => router.push(`/access/home`)}
+                            >
+                                <Image source={require('../../assets/img/icons/cash.png')} style={styles.iconOverlay} />
+
+                                <View style={styles.textButtonWrapper}>
+                                    <Text style={styles.textButton}>Money</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+
+                        <View style={styles.buttonContainer}>
+                            <TouchableOpacity style={styles.gridButton}>
+                                <Image source={require('../../assets/img/icons/building.png')} style={styles.iconOverlay} />
+
+                                <View style={styles.textButtonWrapper}>
+                                    <Text style={styles.textButton}>Building</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+
+                        <View style={styles.buttonContainer}>
+                            <TouchableOpacity style={styles.gridButton}>
+                                <Image source={require('../../assets/img/icons/list.png')} style={styles.iconOverlay} />
+
+                                <View style={styles.textButtonWrapper}>
+                                    <Text style={styles.textButton}>List</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+
+                        <View style={styles.buttonContainer}>
+                            <TouchableOpacity style={styles.gridButton}>
+                                <Image source={require('../../assets/img/icons/cogs.png')} style={styles.iconOverlay} />
+
+                                <View style={styles.textButtonWrapper}>
+                                    <Text style={styles.textButton}>Cogs</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </>
             )}
-
-            
-
-            <View style={styles.buttonContainer}>
-                <TouchableOpacity 
-                    style={styles.gridButton}  
-                    onPress={() => router.push(`/access/home/calendar`)}
-                > 
-                    <Image source={require('../../assets/img/icons/calendar.png')} style={styles.iconOverlay} />
-
-                    <View style={styles.textButtonWrapper}>
-                        <Text style={styles.textButton}>Calendar</Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
-
-            <View style={styles.buttonContainer}>
-                <TouchableOpacity 
-                    style={styles.gridButton}
-                    onPress={() => router.push(`/access/home/geo`)}
-                >
-                    <Image source={require('../../assets/img/icons/map.png')} style={styles.iconOverlay} />
-
-                    <View style={styles.textButtonWrapper}>
-                        <Text style={styles.textButton}>Maps</Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
-
-            <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.gridButton}>
-                    <Image source={require('../../assets/img/icons/clock.png')} style={styles.iconOverlay} />
-
-                    <View style={styles.textButtonWrapper}>
-                        <Text style={styles.textButton}>Clock</Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
-        </View>
-
-        <View style={styles.buttonWrapper}>
-            <View style={styles.buttonContainer}>
-                <TouchableOpacity 
-                    style={styles.gridButton}
-                    onPress={() => router.push(`/access/home/geo`)}
-                >
-                    <Image source={require('../../assets/img/icons/cash.png')} style={styles.iconOverlay} />
-
-                    <View style={styles.textButtonWrapper}>
-                        <Text style={styles.textButton}>Money</Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
-
-            <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.gridButton}>
-                    <Image source={require('../../assets/img/icons/building.png')} style={styles.iconOverlay} />
-
-                    <View style={styles.textButtonWrapper}>
-                        <Text style={styles.textButton}>Building</Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
-
-            <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.gridButton}>
-                    <Image source={require('../../assets/img/icons/list.png')} style={styles.iconOverlay} />
-
-                    <View style={styles.textButtonWrapper}>
-                        <Text style={styles.textButton}>List</Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
-
-            <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.gridButton}>
-                    <Image source={require('../../assets/img/icons/cogs.png')} style={styles.iconOverlay} />
-
-                    <View style={styles.textButtonWrapper}>
-                        <Text style={styles.textButton}>Cogs</Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
-        </View>
 
         {/* <View style={styles.hairline} />
 
@@ -162,8 +154,6 @@ const styles = StyleSheet.create({
 
     buttonContainer: {
         flex: 1,
-        // alignItems: 'center',
-        // justifyContent: 'center',
     },
 
     gridButton: {
@@ -171,10 +161,10 @@ const styles = StyleSheet.create({
         marginHorizontal: 5,
         height: 100,
         backgroundColor: COLORS.white,
-        elevation: 3,
-        shadowColor: 'rgba(0, 0, 0, 0.1)',
-        shadowOpacity: 0.5,
-        shadowRadius: 15 ,
+        elevation: 5,
+        shadowColor: COLORS.tr_gray,
+        shadowOpacity: 0.1,
+        shadowRadius: 2,
         shadowOffset : { width: 1, height: 5},
         alignItems: 'center',
         justifyContent: 'center',
@@ -230,30 +220,5 @@ const styles = StyleSheet.create({
     buttonTextWrapper: {
         paddingLeft: 10,
         paddingTop: 5,
-    },
-
-
-    linearGradient: {
-        height: 150,
-        width: 200,
-        elevation: 1,
-        borderRadius: 17, // <-- Outer Border Radius
-    },
-
-      innerContainer: {
-        borderRadius: 15, // <-- Inner Border Radius
-        flex: 1,
-        margin: 2.5, // <-- Border Width
-        backgroundColor: '#fff',
-        justifyContent: 'center',
-      },
-      buttonText: {
-        fontSize: 18,
-        fontFamily: 'Gill Sans',
-        fontWeight: 'bold',
-        textAlign: 'center',
-        margin: 10,
-        color: '#cc2b5e',
-        backgroundColor: 'transparent',
-      },
+    }
 })

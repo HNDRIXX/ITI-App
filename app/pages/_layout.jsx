@@ -10,6 +10,7 @@ export default TabsLayout = () => {
       headerStyle: {
         backgroundColor: COLORS.blue,
       },
+      headerShadowVisible: false, 
       tabBarIcon: ({ focused, color, size }) => {
         let iconName
 
@@ -25,7 +26,7 @@ export default TabsLayout = () => {
 
         return <Ionicons name={iconName} size={size} color={color} />
       },
-      tabBarActiveTintColor: COLORS.orange
+      tabBarActiveTintColor: COLORS.lightOrange
     })}>
       <Tabs.Screen
         name="home/index" 
@@ -37,13 +38,15 @@ export default TabsLayout = () => {
       <Tabs.Screen
         name="map/index" 
         options={{
-          title: "Map",
+          title: "",
+          tabBarLabel: "Map",
         }}
       />
       <Tabs.Screen
         name="profile/index"
         options={{
-          title: "Profile"
+          title: "",
+          tabBarLabel: "Profile",
         }}
       />
     </Tabs>

@@ -135,15 +135,15 @@ const styles = StyleSheet.create({
   },
 
   floatText: {
-    color: COLORS.baseOrange,
+    color: COLORS.orange,
     fontSize: 30,
-    fontFamily: 'DMSans_700Bold'
+    fontFamily: 'Montserrat_700Bold'
   },
 
   floatSubText: {
-    color: COLORS.baseOrange,
+    color: COLORS.orange,
     fontSize: 13,
-    fontFamily: 'DMSans_500Medium_Italic'
+    fontFamily: 'Montserrat_500Medium_Italic'
   },
   
   locationPrompt: {

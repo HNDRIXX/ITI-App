@@ -37,9 +37,10 @@ export default function App () {
             <View style={styles.headerWrapper}>
                 <Text style={styles.headerText}>Hello!</Text>
                 <Text style={styles.headerSubText}>Let's explore the app.</Text>
+                
             </View>
 
-            <View style={styles.imageContainer}> 
+            <View style={styles.imageContainer}>
                 <Image 
                     source={require('../../../assets/img/mntn.jpg')}
                     style={styles.imageHeader}
@@ -86,7 +87,31 @@ export default function App () {
                 <Text style={styles.homeButtonHeaderText}>On Task Access</Text>
             </View>
 
-            <HomeButton />
+            <View style={{ flexGrow: 0 }}>
+                <HomeButton />
+            </View>
+
+            <View style={styles.hairline} />
+
+            <View style={styles.homeButtonHeader}>
+                <Text style={styles.homeButtonHeaderText}>Display List</Text>
+            </View>
+
+            <FlatList 
+                data={list}
+                renderItem={({item, index}) => (
+                    <View>
+                        <View style={styles.itemContainer}>
+                            <Image 
+                                source={require('../../../assets/img/icons/item.png')}
+                                style={{ width: 20, height: 30, marginRight: 20,}}
+                            />
+
+                            <Text style={{fontFamily: 'Montserrat_400Regular'}}>{item}</Text>
+                        </View>
+                    </View>
+                )}
+            />
         </SafeAreaView>
     )
 }
@@ -95,6 +120,14 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         margin: 13,
+        // backgroundColor: COLORS.orange
+    },
+
+    hairline: {
+        marginVertical: 18,
+        // marginHorizontal: 10,
+        borderBottomColor: COLORS.gray,
+        borderBottomWidth: StyleSheet.hairlineWidth, 
     },
 
     headerWrapper: {
@@ -165,6 +198,19 @@ const styles = StyleSheet.create({
         fontFamily: 'Montserrat_700Bold',
         color: COLORS.orange,
         letterSpacing: -.4,
+    },
 
+    itemContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: COLORS.white,
+        padding: 20,
+        marginVertical: 7,
+        borderRadius: 10,
+        elevation: 5,
+        shadowColor: COLORS.blue,
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+        shadowOffset : { width: 1, height: 2},
     }
 })

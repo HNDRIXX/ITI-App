@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Text, View, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
+import { ActivityIndicator, Text, View, TouchableOpacity, StyleSheet, SafeAreaView, Linking, Platform, Alert } from 'react-native';
 import MapView, { Marker, Circle } from 'react-native-maps';
 import { noonStyle, lateStyle, nightStyle } from '../../../components/styleMap';
-import * as Location from 'expo-location';
 import { router } from 'expo-router';
 import { Ionicons, AntDesign } from '@expo/vector-icons';
 import { PROVIDER_GOOGLE } from 'react-native-maps'
+import * as Location from 'expo-location';
 
 import { COLORS } from '../../../constant';
 
@@ -22,8 +22,6 @@ export default function Geo () {
         let interval
         const requestLocationPermission = async () => {
             try {
- 
-                
                 const isLocationEnabled = await Location.getProviderStatusAsync()
 
                 if (isLocationEnabled.locationServicesEnabled){
@@ -43,8 +41,14 @@ export default function Geo () {
                     setOnLocation(false)
                     setIsLoading(false)
                 }else {
-                    Location.requestForegroundPermissionsAsync()
-                    Location.requestPermissionsAsync()
+                    const { status } = await Location.requestForegroundPermissionsAsync()
+        
+                    if (status === 'denied') {
+                        // console.log('Error')
+                        // Location.requestForegroundPermissionsAsync()
+                        Linking.openSettings()
+                    }
+
                     setIsLoading(true)
                     setOnLocation(true)
                 }

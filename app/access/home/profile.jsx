@@ -3,12 +3,13 @@ import { View, Text, SafeAreaView, StyleSheet, TouchableOpacity} from 'react-nat
 import { COLORS } from '../../../constant'
 import { AntDesign, FontAwesome } from '@expo/vector-icons'
 import { router } from 'expo-router'
+import { Image } from 'expo-image'
 
 function ProfilePage() {
     const onGoBack = () => { router.back() }    
 
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
             <View style={styles.topContainer}>
                 <TouchableOpacity style={styles.backButton} onPress={onGoBack}>
                     <AntDesign name='back' size={30} color={COLORS.clearWhite} />
@@ -17,7 +18,7 @@ function ProfilePage() {
 
             <View style={styles.bodyContainer}>
                 <View style={styles.profileImgContainer}>
-                    <FontAwesome name='user-circle' size={120} color={COLORS.blue} />
+                    {/* <Image source={require('../../../assets/img/icons/')}/> */}
                 </View>
 
                 <View style={styles.detailContainer}>
@@ -37,7 +38,7 @@ function ProfilePage() {
                     </View>
                 </View>
             </View>
-        </SafeAreaView>
+        </View>
     )
 }
 
