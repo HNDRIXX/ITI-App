@@ -36,19 +36,19 @@ export default function MapIndex () {
         return () => clearInterval(interval)
     }, [])
 
-    useEffect(() => {
-      const backAction = () => {
-        if (isFocused) {
-            navigation.openDrawer()
-            return true
-        }
-        return false
-      }
+    // useEffect(() => {
+    //   const backAction = () => {
+    //     if (isFocused) {
+    //         navigation.openDrawer()
+    //         return true
+    //     }
+    //     return false
+    //   }
 
-      const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
+    //   const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
 
-      return () => backHandler.remove()
-    }, [navigation, isFocused])
+    //   return () => backHandler.remove()
+    // }, [navigation, isFocused])
 
     const [mapRegion, setMapRegion] = useState({
         latitude: 14.643779,

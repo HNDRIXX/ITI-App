@@ -20,7 +20,17 @@ export default function Geo () {
    
     useEffect(() => {
         let interval
+        
         const requestLocationPermission = async () => {
+
+            const { status } = await Location.requestForegroundPermissionsAsync()
+        
+            if (status === 'denied') {
+                // console.log('Error')
+                // Location.requestForegroundPermissionsAsync()
+                Linking.openSettings()
+            }
+            
             try {
                 const isLocationEnabled = await Location.getProviderStatusAsync()
 
@@ -41,14 +51,6 @@ export default function Geo () {
                     setOnLocation(false)
                     setIsLoading(false)
                 }else {
-                    const { status } = await Location.requestForegroundPermissionsAsync()
-        
-                    if (status === 'denied') {
-                        // console.log('Error')
-                        // Location.requestForegroundPermissionsAsync()
-                        Linking.openSettings()
-                    }
-
                     setIsLoading(true)
                     setOnLocation(true)
                 }

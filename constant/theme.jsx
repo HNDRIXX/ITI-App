@@ -5,6 +5,8 @@ const COLORS = {
     clearWhite : '#FFFF',
     grayWhite: '#F8F8F8',
 
+    red: '#FF4B34',
+
     lightOrange: '#FD8A50',
     orange: '#FC732E',
     baseOrange: '#FF5003',

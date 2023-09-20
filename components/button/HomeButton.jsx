@@ -9,7 +9,7 @@ import { Skeleton } from '@rneui/themed'
 import HomeButtonLoader from '../loader/HomeButtonLoader'
 
 export default function HomeButton () {
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
         setTimeout(() => {
@@ -45,8 +45,8 @@ export default function HomeButton () {
 
                         <View style={styles.buttonContainer}>
                             <TouchableOpacity 
-                                style={styles.gridButton}  
-                                onPress={() => router.push(`/access/home/calendar`)}
+                                style={styles.gridButton}
+                                onPress={() => router.push(`/access/home/`)}
                             > 
                                 <Image source={require('../../assets/img/icons/calendar.png')} style={styles.iconOverlay} />
 

@@ -19,9 +19,11 @@ export default TabsLayout = () => {
             ? "ios-home"
             : "ios-home-outline"
         } else if (route.name === "map/index") {
-          iconName = focused ? 'ios-map' : 'ios-map-outline'
+          iconName = focused ? 'ios-calendar' : 'ios-calendar-outline'
         } else if (route.name === "profile/index") {
           iconName = focused ? 'person-circle' : 'person-circle-outline'
+        } else if (route.name === "request/index") {
+          iconName = focused ? 'md-folder-open' : 'md-folder-open-outlinex`'
         }
 
         return <Ionicons name={iconName} size={size} color={color} />
@@ -35,13 +37,23 @@ export default TabsLayout = () => {
           tabBarLabel: 'Home',
         }}
       />
+
       <Tabs.Screen
         name="map/index" 
         options={{
           title: "",
-          tabBarLabel: "Map",
+          tabBarLabel: "Calendar",
         }}
       />
+
+      <Tabs.Screen
+        name="request/index" 
+        options={{
+          title: "",
+          tabBarLabel: "Request",
+        }}
+      />
+
       <Tabs.Screen
         name="profile/index"
         options={{
