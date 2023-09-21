@@ -10,7 +10,13 @@ export default TabsLayout = () => {
       headerStyle: {
         backgroundColor: COLORS.blue,
       },
-      headerShadowVisible: false, 
+
+      tabBarStyle: {
+        height: 88,
+        paddingVertical: 15
+      },
+
+      headerShadowVisible: false,
       tabBarIcon: ({ focused, color, size }) => {
         let iconName
 
@@ -18,12 +24,12 @@ export default TabsLayout = () => {
           iconName = focused
             ? "ios-home"
             : "ios-home-outline"
-        } else if (route.name === "map/index") {
+        } else if (route.name === "calendar/index") {
           iconName = focused ? 'ios-calendar' : 'ios-calendar-outline'
         } else if (route.name === "profile/index") {
           iconName = focused ? 'person-circle' : 'person-circle-outline'
         } else if (route.name === "request/index") {
-          iconName = focused ? 'md-folder-open' : 'md-folder-open-outlinex`'
+          iconName = focused ? 'folder-open' : 'folder-open-outline'
         }
 
         return <Ionicons name={iconName} size={size} color={color} />
@@ -39,7 +45,7 @@ export default TabsLayout = () => {
       />
 
       <Tabs.Screen
-        name="map/index" 
+        name="calendar/index" 
         options={{
           title: "",
           tabBarLabel: "Calendar",

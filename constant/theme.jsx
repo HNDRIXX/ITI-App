@@ -7,12 +7,14 @@ const COLORS = {
 
     red: '#FF4B34',
 
+    orangeSecond: '#EDA12F',
     lightOrange: '#FD8A50',
-    orange: '#FC732E',
+    orange: '#FF924B',
     baseOrange: '#FF5003',
+
     lighterOrange: '#FF9C66',
 
-    babyBlue: '#87BFFF',
+    babyBlue: '#70C7FF',
     lightBlue: '#5D9FEF',
     blue: '#2F78D1',
     darkBlue: '#073DCC',
@@ -21,7 +23,7 @@ const COLORS = {
     lightGray: '#EAEAEA',
     lightGray2: '#EFEFEF',
     gray: '#DDDD',
-    darkGray: '#585858',
+    darkGray: '#575757',
     shadowGray: 'rgba(119, 119, 119, 0.06)',
 }
 

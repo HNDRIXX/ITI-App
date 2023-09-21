@@ -3,7 +3,9 @@ import { View, Text } from 'react-native'
 
 function index() {
   return (
-    <View>index</View>
+    <View>
+      {/* <Text></Text> */}
+    </View>
   )
 }
 
