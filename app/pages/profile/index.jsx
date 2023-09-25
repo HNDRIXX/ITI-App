@@ -16,7 +16,7 @@ export default function ProfileIndex () {
 
                 <View style={styles.centerContent}>
                     <Image 
-                        source={require('../../../assets/img/icons/profile.png')}
+                        source={require('../../../assets/img/icons/user.png')}
                         style={styles.imageProfile}
                     /> 
 
@@ -25,7 +25,7 @@ export default function ProfileIndex () {
             </View>
 
             <View style={styles.textContainer}>
-                <Text style={styles.informationText}>Information</Text>
+                <Text style={styles.informationText}>INFORMATION</Text>
 
                 <View style={styles.textWrapper}>
                     <Text style={styles.titleData}>ID</Text>
@@ -70,19 +70,20 @@ const styles = StyleSheet.create({
      
     imageProfile: {
         width: 140, height: 140,
+        backgroundColor: COLORS.clearWhite,
         borderColor: COLORS.lighterOrange,
         borderWidth: 6,
         borderRadius: 190
     },
 
     nameText: {
-        fontFamily: 'Montserrat_500Medium',
+        fontFamily: 'Inter_500Medium',
         fontSize: 20,
         padding: 10,
     },
 
     informationText: {
-        fontFamily: 'Montserrat_600SemiBold',
+        fontFamily: 'Inter_600SemiBold',
         color: COLORS.blue,
         fontSize: 17,
         marginBottom: 10,
@@ -107,13 +108,13 @@ const styles = StyleSheet.create({
 
     titleData: {
         fontSize: 12,
-        fontFamily: 'Montserrat_400Regular',
+        fontFamily: 'Inter_400Regular',
         letterSpacing: 0,
     },
 
     textData: {
         fontSize: 16,
-        fontFamily: 'Montserrat_500Medium',
+        fontFamily: 'Inter_500Medium',
         color: COLORS.darkGray,
         letterSpacing: 0,
     }

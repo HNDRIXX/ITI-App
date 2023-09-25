@@ -18,33 +18,15 @@ export default function App () {
     const [fontsLoaded] = useFonts()
     const [statusPress, setStatusPress] = useState(true)
 
-    const currentDate = new Date()
-    const options = {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-    }
-    const formattedDate = currentDate.toLocaleDateString(undefined, options)
-
-    const currentLabelDay = new Date()
-    const dayOptions = { weekday: 'long' }
-    const formattedDay = currentLabelDay.toLocaleDateString(undefined, dayOptions)
-
-    const toggleSwitch = () => {
-        setStatusPress((prevStatusPress) => !prevStatusPress)
-    }
-
-    const data = ['Advanced', 'Manage', 'Utility', 'Offers']
-    const list = ['Sign In', 'Item 2', 'Item 3', 'Item 4', 'Item 5', 'Item 6']
-
     if(!fontsLoaded) { 
-        return <ActivityIndicator size={'large'} color={COLORS.baseOrange} />
-    }
-
-    const onPress = () => {
-        let id = 1
-        console.log("Trigger for Request (useEffect)")
-        router.push(`/access/test`)
+        return (
+            <View style={{
+                flex: 1,
+                justifyContent: 'center'
+            }}>
+                <ActivityIndicator size={'large'} color={COLORS.baseOrange} />
+            </View>
+        )
     }
 
     return (
@@ -58,13 +40,19 @@ export default function App () {
                 <StatusBar style="light"/>
 
                 <View style={styles.headerWrapper}>
-                    <Text style={styles.headerText}>Hello!</Text>
-                    <Text style={styles.headerSubText}>Let's explore the app.</Text>
+                    <View style={styles.headerTextWrapper}>
+                        <Text style={styles.headerText}>Hello!</Text>
+                    </View>
+                    <Text style={styles.headerSubText}>Testing development</Text>
                 </View>
 
                 <TimeInOutButton />
+            </View>
 
+            <View style={styles.belowContainer}>
                 <View style={styles.hairline} />
+                
+                <HomeButton />
             </View>
         </SafeAreaView>
     )
@@ -74,12 +62,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         margin: 13,
-        // backgroundColor: COLORS.orange
     },
 
     hairline: {
-        marginVertical: 18,
-        // marginHorizontal: 10,
         borderBottomColor: COLORS.gray,
         borderBottomWidth: StyleSheet.hairlineWidth, 
     },
@@ -90,12 +75,16 @@ const styles = StyleSheet.create({
 
     headerText: {
         fontFamily: 'Inter_800ExtraBold',
-        letterSpacing: -1,
+        letterSpacing: -.5,
         color: COLORS.orange,
-        fontSize: 33,
+        fontSize: 27,
     },
 
     headerSubText: {
-        fontFamily: 'Inter_400Regular'
+        fontFamily: 'Inter_400Regular',
+    },
+
+    belowContainer: {
+        margin: 13,
     }
 })

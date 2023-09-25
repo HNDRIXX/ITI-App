@@ -12,8 +12,7 @@ export default TabsLayout = () => {
       },
 
       tabBarStyle: {
-        height: 88,
-        paddingVertical: 15
+        paddingTop: 5
       },
 
       headerShadowVisible: false,

@@ -12,7 +12,12 @@ export default function TimeInOutButton () {
     const dateOptions = { weekday: 'long' }
     const formattedDay = currDate.toLocaleDateString(undefined, dateOptions)
 
-    const timeOptions = { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true }
+    const timeOptions = { 
+        hour: 'numeric', 
+        minute: 'numeric',
+        second: 'numeric', 
+        hour12: true 
+    }
 
     const formattedDate = currDate.toLocaleDateString(undefined, dateOptions)
     const formattedTime = currDate.toLocaleTimeString(undefined, timeOptions)
@@ -21,7 +26,6 @@ export default function TimeInOutButton () {
     const day = currDateSplit[0]
     const date = currDateSplit[1]
 
-    // Time Function
     useEffect(() => {
         const intervalId = setInterval(() => {
           setCurrTime(new Date())
@@ -36,7 +40,7 @@ export default function TimeInOutButton () {
         const seconds = date.getSeconds()
     
         return `${hours}:${minutes}:${seconds}`
-    };
+    }
 
     return (
         <View style={styles.container}>

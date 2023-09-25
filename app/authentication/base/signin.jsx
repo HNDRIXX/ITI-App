@@ -2,56 +2,60 @@ import { useState } from "react";
 import { View, Text, StyleSheet, ImageBackground, TextInput, TouchableOpacity } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { COLORS } from "../../../constant";
+import { router } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import { AntDesign } from "@expo/vector-icons";
 
-export default function SignIn () {
+export default function SignInIndex () {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
     return (
-        <View>
-            <ImageBackground 
-                source={require('../../../assets/img/gradient.png')}
-                style={{ width: '100%', height: 400 }}
-            />
+        <View style={styles.container}>
+            <StatusBar style='dark' />
+
+            <TouchableOpacity 
+                style={styles.backBtn}
+                onPress={() => router.back()}
+            >
+                <AntDesign name='arrowleft' size={23} color={COLORS.blue} />
+            </TouchableOpacity>
 
             <View style={styles.inputContainer}>
-                <Text style={styles.signInTitle}>Sign In</Text>
+                <Text style={styles.signInTitle}>Sign-In</Text>
 
                 <View style={styles.inputWrapper}>
-                    <FontAwesome5 
-                        name='user-alt' 
-                        size={20} 
-                        color={COLORS.lightOrange} 
-                        style={styles.iconInput}
-                    />
-
                     <TextInput
                         style={styles.textInput}
                         onChangeText={(text) => setUsername(text)}
                         value={username}
-                        placeholder="Enter Username"
+                        placeholder="Username"
+                        placeholderTextColor={COLORS.tr_gray}
                     />
                 </View>
 
                 <View style={styles.inputWrapper}>
-                    <FontAwesome5 
-                        name='key' 
-                        size={20} 
-                        color={COLORS.lightOrange} 
-                        style={styles.iconInput}
-                    />
-
                     <TextInput
                         style={styles.textInput}
                         onChangeText={(text) => setPassword(text)}
                         value={password}
                         secureTextEntry
-                        placeholder="Enter Username"
+                        placeholder="Password"
+                        placeholderTextColor={COLORS.tr_gray}
                     />
                 </View>
 
-                <TouchableOpacity style={styles.submitBtn}>
-                    <Text style={styles.submitText}>Submit</Text>
+                <TouchableOpacity 
+                    style={styles.submitBtn}
+                >
+                    <Text style={styles.submitText}>SUBMIT</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={styles.forgotBtn}
+                    onPress={() => router.push(`/authentication/base/forgotPass`)}
+                >
+                    <Text style={styles.forgotText}>Forgot Password</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -61,37 +65,44 @@ export default function SignIn () {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: COLORS.clearWhite,
+    },
+
+    backBtn: {
+        width: 50,
+        height: 50,
+        alignItems: 'center',
+        marginTop: 40,
     },
 
     inputContainer: {
-        margin: 20,
-        backgroundColor: COLORS.white,
-        elevation: 4,
+        margin: 10,
         padding: 20,
-        borderRadius: 10,
-
-        shadowColor: COLORS.tr_gray,
-        shadowOpacity: 0.4,
-        shadowOffset: { width: 1, height: 2 },
-        shadowRadius: 3,
+        flex: 1,
+        marginTop: 0,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
 
     signInTitle: {
-        fontFamily: 'Montserrat_700Bold',
-        fontSize: 40,
-        marginBottom: 20,
-        color: COLORS.lightOrange
+        fontFamily: 'Inter_800ExtraBold',
+        fontSize: 43,
+        color: COLORS.orange,
+        marginBottom: 15,
     },
 
     inputWrapper: {
         flexDirection: 'row',
         alignItems: 'center',
-        borderWidth: 2,
-        padding: 2,
-        borderColor: COLORS.gray,
-        borderRadius: 10,
-        marginBottom: 10,
+        padding: 20,
+        backgroundColor: COLORS.clearWhite,
+        borderRadius: 30,
+        marginBottom: 15,
 
+        shadowColor: COLORS.tr_gray,
+        shadowOffset: { width: 2, height: 2 },
+        shadowOpacity: 0.5, 
+        shadowRadius: 5, 
     },
 
     iconInput: {
@@ -101,16 +112,34 @@ const styles = StyleSheet.create({
     },
 
     textInput: {
-        padding: 10,
         width: '100%',
-        fontFamily: 'Montserrat_500Medium'
+        fontFamily: 'Inter_400Regular',
+        color: COLORS.darkGray
     },
 
     submitBtn: {
         backgroundColor: COLORS.blue,
+        alignItems: 'center',
+        alignSelf: 'center',
+        width: 200,
+        padding: 15,
+        borderRadius: 10,
+        marginTop: 5,
     },
 
     submitText: {
-        color: COLORS.clearWhite
+        color: COLORS.clearWhite,
+        fontSize: 15,
+        fontFamily: 'Inter_600SemiBold'
+    },
+
+    forgotBtn: {
+        alignSelf: 'center',
+        margin: 15,
+    },
+
+    forgotText: {
+        color: COLORS.tr_gray,
+        fontFamily: 'Inter_400Regular'
     }
 })

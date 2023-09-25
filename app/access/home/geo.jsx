@@ -11,6 +11,19 @@ import { router } from 'expo-router';
 
 export default function MapIndex () {
     const [onLocation, setOnLocation] = useState(false)
+    const [currTime, setCurrTime] = useState(new Date())
+
+    const currDate = new Date()
+    const dateOptions = { weekday: 'long' }
+    const formattedDay = currDate.toLocaleDateString(undefined, dateOptions)
+
+    const timeOptions = {
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric',
+      hour12: true
+    }
+    const formattedTime = currDate.toLocaleTimeString(undefined, timeOptions)
 
     const onOpenLoc = async () => {
       const { status } = await Location.requestForegroundPermissionsAsync()
@@ -22,6 +35,14 @@ export default function MapIndex () {
     }
 
     useEffect(() => {
+      const intervalId = setInterval(() => {
+        setCurrTime(new Date())
+      }, 1000)
+
+      return () => clearInterval(intervalId);
+    }, [])
+
+    useEffect(() => {
         const interval = setInterval(async () => {
             try {
                 const isLocationEnabled = await Location.getProviderStatusAsync()
@@ -30,7 +51,7 @@ export default function MapIndex () {
                   setOnLocation(true) ) : ( setOnLocation(false) )
 
             } catch (error) { console.error("Error checking location services:", error) }
-        }, 1000)
+        }, 200)
 
         return () => clearInterval(interval)
     }, [])
@@ -49,13 +70,30 @@ export default function MapIndex () {
 
     return (
         <>
-            <View style={styles.topContainer}>
+          <View style={styles.topContainer}>
             <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
-                <AntDesign name='back' size={30} color={COLORS.clearWhite} />
+                <AntDesign name='arrowleft' size={30} color={COLORS.clearWhite} />
             </TouchableOpacity>
-            </View>
+          </View>
             
             <View style={styles.container}>
+              { onLocation ? (
+                    <View style={styles.locWrapper}>
+                      <View style={styles.locationPrompt}>
+                          <View style={styles.locationPromptWrapper}>
+                              <Ionicons name="warning" size={24} color="red" />
+                              <Text style={styles.floatPromptText}>Prompt</Text>
+                          </View>
+
+                          <Text style={styles.subFloatText}>Please turn on.</Text>
+
+                          <TouchableOpacity style={styles.locationPromptBtn} onPress={onOpenLoc}>
+                              <Text style={styles.locationPromptBtnText}>TURN ON</Text>
+                          </TouchableOpacity>
+                      </View>
+                    </View>
+                ) : ( <></> )}
+
                 <MapView
                     showsPointsOfInterest={true}
                     showsMyLocationButton={true}
@@ -79,28 +117,15 @@ export default function MapIndex () {
                     </Marker>
                 </MapView>
 
-                { onLocation ? (
-                    <View style={styles.locationPrompt}>
-                        <View style={styles.locationPromptWrapper}>
-                            <Ionicons name="warning" size={24} color="red" />
-                            <Text style={styles.floatPromptText}>Location is OFF</Text>
-                        </View>
+                <View style={styles.bottomContainer}>
+                  <Text style={styles.headText}>{formattedTime}</Text>
+                  <Text style={styles.subText}>{formattedDay}</Text>
 
-                        <TouchableOpacity style={styles.locationPromptBtn} onPress={onOpenLoc}>
-                            <Text style={styles.locationPromptBtnText}>Turn On</Text>
-                        </TouchableOpacity>
-                    </View>
-                ) : ( <></> )}
+                  <TouchableOpacity style={styles.confirmBtn}>
+                      <Text style={styles.textConfirm}>CONFIRM</Text>
+                  </TouchableOpacity>
+                </View> 
             </View>
-
-           <View style={styles.bottomContainer}>
-                <Text style={styles.headText}>Lorem Ipsum</Text>
-                <Text style={styles.subText}>Lorem Ipsum</Text>
-
-                <TouchableOpacity style={styles.confirmBtn}>
-                    <Text style={styles.textConfirm}>Confirm</Text>
-                </TouchableOpacity>
-           </View> 
         </>
     );
 };
@@ -120,36 +145,27 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
 
-  floatContainer: {
+  locWrapper: {
+    flex: 1,
+    zIndex: 1,
     position: 'absolute',
-    top: 10,
-    left: 10,
-    elevation: 9, 
-    backgroundColor: COLORS.white, 
-    width: 300,
-    borderRadius: 8, 
-    shadowColor: 'black',
-    padding: 10,
-    paddingHorizontal: 15,
-    shadowOffset: { width: 2, height: 5 },
-    shadowOpacity: 0.2, 
-    shadowRadius: 2, 
+    height: '100%',
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: COLORS.tr_gray,
   },
   
   locationPrompt: {
-    position: 'absolute',
-    bottom: 50,
     backgroundColor: COLORS.clearWhite,
-    alignSelf: 'center',
     elevation: 9,
     width: 300,
     borderRadius: 8, 
-    shadowColor: 'black',
-    padding: 10,
-    paddingHorizontal: 15,
-    shadowOffset: { width: 100, height: 100 },
-    shadowOpacity: 0.2, 
-    shadowRadius: 2, 
+    padding: 20,
+    shadowColor: COLORS.darkGray,
+    shadowOffset: { width: 3, height: 3 },
+    shadowOpacity: 0.4, 
+    shadowRadius: 3, 
   },
 
   locationPromptWrapper: {
@@ -162,12 +178,17 @@ const styles = StyleSheet.create({
     color: 'red',
     paddingLeft: 7,
   },
+
+  subFloatText: {
+    fontSize: 13,
+    fontStyle: 'italic',
+  },  
   
   locationPromptBtn: {
     backgroundColor: COLORS.blue,
     alignItems: 'center',
-    padding: 5,
-    marginTop: 10,
+    padding: 15,
+    marginTop: 15,
     borderRadius: 5,
   },
 
@@ -180,18 +201,22 @@ const styles = StyleSheet.create({
   bottomContainer: {
     height: 160,
     padding: 20,
+    justifyContent: 'ceneter',
+    alignItems: 'center',
   },
 
   headText: {
-    fontSize: 20,
-    fontFamily: 'Inter_500Medium'
+    fontSize: 27,
+    color: COLORS.darkGray,
+    fontFamily: 'Inter_600SemiBold'
   },
 
   confirmBtn: {
     marginTop:30,
-    backgroundColor: COLORS.orange,
+    width: '100%',
+    backgroundColor: COLORS.blue,
     alignItems: 'center',
-    padding: 10,
+    padding: 13,
     borderRadius: 8
   },
 

@@ -26,11 +26,11 @@ export default function HomeButtonLoader() {
             ))}
         </View>
 
-        <View style={styles.buttonWrapper}>
+        {/* <View style={styles.buttonWrapper}>
             {Array.from({ length: numberOfButtons }).map((_, index) => (
             <SkeletonButton key={index} />
             ))}
-        </View>
+        </View> */}
       </View>
     )
   }

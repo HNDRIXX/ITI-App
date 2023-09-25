@@ -3,6 +3,31 @@
 // import { View, Text } from 'react-native';
 // import { COLORS } from '../../constant';
 
+
+
+// Architecture 
+// In regards of architecture, the mobile application just needed to be consume yung data response ng web HRIS
+
+// Mostly in architeture will be based in react native. Mostly create services for API Call
+
+// Language
+// React Native JS
+
+// Task 
+// Mostly in frontend 
+
+// Development
+// Fetching, updating / saving 
+// And also validation ng user inputs
+
+// API
+// API will be from scratch
+
+// Features and Database
+// Features will be discuss in the next session, if ever database is needed.
+// Data processing and other data related manipulation in API
+
+
 // export default function EventCalendar() {
 //   const [selectedDate, setSelectedDate] = useState('');
 //   const [agenda, setAgenda] = useState([]);

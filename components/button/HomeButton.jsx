@@ -33,7 +33,7 @@ export default function HomeButton () {
                         <View style={styles.buttonContainer}>
                             <TouchableOpacity 
                                 style={styles.gridButton} 
-                                onPress={() => router.push(`/pages/profile/`)}
+                                onPress={() => router.push(`/authentication/base/signIn`)}
                             >
                                 <Image source={require('../../assets/img/icons/profile.png')} style={styles.iconOverlay} />
 
@@ -79,7 +79,7 @@ export default function HomeButton () {
                             </TouchableOpacity>
                         </View>
                     </View>
-
+{/* 
                     <View style={styles.buttonWrapper}>
                         <View style={styles.buttonContainer}>
                             <TouchableOpacity 
@@ -123,7 +123,7 @@ export default function HomeButton () {
                                 </View>
                             </TouchableOpacity>
                         </View>
-                    </View>
+                    </View> */}
                 </>
             )}
 
