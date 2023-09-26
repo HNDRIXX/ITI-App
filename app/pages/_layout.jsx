@@ -5,7 +5,7 @@ import { COLORS } from "../../constant";
 export default TabsLayout = () => {
   return (
     <Tabs screenOptions={({ route }) => ({
-      headerTitleAlign: "center",
+      headerTitleAlign: 'center',
       headerStatusBarHeight: 0,
       headerStyle: {
         backgroundColor: COLORS.blue,

@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, Button, TouchableOpacity, StyleSheet, ScrollView, Platform} from 'react-native'
-import { LinearGradient } from 'expo-linear-gradient'
 import { COLORS } from '../../constant'
-import { useRouter, router } from 'expo-router'
-import { Ionicons, MaterialIcons, Entypo } from '@expo/vector-icons'
+import { router } from 'expo-router'
 import { Image } from 'expo-image'
-import { Skeleton } from '@rneui/themed'
 import HomeButtonLoader from '../loader/HomeButtonLoader'
 
 export default function HomeButton () {
@@ -35,10 +32,9 @@ export default function HomeButton () {
                                 style={styles.gridButton} 
                                 onPress={() => router.push(`/authentication/base/signIn`)}
                             >
-                                <Image source={require('../../assets/img/icons/profile.png')} style={styles.iconOverlay} />
-
+                                {/* <Image source={require('../../assets/img/icons/profile.png')} style={styles.iconOverlay} /> */}
                                 <View style={styles.textButtonWrapper}>
-                                    <Text style={styles.textButton}>User</Text>
+                                    <Text style={styles.textButton}>Button</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
@@ -48,10 +44,10 @@ export default function HomeButton () {
                                 style={styles.gridButton}
                                 onPress={() => router.push(`/access/home/`)}
                             > 
-                                <Image source={require('../../assets/img/icons/calendar.png')} style={styles.iconOverlay} />
+                                {/* <Image source={require('../../assets/img/icons/calendar.png')} style={styles.iconOverlay} /> */}
 
                                 <View style={styles.textButtonWrapper}>
-                                    <Text style={styles.textButton}>Calendar</Text>
+                                    <Text style={styles.textButton}>Button</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
@@ -61,20 +57,20 @@ export default function HomeButton () {
                                 style={styles.gridButton}
                                 onPress={() => router.push(`/access/home/`)}
                             >
-                                <Image source={require('../../assets/img/icons/map.png')} style={styles.iconOverlay} />
+                                {/* <Image source={require('../../assets/img/icons/map.png')} style={styles.iconOverlay} /> */}
 
                                 <View style={styles.textButtonWrapper}>
-                                    <Text style={styles.textButton}>Maps</Text>
+                                    <Text style={styles.textButton}>Button</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
 
                         <View style={styles.buttonContainer}>
                             <TouchableOpacity style={styles.gridButton}>
-                                <Image source={require('../../assets/img/icons/clock.png')} style={styles.iconOverlay} />
+                                {/* <Image source={require('../../assets/img/icons/clock.png')} style={styles.iconOverlay} /> */}
 
                                 <View style={styles.textButtonWrapper}>
-                                    <Text style={styles.textButton}>Clock</Text>
+                                    <Text style={styles.textButton}>Button</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
@@ -126,12 +122,6 @@ export default function HomeButton () {
                     </View> */}
                 </>
             )}
-
-        {/* <View style={styles.hairline} />
-
-        <View style={styles.partitionWrapper}>
-            <Text style={styles.textPartition}>Section Partition</Text>
-        </View> */}
     </ScrollView>
   )
 }
@@ -159,7 +149,7 @@ const styles = StyleSheet.create({
     gridButton: {
         borderRadius: 10,
         marginHorizontal: 5,
-        height: 100,
+        // height: 30,
         backgroundColor: COLORS.white,
         elevation: 5,
         shadowColor: COLORS.tr_gray,
@@ -168,6 +158,7 @@ const styles = StyleSheet.create({
         shadowOffset : { width: 1, height: 5},
         alignItems: 'center',
         justifyContent: 'center',
+        padding: 5,
     },
 
     iconOverlay: {
@@ -177,7 +168,7 @@ const styles = StyleSheet.create({
     },
 
     textButtonWrapper: {
-      marginTop: 10,
+    //   marginTop: 10,
     },
 
     textButton: {

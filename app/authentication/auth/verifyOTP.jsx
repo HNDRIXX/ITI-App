@@ -32,7 +32,7 @@ export default function VerifyOTPIndex () {
           style={styles.backBtn}
           onPress={() => router.back()}
       >
-          <AntDesign name='arrowleft' size={23} color={COLORS.blue} />
+          <AntDesign name='arrowleft' size={28} color={COLORS.blue} />
       </TouchableOpacity>
 
       <View style={styles.wrapper}>
@@ -40,7 +40,7 @@ export default function VerifyOTPIndex () {
         <Text style={styles.subText}>Enter the received input.</Text>
 
         <View style={styles.codeContainer}>
-          {code.map((value, index) => (
+          {/* {code.map((value, index) => (
             <TextInput
               key={index}
               style={styles.input}
@@ -50,12 +50,20 @@ export default function VerifyOTPIndex () {
               maxLength={1}
               ref={codeRefs[index]}
             />
-          ))}
+          ))} */}
+
+          <TextInput
+              style={styles.singleInput}
+              value={''}
+              keyboardType="numeric"
+              maxLength={1}
+          />
         </View>
 
         <TouchableOpacity
           style={[styles.submitBtn, isSubmitDisabled ? styles.disabledBtn : null]}
           onPress={() => console.log(codeResult)} 
+          disabled={ isSubmitDisabled ? true : false }
         >
           <Text style={styles.textBtn}>SUBMIT</Text>
         </TouchableOpacity>
@@ -70,10 +78,10 @@ const styles = StyleSheet.create({
   },
   
   backBtn: {
-    width: 50,
-    height: 50,
+    width: 60,
+    height: 60,
     alignItems: 'center',
-    marginTop: 40,
+    marginTop: 60,
   },
 
   label: {
@@ -112,6 +120,22 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat_600SemiBold'
   },
 
+  singleInput: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 20,
+    width: '100%',
+    backgroundColor: COLORS.clearWhite,
+    borderRadius: 30,
+    marginBottom: 15,
+
+    elevation: 7,
+    shadowColor: COLORS.tr_gray,
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.5, 
+    shadowRadius: 5,
+  },
+  
   submitBtn: {
     backgroundColor: COLORS.blue,
     padding: 14,

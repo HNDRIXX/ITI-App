@@ -12,6 +12,7 @@ import { router } from 'expo-router';
 export default function MapIndex () {
     const [onLocation, setOnLocation] = useState(false)
     const [currTime, setCurrTime] = useState(new Date())
+    const [isDisabled, setIsDisabled] = useState(true)
 
     const currDate = new Date()
     const dateOptions = { weekday: 'long' }
@@ -47,8 +48,13 @@ export default function MapIndex () {
             try {
                 const isLocationEnabled = await Location.getProviderStatusAsync()
 
-                !isLocationEnabled.locationServicesEnabled ? ( 
-                  setOnLocation(true) ) : ( setOnLocation(false) )
+                if (!isLocationEnabled.locationServicesEnabled) {
+                  setOnLocation(true)
+                  setIsDisabled(true)
+                } else {
+                  setOnLocation(false)
+                  setIsDisabled(false)
+                }                
 
             } catch (error) { console.error("Error checking location services:", error) }
         }, 200)
@@ -121,7 +127,7 @@ export default function MapIndex () {
                   <Text style={styles.headText}>{formattedTime}</Text>
                   <Text style={styles.subText}>{formattedDay}</Text>
 
-                  <TouchableOpacity style={styles.confirmBtn}>
+                  <TouchableOpacity style={[styles.confirmBtn, isDisabled ? styles.disabledBtn : null ]}>
                       <Text style={styles.textConfirm}>CONFIRM</Text>
                   </TouchableOpacity>
                 </View> 
@@ -143,6 +149,11 @@ const styles = StyleSheet.create({
 
   backButton: {
     paddingHorizontal: 10,
+  },
+
+  disabledBtn: {
+      backgroundColor: 'gray',
+      opacity: 0.3,
   },
 
   locWrapper: {

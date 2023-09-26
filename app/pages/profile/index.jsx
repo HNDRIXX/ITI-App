@@ -1,6 +1,5 @@
 import { View, Text, StyleSheet, Dimensions, ImageBackground } from "react-native"
 import { Image } from "expo-image"
-import { LinearGradient } from "expo-linear-gradient"
 import { StatusBar } from "expo-status-bar"
 import { COLORS } from "../../../constant"
 
@@ -24,7 +23,7 @@ export default function ProfileIndex () {
                 </View>
             </View>
 
-            <View style={styles.textContainer}>
+            {/* <View style={styles.textContainer}>
                 <Text style={styles.informationText}>INFORMATION</Text>
 
                 <View style={styles.textWrapper}>
@@ -46,7 +45,7 @@ export default function ProfileIndex () {
                     <Text style={styles.titleData}>Account</Text>
                     <Text style={styles.textData}>Lorem Ipsum</Text>
                 </View>
-            </View>
+            </View> */}
         </View>
     )
 }
@@ -57,8 +56,6 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.blue,
         marginTop: -170,
         height: 280,
-        // borderBottomLeftRadius: 10,
-        // borderBottomRightRadius: 10,
     },
 
     centerContent: {
@@ -73,12 +70,13 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.clearWhite,
         borderColor: COLORS.lighterOrange,
         borderWidth: 6,
-        borderRadius: 190
+        borderRadius: 70
     },
 
     nameText: {
         fontFamily: 'Inter_500Medium',
-        fontSize: 20,
+        fontSize: 22,
+        color: COLORS.darkGray,
         padding: 10,
     },
 

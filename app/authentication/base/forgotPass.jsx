@@ -16,7 +16,7 @@ export default function forgotPasswordIndex () {
                 style={styles.backBtn}
                 onPress={() => router.back()}
             >
-                <AntDesign name='arrowleft' size={23} color={COLORS.blue} />
+                <AntDesign name='arrowleft' size={28} color={COLORS.blue} />
             </TouchableOpacity>
             
             <View style={styles.wrapper}>
@@ -50,10 +50,10 @@ const styles = StyleSheet.create({
     },
 
     backBtn: {
-        width: 50,
-        height: 50,
+        width: 60,
+        height: 60,
         alignItems: 'center',
-        marginTop: 40,
+        marginTop: 60,
     },
 
     wrapper: {

@@ -18,7 +18,7 @@ export default function SignInIndex () {
                 style={styles.backBtn}
                 onPress={() => router.back()}
             >
-                <AntDesign name='arrowleft' size={23} color={COLORS.blue} />
+                <AntDesign name='arrowleft' size={28} color={COLORS.blue} />
             </TouchableOpacity>
 
             <View style={styles.inputContainer}>
@@ -69,10 +69,10 @@ const styles = StyleSheet.create({
     },
 
     backBtn: {
-        width: 50,
-        height: 50,
+        width: 60,
+        height: 60,
         alignItems: 'center',
-        marginTop: 40,
+        marginTop: 60,
     },
 
     inputContainer: {
@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         marginBottom: 15,
 
+        elevation: 7,
         shadowColor: COLORS.tr_gray,
         shadowOffset: { width: 2, height: 2 },
         shadowOpacity: 0.5, 

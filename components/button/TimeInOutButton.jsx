@@ -53,8 +53,8 @@ export default function TimeInOutButton () {
                     size={120} 
                     color={COLORS.clearWhite}
                 />
-
-                <Text style={styles.textButton}>CLOCK-IN</Text>
+                
+                <Text style={styles.textButton}>TIME-IN</Text>
             </TouchableOpacity>
 
             <View style={styles.textWrapper}>
