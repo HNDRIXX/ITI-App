@@ -1,6 +1,5 @@
 import { View, Text, StyleSheet } from "react-native"; 
 import { Skeleton } from "@rneui/themed";
-import { LinearGradient } from "expo-linear-gradient";
 import { COLORS, useFonts } from "../../constant";
 
 function SkeletonButton() {

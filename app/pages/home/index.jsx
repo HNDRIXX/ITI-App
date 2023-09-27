@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, ImageBackground, SafeAreaView, StyleSheet, FlatList, ActivityIndicator, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, FlatList, ActivityIndicator, TouchableOpacity } from 'react-native'
 import { Image } from 'expo-image'
 import { useRouter } from 'expo-router'
 import { COLORS, useFonts } from '../../../constant'
@@ -7,10 +7,12 @@ import { StatusBar } from 'expo-status-bar'
 
 import HomeButton from '../../../components/button/HomeButton'
 import TimeInOutButton from '../../../components/button/TimeInOutButton'
+import Notification from '../../../components/section/Notification'
 
 export default function App () {
     const router = useRouter()
     const [fontsLoaded] = useFonts()
+    const data = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5']
 
     if(!fontsLoaded) {
         return (
@@ -46,17 +48,17 @@ export default function App () {
 
                 <View style={styles.boxWrapper}>
                     <View style={styles.box}>
-                        <Text style={styles.boxNum}>2</Text>
+                        <Text style={styles.boxNum}>1</Text>
                         <Text style={styles.boxTitle}>Vacation{'\n'}Leave</Text>
                     </View>
 
                     <View style={styles.box}>
-                        <Text style={styles.boxNum}>1</Text>
+                        <Text style={styles.boxNum}>4</Text>
                         <Text style={styles.boxTitle}>Sick{'\n'}Leave</Text>
                     </View>
 
                     <View style={styles.box}>
-                        <Text style={styles.boxNum}>5</Text>
+                        <Text style={styles.boxNum}>3</Text>
                         <Text style={styles.boxTitle}>Paid{'\n'}Hours</Text>
                     </View>
 
@@ -70,8 +72,9 @@ export default function App () {
             </View>
 
             <View style={styles.belowContainer}>
-                <View style={styles.hairline} />
+                <Notification />
 
+                {/* <View style={styles.hairline} /> */}
                 <HomeButton />
             </View>
         </View>
@@ -89,9 +92,9 @@ const styles = StyleSheet.create({
     },
 
     headerWrapper: {
-        height: 180,
+        height: 150,
         padding: 25,
-        paddingTop: 35,
+        paddingTop: 10,
         // justifyContent: 'center',
         backgroundColor: COLORS.blue,
     },
@@ -129,31 +132,36 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        columnGap: 10,
+        columnGap: 8,
         marginTop: -50,
     },
 
+    // 1E1E1E
+
     box: {
-        backgroundColor: COLORS.orange,
+        backgroundColor: COLORS.clearWhite,
         padding: 5,
         paddingBottom: 10,
-        width: 90,
+        width: 80,
         height: 100,
         borderRadius: 10,
         alignItems: 'center',
         justifyContent: 'center',
+
+        elevation: 9,
     },
 
     boxNum: {
         fontFamily: 'Inter_800ExtraBold',
-        color: COLORS.clearWhite,
+        color: COLORS.orange,
         fontSize: 40
     },
 
     boxTitle: {
         fontFamily: 'Inter_600SemiBold',
-        color: COLORS.clearWhite,
-        fontSize: 13,
+        color: COLORS.darkGray,
+        fontSize: 10,
+        lineHeight: 10,
         textAlign: 'center'
     },
 

@@ -9,7 +9,7 @@
     "plugins": [
       "expo-router"
     ],
-    "name": "ITIApp",
+    "name": "HRDotNet-Mobile",
     "slug": "ITIApp",
     "android": {
       "package": "com.hndrx022.ITIApp",
@@ -30,7 +30,7 @@
         "origin": false
       },
       "eas": {
-        "projectId": ""
+        "projectId": "4f6482f8-c4a4-409e-bb76-ff052b627ad9"
       }
     }
   }

@@ -50,7 +50,7 @@ export default function TimeInOutButton () {
             >
                 <EvilIcons 
                     name='pointer'
-                    size={120} 
+                    size={110} 
                     color={COLORS.clearWhite}
                 />
                 
@@ -73,8 +73,8 @@ const styles = StyleSheet.create({
     },
 
     button: {
-        width: 220,
-        height: 220,
+        width: 170,
+        height: 170,
         borderRadius: 120,
         alignItems: 'center',
         justifyContent: 'center',
@@ -90,28 +90,23 @@ const styles = StyleSheet.create({
     textWrapper: {
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 20,
+        marginTop: 10,
     },
 
     textButton: {
         color: COLORS.white,
-        fontSize: 15,
+        fontSize: 13,
         fontFamily: 'Inter_600SemiBold',
     },
 
     timeText: {
         fontFamily: 'Inter_700Bold', 
-        fontSize: 30,
+        fontSize: 25,
         color: COLORS.darkGray,
-    },
-    
-    dayText: {
-        fontFamily: 'Inter_400Regular',
-        fontSize: 17,
     },
 
     dateText: {
         fontFamily: 'Inter_400Regular',
-        fontSize: 12,
+        fontSize: 11,
     }
 })

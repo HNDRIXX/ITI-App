@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
   },
 
   bottomContainer: {
-    height: 160,
+    height: 170,
     padding: 20,
     justifyContent: 'ceneter',
     alignItems: 'center',
@@ -223,8 +223,8 @@ const styles = StyleSheet.create({
   },
 
   confirmBtn: {
-    marginTop:30,
-    width: '100%',
+    width: 200,
+    marginTop: 15,
     backgroundColor: COLORS.blue,
     alignItems: 'center',
     padding: 13,
