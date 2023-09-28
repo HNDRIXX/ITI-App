@@ -6,22 +6,22 @@ import { Image } from 'expo-image'
 import HomeButtonLoader from '../loader/HomeButtonLoader'
 
 export default function HomeButton () {
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(false)
 
-    useEffect(() => {
-        setTimeout(() => {
-            setIsLoading(false)
-        }, 2000)
-    }, [])
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         setIsLoading(false)
+    //     }, 2000)
+    // }, [])
 
-  return (
-    <ScrollView 
-        contentContainerStyle={{ 
-            justifyContent: 'center', 
-        }}
-        scrollEnabled={false}
-        showsVerticalScrollIndicator={ Platform.OS == 'web' ? true : false }
-    >     
+    return (
+        <ScrollView 
+            contentContainerStyle={{ 
+                justifyContent: 'center', 
+            }}
+            scrollEnabled={false}
+            showsVerticalScrollIndicator={ Platform.OS == 'web' ? true : false }
+        >     
             { isLoading ? (
                 <HomeButtonLoader />
             ) : ( 
@@ -42,7 +42,7 @@ export default function HomeButton () {
                         <View style={styles.buttonContainer}>
                             <TouchableOpacity 
                                 style={styles.gridButton}
-                                onPress={() => router.push(`/access/home/camera`)}
+                                onPress={() => router.push(`/access/home/${'geo'}`)}
                             > 
                                 {/* <Image source={require('../../assets/img/icons/calendar.png')} style={styles.iconOverlay} /> */}
 

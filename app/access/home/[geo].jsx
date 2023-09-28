@@ -5,19 +5,27 @@ import { nightStyle, noonStyle, lateStyle } from '../../../components/styleMap';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS, useFonts } from '../../../constant';
 import * as Location from 'expo-location';
+import { Image } from 'expo-image';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
-import { AntDesign } from '@expo/vector-icons';
-import { router } from 'expo-router';
+import { AntDesign, FontAwesome } from '@expo/vector-icons';
+import { router, useGlobalSearchParams, useLocalSearchParams } from 'expo-router';
 
-export default function MapIndex () {
+export default function GeoIndex () {
     const [onLocation, setOnLocation] = useState(false)
     const [currTime, setCurrTime] = useState(new Date())
     const [isDisabled, setIsDisabled] = useState(true)
+    const [location, setLocation] = useState("")
 
     const currDate = new Date()
     const dateOptions = { weekday: 'long' }
     const formattedDay = currDate.toLocaleDateString(undefined, dateOptions)
 
+    const params = useLocalSearchParams()
+  
+    const imgUpload = params.geo.replace(/\^/g, '/')
+
+    console.log(imgUpload)
+    
     const timeOptions = {
       hour: 'numeric',
       minute: 'numeric',
@@ -42,6 +50,16 @@ export default function MapIndex () {
 
       return () => clearInterval(intervalId);
     }, [])
+
+    useEffect(() => {
+      (async () => {
+        const locationStatus = await Location.requestForegroundPermissionsAsync();
+        if (locationStatus.status === 'granted') {
+          const currentLocation = await Location.getCurrentPositionAsync({});
+          setLocation(currentLocation.coords);
+        }
+      })();
+    }, []);
 
     useEffect(() => {
         const interval = setInterval(async () => {
@@ -101,16 +119,16 @@ export default function MapIndex () {
                 ) : ( <></> )}
 
                 <MapView
-                    showsPointsOfInterest={true}
-                    showsMyLocationButton={true}
-                    style={{ flex: 1 }}
+                    showsPointsOfInterest
+                    showsMyLocationButton
+                    style={{ height: 300 }}
                     region={mapRegion}
-                    showsUserLocation={true}
-                    followsUserLocation={true}
+                    showsUserLocation
+                    followsUserLocation
                     customMapStyle={noonStyle}
-                    showsTraffic={true}
-                    showsBuildings={true}
-                    loadingEnabled={true}
+                    showsTraffic
+                    showsBuildings
+                    loadingEnabled
                     userInterfaceStyle='light'
                     userLocationPriority='high'
                     // onPress={handleMapPress}
@@ -119,13 +137,35 @@ export default function MapIndex () {
                         coordinate={markerCoordinate}
                         title={`Latitude: ${markerCoordinate.latitude.toFixed(6)}`}
                         description={`Longitude: ${markerCoordinate.longitude.toFixed(6)}`}
-                    >
-                    </Marker>
+                    />
                 </MapView>
 
+                { imgUpload && (
+                  <>
+                    <Image 
+                      source={{ uri: imgUpload }}
+                      style={styles.imgUpload}    
+                    />
+                    
+                    <Text>Latitude: {location.latitude}</Text>
+                    <Text>Longitude: {location.longitude}</Text>
+                  </>
+                )}
+
                 <View style={styles.bottomContainer}>
-                  <Text style={styles.headText}>{formattedTime}</Text>
-                  <Text style={styles.subText}>{formattedDay}</Text>
+                  {/* <Text style={styles.headText}>{formattedTime}</Text>
+                  <Text style={styles.subText}>{formattedDay}</Text> */}
+
+                  <TouchableOpacity
+                    style={styles.cameraBtn}
+                    onPress={() => router.push(`/access/geo/camera`)}
+                  >
+                    <FontAwesome 
+                      name='camera'
+                      size={20}
+                      color={COLORS.clearWhite}
+                    />
+                  </TouchableOpacity>
 
                   <TouchableOpacity style={[styles.confirmBtn, isDisabled ? styles.disabledBtn : null ]}>
                       <Text style={styles.textConfirm}>CONFIRM</Text>
@@ -234,7 +274,18 @@ const styles = StyleSheet.create({
   textConfirm: {
     color: COLORS.clearWhite,
     fontFamily: 'Inter_600SemiBold'
+  },
+
+  cameraBtn: {
+    backgroundColor: COLORS.orange,
+    padding: 15,
+    width: 200,
+    alignItems: 'center',
+    borderRadius: 20,
+  },
+
+  imgUpload: {
+    width: 300, 
+    height: 300,
   }
-
-
 })

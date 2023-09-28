@@ -47,6 +47,7 @@ export default function SignInIndex () {
 
                 <TouchableOpacity 
                     style={styles.submitBtn}
+                    onPress={() => router.push(`/pages/home/`)}
                 >
                     <Text style={styles.submitText}>SUBMIT</Text>
                 </TouchableOpacity>

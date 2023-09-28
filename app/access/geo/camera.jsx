@@ -4,6 +4,7 @@ import { Camera } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker';
 import * as Location from 'expo-location';
 import moment from 'moment';
+import { Image } from 'expo-image';
 import { router } from 'expo-router';
 
 import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
@@ -13,7 +14,7 @@ import { COLORS } from '../../../constant';
 export default function CameraAccess () {
     const [hasPermission, setHasPermission] = useState(null)
     const [type, setType] = useState(Camera.Constants.Type.back)
-    const [image, setImage] = useState(null)
+    const [userImage, setUserImage] = useState("")
     const [location, setLocation] = useState(null)
     const [dateTime, setDateTime] = useState(null)
 
@@ -34,12 +35,14 @@ export default function CameraAccess () {
     const takePicture = async () => {
         if(cameraRef) {
             const photo = await cameraRef.takePictureAsync()
-            setImage(photo.uri)
+            setUserImage(photo.uri)
 
             const currentDateTime = moment().format('MMMM  Do YYYY, h:mm:ss a')
             setDateTime(currentDateTime)
 
-            router.back(image)
+            const imgPath = photo.uri.replace(/\//g, '^')
+
+            router.push(`/access/home/${imgPath}`)
         }
     }
 
@@ -76,6 +79,13 @@ export default function CameraAccess () {
                     </TouchableOpacity>
                 </View>
 
+
+                {userImage && (
+                    <View style={{ flex: 1 }}>
+                    <Image source={{ uri: userImage }} style={{ flex: 1 }} />
+                        {console.log(userImage)}
+                    </View>
+                )}
             </Camera>
         </View>
     )

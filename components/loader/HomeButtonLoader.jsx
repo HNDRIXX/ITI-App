@@ -32,7 +32,7 @@ export default function HomeButtonLoader() {
         </View> */}
       </View>
     )
-  }
+}
 
 const styles = StyleSheet.create({ 
     buttonWrapper: {
