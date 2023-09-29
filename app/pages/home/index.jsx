@@ -49,7 +49,6 @@ export default function App () {
             >
                 <View style={styles.container}>
                     <StatusBar style="light"/>
-
                     
                     <View style={styles.headerWrapper}>
                         <View style={styles.headerContentWrapper}>
@@ -84,6 +83,7 @@ export default function App () {
                     {/* <Notification /> */}
 
                     {/* <View style={styles.hairline} /> */}
+                    
                     <HomeButton />
                 </View>
             </View>
@@ -144,6 +144,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         columnGap: 8,
         marginTop: -50,
+        margin: 20,
     },
 
     // 1E1E1E
@@ -152,8 +153,7 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.clearWhite,
         padding: 5,
         paddingBottom: 10,
-        width: 80,
-        height: 100,
+        flex: 1,
         borderRadius: 10,
         alignItems: 'center',
         justifyContent: 'center',

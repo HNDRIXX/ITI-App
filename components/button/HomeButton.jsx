@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, Button, TouchableOpacity, StyleSheet, ScrollView, Platform} from 'react-native'
-import { COLORS } from '../../constant'
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Platform} from 'react-native'
 import { router } from 'expo-router'
 import { Image } from 'expo-image'
+
+import { COLORS } from '../../constant'
 import HomeButtonLoader from '../loader/HomeButtonLoader'
 
 export default function HomeButton () {
@@ -32,7 +33,6 @@ export default function HomeButton () {
                                 style={styles.gridButton} 
                                 onPress={() => router.push(`/authentication/base/signIn`)}
                             >
-                                {/* <Image source={require('../../assets/img/icons/profile.png')} style={styles.iconOverlay} /> */}
                                 <View style={styles.textButtonWrapper}>
                                     <Text style={styles.textButton}>Button</Text>
                                 </View>
@@ -42,7 +42,7 @@ export default function HomeButton () {
                         <View style={styles.buttonContainer}>
                             <TouchableOpacity 
                                 style={styles.gridButton}
-                                onPress={() => router.push(`/access/home/${'geo'}`)}
+                                onPress={() => router.push(`/access/home/${null}`)}
                             > 
                                 {/* <Image source={require('../../assets/img/icons/calendar.png')} style={styles.iconOverlay} /> */}
 
@@ -75,51 +75,6 @@ export default function HomeButton () {
                             </TouchableOpacity>
                         </View>
                     </View>
-{/* 
-                    <View style={styles.buttonWrapper}>
-                        <View style={styles.buttonContainer}>
-                            <TouchableOpacity 
-                                style={styles.gridButton}
-                                onPress={() => router.push(`/access/home`)}
-                            >
-                                <Image source={require('../../assets/img/icons/cash.png')} style={styles.iconOverlay} />
-
-                                <View style={styles.textButtonWrapper}>
-                                    <Text style={styles.textButton}>Money</Text>
-                                </View>
-                            </TouchableOpacity>
-                        </View>
-
-                        <View style={styles.buttonContainer}>
-                            <TouchableOpacity style={styles.gridButton}>
-                                <Image source={require('../../assets/img/icons/building.png')} style={styles.iconOverlay} />
-
-                                <View style={styles.textButtonWrapper}>
-                                    <Text style={styles.textButton}>Building</Text>
-                                </View>
-                            </TouchableOpacity>
-                        </View>
-
-                        <View style={styles.buttonContainer}>
-                            <TouchableOpacity style={styles.gridButton}>
-                                <Image source={require('../../assets/img/icons/list.png')} style={styles.iconOverlay} />
-
-                                <View style={styles.textButtonWrapper}>
-                                    <Text style={styles.textButton}>List</Text>
-                                </View>
-                            </TouchableOpacity>
-                        </View>
-
-                        <View style={styles.buttonContainer}>
-                            <TouchableOpacity style={styles.gridButton}>
-                                <Image source={require('../../assets/img/icons/cogs.png')} style={styles.iconOverlay} />
-
-                                <View style={styles.textButtonWrapper}>
-                                    <Text style={styles.textButton}>Cogs</Text>
-                                </View>
-                            </TouchableOpacity>
-                        </View>
-                    </View> */}
                 </>
             )}
     </ScrollView>
@@ -164,11 +119,10 @@ const styles = StyleSheet.create({
     iconOverlay: {
         width: 32,
         height: 32,
-        // marginTop: 10,
     },
 
     textButtonWrapper: {
-    //   marginTop: 10,
+
     },
 
     textButton: {

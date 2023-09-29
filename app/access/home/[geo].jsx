@@ -1,39 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text, Alert, ActivityIndicator, TouchableOpacity, BackHandler } from 'react-native';
-import MapView, { Callout, Marker } from 'react-native-maps';
-import { nightStyle, noonStyle, lateStyle } from '../../../components/styleMap';
+import { View, StyleSheet, Text, TouchableOpacity, BackHandler, ScrollView } from 'react-native';
+import MapView, { Marker } from 'react-native-maps';
 import { Ionicons } from '@expo/vector-icons';
-import { COLORS, useFonts } from '../../../constant';
 import * as Location from 'expo-location';
 import { Image } from 'expo-image';
-import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
-import { router, useGlobalSearchParams, useLocalSearchParams } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
+
+import { lateStyle } from '../../../components/styleMap';
+import { COLORS, useFonts } from '../../../constant';
 
 export default function GeoIndex () {
-    const [onLocation, setOnLocation] = useState(false)
-    const [currTime, setCurrTime] = useState(new Date())
-    const [isDisabled, setIsDisabled] = useState(true)
-    const [location, setLocation] = useState("")
+  const [onLocation, setOnLocation] = useState(false)
+  const [currTime, setCurrTime] = useState(new Date())
+  const [isDisabled, setIsDisabled] = useState(true)
+  const [location, setLocation] = useState("")
 
-    const currDate = new Date()
-    const dateOptions = { weekday: 'long' }
-    const formattedDay = currDate.toLocaleDateString(undefined, dateOptions)
+  const currDate = new Date()
+  const dateOptions = { weekday: 'long' }
+  const formattedDay = currDate.toLocaleDateString(undefined, dateOptions)
 
-    const params = useLocalSearchParams()
+  const params = useLocalSearchParams()
   
-    const imgUpload = params.geo.replace(/\^/g, '/')
+  const imgUpload = params.geo.replace(/\^/g, '/')
 
-    console.log(imgUpload)
-    
-    const timeOptions = {
-      hour: 'numeric',
-      minute: 'numeric',
-      second: 'numeric',
-      hour12: true
-    }
-    const formattedTime = currDate.toLocaleTimeString(undefined, timeOptions)
-
+  const timeOptions = {
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
+    hour12: true
+  }
+    // const formattedTime = currDate.toLocaleTimeString(undefined, timeOptions)
     const onOpenLoc = async () => {
       const { status } = await Location.requestForegroundPermissionsAsync()
 
@@ -43,64 +40,65 @@ export default function GeoIndex () {
       catch (error) { console.log(error) }
     }
 
-    useEffect(() => {
-      const intervalId = setInterval(() => {
-        setCurrTime(new Date())
-      }, 1000)
+    // useEffect(() => {
+    //   const intervalId = setInterval(() => {
+    //     setCurrTime(new Date())
+    //   }, 1000)
 
-      return () => clearInterval(intervalId);
-    }, [])
+    //   return () => clearInterval(intervalId)
+    // }, [])
 
     useEffect(() => {
       (async () => {
-        const locationStatus = await Location.requestForegroundPermissionsAsync();
+        const locationStatus = await Location.requestForegroundPermissionsAsync()
+
         if (locationStatus.status === 'granted') {
-          const currentLocation = await Location.getCurrentPositionAsync({});
-          setLocation(currentLocation.coords);
+          const currentLocation = await Location.getCurrentPositionAsync({})
+          setLocation(currentLocation.coords)
         }
-      })();
-    }, []);
+      })()
+    }, [])
 
     useEffect(() => {
-        const interval = setInterval(async () => {
-            try {
-                const isLocationEnabled = await Location.getProviderStatusAsync()
+      const interval = setInterval(async () => {
+        try {
+          const isLocationEnabled = await Location.getProviderStatusAsync()
 
-                if (!isLocationEnabled.locationServicesEnabled) {
-                  setOnLocation(true)
-                  setIsDisabled(true)
-                } else {
-                  setOnLocation(false)
-                  setIsDisabled(false)
-                }                
+          if (!isLocationEnabled.locationServicesEnabled) {
+            setOnLocation(true)
+            setIsDisabled(true)
+          } else {
+            setOnLocation(false)
+            setIsDisabled(false)
+          }                
 
-            } catch (error) { console.error("Error checking location services:", error) }
-        }, 200)
+        } catch (error) { console.error("Error checking location services:", error) }
+      }, 1000)
 
-        return () => clearInterval(interval)
+      return () => clearInterval(interval)
     }, [])
 
     const [mapRegion, setMapRegion] = useState({
-        latitude: 14.643779,
-        longitude: 121.026478,
-        latitudeDelta: 0.001,
-        longitudeDelta: 0.005,
-    });
+      latitude: 14.643779,
+      longitude: 121.026478,
+      latitudeDelta: 0.001,
+      longitudeDelta: 0.005,
+    })
 
     const [markerCoordinate, setMarkerCoordinate] = useState({
-        latitude: 14.643779,
-        longitude: 121.026478,
-    });
+      latitude: 14.643779,
+      longitude: 121.026478,
+    })
 
     return (
-        <>
-          <View style={styles.topContainer}>
-            <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
+      <>
+        <View style={styles.topContainer}>
+          <TouchableOpacity style={styles.backButton} onPress={() => router.push(`/pages/home/`)}>
                 <AntDesign name='arrowleft' size={30} color={COLORS.clearWhite} />
             </TouchableOpacity>
           </View>
             
-            <View style={styles.container}>
+            <ScrollView style={styles.container}>
               { onLocation ? (
                     <View style={styles.locWrapper}>
                       <View style={styles.locationPrompt}>
@@ -125,9 +123,8 @@ export default function GeoIndex () {
                     region={mapRegion}
                     showsUserLocation
                     followsUserLocation
-                    customMapStyle={noonStyle}
+                    customMapStyle={lateStyle}
                     showsTraffic
-                    showsBuildings
                     loadingEnabled
                     userInterfaceStyle='light'
                     userLocationPriority='high'
@@ -155,7 +152,7 @@ export default function GeoIndex () {
                 <View style={styles.bottomContainer}>
                   {/* <Text style={styles.headText}>{formattedTime}</Text>
                   <Text style={styles.subText}>{formattedDay}</Text> */}
-
+                  
                   <TouchableOpacity
                     style={styles.cameraBtn}
                     onPress={() => router.push(`/access/geo/camera`)}
@@ -171,10 +168,10 @@ export default function GeoIndex () {
                       <Text style={styles.textConfirm}>CONFIRM</Text>
                   </TouchableOpacity>
                 </View> 
-            </View>
+            </ScrollView>
         </>
-    );
-};
+    )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -250,7 +247,6 @@ const styles = StyleSheet.create({
   },
 
   bottomContainer: {
-    height: 170,
     padding: 20,
     justifyContent: 'ceneter',
     alignItems: 'center',
@@ -281,11 +277,11 @@ const styles = StyleSheet.create({
     padding: 15,
     width: 200,
     alignItems: 'center',
-    borderRadius: 20,
+    borderRadius: 10,
   },
 
   imgUpload: {
-    width: 300, 
-    height: 300,
+    width: 200, 
+    height: 200,
   }
 })

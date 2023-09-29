@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { View, Text, StyleSheet, ImageBackground, TextInput, TouchableOpacity } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
-import { COLORS } from "../../../constant";
 import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { AntDesign } from "@expo/vector-icons";
+
+import { COLORS } from "../../../constant";
 
 export default function SignInIndex () {
     const [username, setUsername] = useState('')

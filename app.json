@@ -23,7 +23,8 @@
       "config": {
         "googleMapsApiKey": "AIzaSyC1YDKCTkx-ib9y0iAX_B-wSQc0Hf2AqSo"
       },
-      "bundleIdentifier": "com.hndrx022.ITIApp"
+      "bundleIdentifier": "com.hndrx022.ITIApp",
+      "supportsTablet": true
     },
     "extra": {
       "router": {

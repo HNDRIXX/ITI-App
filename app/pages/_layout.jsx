@@ -41,6 +41,7 @@ export default TabsLayout = () => {
           title: "",
           tabBarLabel: 'Home',
         }}
+      
       />
 
       <Tabs.Screen
