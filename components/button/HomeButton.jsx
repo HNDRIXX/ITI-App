@@ -42,7 +42,7 @@ export default function HomeButton () {
                         <View style={styles.buttonContainer}>
                             <TouchableOpacity 
                                 style={styles.gridButton}
-                                onPress={() => router.push(`/access/home/${null}`)}
+                                onPress={() => router.push(`/access/access/geofence/${null}`)}
                             > 
                                 {/* <Image source={require('../../assets/img/icons/calendar.png')} style={styles.iconOverlay} /> */}
 
