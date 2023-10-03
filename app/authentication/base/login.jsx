@@ -15,15 +15,8 @@ export default function SignInIndex () {
         <View style={styles.container}>
             <StatusBar style='dark' />
 
-            <TouchableOpacity 
-                style={styles.backBtn}
-                onPress={() => router.back()}
-            >
-                <AntDesign name='arrowleft' size={28} color={COLORS.blue} />
-            </TouchableOpacity>
-
             <View style={styles.inputContainer}>
-                <Text style={styles.signInTitle}>Sign-In</Text>
+                <Text style={styles.signInTitle}>Log-In</Text>
 
                 <View style={styles.inputWrapper}>
                     <TextInput
@@ -68,13 +61,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: COLORS.clearWhite,
-    },
-
-    backBtn: {
-        width: 60,
-        height: 60,
-        alignItems: 'center',
-        marginTop: 60,
     },
 
     inputContainer: {

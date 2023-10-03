@@ -68,7 +68,7 @@ export default function CameraAccess () {
                     {isLoading && (
                         <ActivityIndicator size={'large'} />
                     )}
-
+                    
                     <Image
                         source={{ uri: userImage }}
                         style={{ height: '65%' }}

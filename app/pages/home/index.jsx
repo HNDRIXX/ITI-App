@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, FlatList, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator, TouchableOpacity, Alert } from 'react-native';
 import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
 import { COLORS, useFonts } from '../../../constant';
+import { AntDesign } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import NetInfo from '@react-native-community/netinfo';
 
 import HomeButton from '../../../components/button/HomeButton'
-import TimeInOutButton from '../../../components/button/TimeInOutButton'
+import TimeInOut from '../../../components/section/home/TimeInOut'
 import Notification from '../../../components/section/Notification'
 import ConnectionPrompt from '../../../components/prompt/connection';
 
@@ -27,7 +28,7 @@ export default function App () {
     if(!fontsLoaded) {
         return (
             <View style={{ flex: 1, justifyContent: 'center' }}>
-                <ActivityIndicator size={'large'} color={COLORS.baseOrange} />
+                <ActivityIndicator size={'large'} color={COLORS.baseOrange} />                
             </View>
         )
     }
@@ -51,6 +52,34 @@ export default function App () {
                     <StatusBar style="light"/>
                     
                     <View style={styles.headerWrapper}>
+
+                    <TouchableOpacity
+                        style={styles.logOutButton}
+                        onPress={() => {
+                            Alert.alert(
+                                'Confirm Log-Out',
+                                'Are you sure you want to log-out?',
+                                [
+                                    {
+                                        text: 'Cancel',
+                                        style: 'cancel',
+                                    },
+                                    {
+                                        text: 'Logout',
+                                        onPress: () => router.push(`/authentication/base/login`),
+                                    },
+                                ],
+                                { cancelable: false }
+                            );
+                        }}
+                    >
+                        <AntDesign 
+                            name="logout"
+                            size={20}
+                            color={COLORS.clearWhite}
+                        />
+                    </TouchableOpacity>
+
                         <View style={styles.headerContentWrapper}>
                             <Image 
                                 style={styles.userIcon}
@@ -62,21 +91,9 @@ export default function App () {
                                 <Text style={styles.belowHeaderText}>Lorem Ipsum!</Text>
                             </View>
                         </View>
+
+                        <TimeInOut />
                     </View>
-
-                    <View style={styles.boxWrapper}>
-                        <View style={styles.box}>
-                            <Text style={styles.boxNum}>1</Text>
-                            <Text style={styles.boxTitle}>Vacation{'\n'}Leave</Text>
-                        </View>
-
-                        <View style={styles.box}>
-                            <Text style={styles.boxNum}>4</Text>
-                            <Text style={styles.boxTitle}>Sick{'\n'}Leave</Text>
-                        </View>
-                    </View>
-
-                    {/* <TimeInOutButton /> */}
                 </View>
 
                 <View style={styles.belowContainer}>
@@ -96,15 +113,18 @@ const styles = StyleSheet.create({
         flex: 1,
     },
 
+    logOutButton: {
+        alignItems: 'flex-end',
+    },
+
     hairline: {
         borderBottomColor: COLORS.gray,
         borderBottomWidth: StyleSheet.hairlineWidth, 
     },
 
     headerWrapper: {
-        height: 150,
-        padding: 25,
-        paddingTop: 10,
+        padding: 10,
+        paddingTop: 5,
         // justifyContent: 'center',
         backgroundColor: COLORS.blue,
     },
@@ -138,41 +158,25 @@ const styles = StyleSheet.create({
         lineHeight: 30,
     },
 
-    boxWrapper: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        columnGap: 8,
-        marginTop: -50,
-        margin: 20,
-    },
-
-    // 1E1E1E
-
-    box: {
+    topBox: {
         backgroundColor: COLORS.clearWhite,
-        padding: 5,
-        paddingBottom: 10,
-        flex: 1,
+        padding: 20,
+        marginTop: 20,
         borderRadius: 10,
-        alignItems: 'center',
-        justifyContent: 'center',
-        elevation: 9,
     },
 
-    boxNum: {
-        fontFamily: 'Inter_800ExtraBold',
-        color: COLORS.orange,
-        fontSize: 40
+    timeInOutButton: {
+        backgroundColor: COLORS.orange,
+        padding: 10,
+        borderRadius: 10,
     },
 
-    boxTitle: {
+    timeInOutText: {
+        textAlign: 'center',
+        color: COLORS.clearWhite,
         fontFamily: 'Inter_600SemiBold',
-        color: COLORS.darkGray,
-        fontSize: 10,
-        lineHeight: 10,
-        textAlign: 'center'
     },
+    // 1E1E1E
 
     belowContainer: {
         margin: 13,

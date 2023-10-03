@@ -4,7 +4,6 @@ import { StatusBar } from 'expo-status-bar';
 import { AntDesign } from '@expo/vector-icons';
 import { router } from 'expo-router';
 
-
 import { COLORS } from '../../../constant';
 
 export default function VerifyOTPIndex () {
@@ -16,11 +15,15 @@ export default function VerifyOTPIndex () {
     newCode[index] = text
     setCode(newCode)
 
+    console.log(newCode)
+
+
     if (text.length === 1 && index < 4) {
       codeRefs[index + 1].current.focus()
     }
+
   }
-  
+
   const codeResult = code.join('')
   const isSubmitDisabled = code.some((value) => value.length !== 1)
 
@@ -40,7 +43,7 @@ export default function VerifyOTPIndex () {
         <Text style={styles.subText}>Enter the received input.</Text>
 
         <View style={styles.codeContainer}>
-          {/* {code.map((value, index) => (
+          {code.map((value, index) => (
             <TextInput
               key={index}
               style={styles.input}
@@ -50,14 +53,14 @@ export default function VerifyOTPIndex () {
               maxLength={1}
               ref={codeRefs[index]}
             />
-          ))} */}
+          ))}
 
-          <TextInput
+          {/* <TextInput
               style={styles.singleInput}
               value={''}
               keyboardType="numeric"
               maxLength={1}
-          />
+          /> */}
         </View>
 
         <TouchableOpacity
@@ -69,8 +72,8 @@ export default function VerifyOTPIndex () {
         </TouchableOpacity>
       </View>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {

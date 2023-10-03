@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { EvilIcons } from "@expo/vector-icons";
-import { COLORS } from "../../constant"
 import { router } from 'expo-router';
 
+import { COLORS } from "../../../constant"
 
-export default function TimeInOutButton () {
+export default function TimeInOutSection () {
     const [currTime, setCurrTime] = useState(new Date())
 
     const currDate = new Date()
@@ -43,70 +42,53 @@ export default function TimeInOutButton () {
     }
 
     return (
-        <View style={styles.container}>
-            <TouchableOpacity 
-                style={styles.button}
-                onPress={() => router.push(`/access/home/geo`)}
-            >
-                <EvilIcons 
-                    name='pointer'
-                    size={110} 
-                    color={COLORS.clearWhite}
-                />
-                
-                <Text style={styles.textButton}>TIME-IN</Text>
-            </TouchableOpacity>
-
-            <View style={styles.textWrapper}>
-                <Text style={styles.timeText}>{formattedTime}</Text>
+        <View style={styles.topBox}>
+            <View style={styles.wrapperBox}>
                 <Text style={styles.dateText}>{formattedDate}</Text>
+                <Text style={styles.timeText}>{formattedTime}</Text>
+
+                <TouchableOpacity
+                    style={styles.timeInOutButton}
+                    onPress={() => { router.push(`/access/access/geofence/${null}`)}}
+                >
+                    <Text style={styles.timeInOutText}>TIME-IN</Text>
+                </TouchableOpacity>
             </View>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+    topBox: {
+        backgroundColor: COLORS.clearWhite,
+        padding: 20,
+        marginTop: 20,
+        borderRadius: 10,
     },
 
-    button: {
-        width: 170,
-        height: 170,
-        borderRadius: 120,
-        alignItems: 'center',
-        justifyContent: 'center',
+    timeInOutButton: {
         backgroundColor: COLORS.orange,
-        
-        elevation: 20,
-        shadowColor: COLORS.blue,
-        shadowOpacity: 0.9,
-        shadowRadius: 5,
-        shadowOffset : { width: 1, height: 2},
+        padding: 10,
+        marginTop: 15,
+        borderRadius: 10,
     },
 
-    textWrapper: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 10,
-    },
-
-    textButton: {
-        color: COLORS.white,
-        fontSize: 13,
+    timeInOutText: {
+        textAlign: 'center',
+        color: COLORS.clearWhite,
         fontFamily: 'Inter_600SemiBold',
     },
 
     timeText: {
         fontFamily: 'Inter_700Bold', 
-        fontSize: 25,
+        fontSize: 27,
+        textAlign: 'center',
         color: COLORS.darkGray,
     },
 
     dateText: {
         fontFamily: 'Inter_400Regular',
-        fontSize: 11,
+        textAlign: 'center',
+        fontSize: 13,
     }
 })

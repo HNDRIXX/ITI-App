@@ -30,30 +30,6 @@ export default function HomeButton () {
                     <View style={styles.buttonWrapper}>
                         <View style={styles.buttonContainer}>
                             <TouchableOpacity 
-                                style={styles.gridButton} 
-                                onPress={() => router.push(`/authentication/base/signIn`)}
-                            >
-                                <View style={styles.textButtonWrapper}>
-                                    <Text style={styles.textButton}>Button</Text>
-                                </View>
-                            </TouchableOpacity>
-                        </View>
-
-                        <View style={styles.buttonContainer}>
-                            <TouchableOpacity 
-                                style={styles.gridButton}
-                                onPress={() => router.push(`/access/access/geofence/${null}`)}
-                            > 
-                                {/* <Image source={require('../../assets/img/icons/calendar.png')} style={styles.iconOverlay} /> */}
-
-                                <View style={styles.textButtonWrapper}>
-                                    <Text style={styles.textButton}>Button</Text>
-                                </View>
-                            </TouchableOpacity>
-                        </View>
-
-                        <View style={styles.buttonContainer}>
-                            <TouchableOpacity 
                                 style={styles.gridButton}
                                 onPress={() => router.push(`/access/home/`)}
                             >

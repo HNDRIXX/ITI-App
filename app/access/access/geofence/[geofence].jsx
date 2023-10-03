@@ -169,7 +169,7 @@ export default function GeofenceIndex () {
           <View style={styles.bottomContainer}>
             {/* <Text style={styles.headText}>{formattedTime}</Text>
             <Text style={styles.subText}>{formattedDay}</Text> */}
-                  
+
             <TouchableOpacity
               style={styles.cameraBtn}
               onPress={() => router.push(`/access/features/geofence/camera`)}
@@ -188,12 +188,11 @@ export default function GeofenceIndex () {
                   ? styles.disabledBtn 
                   : null 
               ]}
-
               disabled={
                 isDisabled || params.geofence == 'null' 
                 ? true : false
-              }>
-
+              }
+            >
               <Text style={styles.textConfirm}>CONFIRM</Text>
             </TouchableOpacity>
           </View> 
