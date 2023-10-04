@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Dimensions, ImageBackground } from "react-native"
+import { View, Text, StyleSheet, Dimensions, ImageBackground, FlatList} from "react-native"
 import { Image } from "expo-image"
 import { StatusBar } from "expo-status-bar"
 import { COLORS } from "../../../constant"
@@ -8,20 +8,23 @@ const width = Dimensions.get('window').width
 export default function ProfileIndex () {
     return (
         <View style={{ flex: 1 }}>
-            <View>
-                <View
-                    style={styles.topView} 
-                />
-
-                <View style={styles.centerContent}>
-                    <Image 
-                        source={require('../../../assets/img/icons/user.png')}
-                        style={styles.imageProfile}
-                    /> 
-
-                    <Text style={styles.nameText}>Lorem Ipsum</Text>
-                </View>
+            <View style={styles.topHeader}>
+                <Text style={styles.textHeader}>Calendar</Text>
             </View>
+
+            <View
+                style={styles.topView} 
+            />
+            
+            <View style={styles.centerContent}>
+                <Image 
+                    source={require('../../../assets/img/icons/user.png')}
+                    style={styles.imageProfile}
+                /> 
+
+                <Text style={styles.nameText}>Lorem Ipsum</Text>
+            </View>
+        
 
             {/* <View style={styles.textContainer}>
                 <Text style={styles.informationText}>INFORMATION</Text>
@@ -52,6 +55,21 @@ export default function ProfileIndex () {
 
 
 const styles = StyleSheet.create({
+    
+    topHeader: {
+        padding: 3,
+        paddingBottom: 10,
+        alignItems: 'center',
+        backgroundColor: COLORS.blue,
+    },
+
+    textHeader: {
+        color: COLORS.clearWhite,
+        fontFamily: 'Inter_600SemiBold',
+        fontSize: 18,
+    },
+
+
     topView: {
         backgroundColor: COLORS.blue,
         marginTop: -170,

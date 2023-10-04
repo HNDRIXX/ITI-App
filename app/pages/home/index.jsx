@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator, TouchableOpacity, Alert, ScrollView, } from 'react-native';
 import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
 import { COLORS, useFonts } from '../../../constant';
@@ -11,6 +11,7 @@ import HomeButton from '../../../components/button/HomeButton'
 import TimeInOut from '../../../components/section/home/TimeInOut'
 import Notification from '../../../components/section/Notification'
 import ConnectionPrompt from '../../../components/prompt/connection';
+import Dashboard from '../../../components/section/home/Dashboard';
 
 export default function App () {
     const router = useRouter()
@@ -34,7 +35,7 @@ export default function App () {
     }
 
     return (
-        <>
+        <View style={{flex: 1, backgroundColor: COLORS.blue}}>
             {/* { isConnected === null ? 
                     <Text>Checking</Text> 
                 : isConnected ? 
@@ -42,43 +43,37 @@ export default function App () {
                 : <Text>Not Connected</Text> 
             } */}
 
-            <View 
-                style={{
-                    flex: 1,
-                    backgroundColor: '#F7F7F7',
-                }}
-            >
                 <View style={styles.container}>
                     <StatusBar style="light"/>
                     
                     <View style={styles.headerWrapper}>
-
-                    <TouchableOpacity
-                        style={styles.logOutButton}
-                        onPress={() => {
-                            Alert.alert(
-                                'Confirm Log-Out',
-                                'Are you sure you want to log-out?',
-                                [
-                                    {
-                                        text: 'Cancel',
-                                        style: 'cancel',
-                                    },
-                                    {
-                                        text: 'Logout',
-                                        onPress: () => router.push(`/authentication/base/login`),
-                                    },
-                                ],
-                                { cancelable: false }
-                            );
-                        }}
-                    >
-                        <AntDesign 
-                            name="logout"
-                            size={20}
-                            color={COLORS.clearWhite}
-                        />
-                    </TouchableOpacity>
+                    
+                        <TouchableOpacity
+                            style={styles.logOutButton}
+                            onPress={() => {
+                                Alert.alert(
+                                    'Confirm Log-Out',
+                                    'Are you sure you want to log-out?',
+                                    [
+                                        {
+                                            text: 'Cancel',
+                                            style: 'cancel',
+                                        },
+                                        {
+                                            text: 'Logout',
+                                            onPress: () => router.push(`/authentication/base/login`),
+                                        },
+                                    ],
+                                    { cancelable: false }
+                                )
+                            }}
+                        >
+                            <AntDesign 
+                                name="logout"
+                                size={20}
+                                color={COLORS.clearWhite}
+                            />
+                        </TouchableOpacity>
 
                         <View style={styles.headerContentWrapper}>
                             <Image 
@@ -91,20 +86,37 @@ export default function App () {
                                 <Text style={styles.belowHeaderText}>Lorem Ipsum!</Text>
                             </View>
                         </View>
-
-                        <TimeInOut />
                     </View>
+
+                <View style={styles.bodyContainer}>
+                    <TimeInOut />
                 </View>
 
-                <View style={styles.belowContainer}>
-                    {/* <Notification /> */}
-
-                    {/* <View style={styles.hairline} /> */}
+                <ScrollView
+                    style={styles.bodyWrapper}
+                > 
+                    <View style={{
+                        flex: 1,
+                    }}>
+                        <Text style={styles.mainTitle}>Menu</Text>
+                        <HomeButton />
+                    </View>
+                    
+                    <View style={{
+                        flex: 1
+                    }}>
+                        <Text style={styles.mainTitle}>Dashboard</Text>
+                        <Dashboard />
+                    </View>
+                </ScrollView>
+                {/* <View style={styles.belowContainer}>
+                    <Notification />
+                    <View style={styles.hairline} />
                     
                     <HomeButton />
-                </View>
+                </View> */}
             </View>
-        </>
+        </View>
     )
 }
 
@@ -123,8 +135,9 @@ const styles = StyleSheet.create({
     },
 
     headerWrapper: {
-        padding: 10,
+        padding: 20,
         paddingTop: 5,
+        height: 200,
         // justifyContent: 'center',
         backgroundColor: COLORS.blue,
     },
@@ -158,27 +171,29 @@ const styles = StyleSheet.create({
         lineHeight: 30,
     },
 
-    topBox: {
-        backgroundColor: COLORS.clearWhite,
-        padding: 20,
-        marginTop: 20,
-        borderRadius: 10,
-    },
-
-    timeInOutButton: {
-        backgroundColor: COLORS.orange,
-        padding: 10,
-        borderRadius: 10,
-    },
-
-    timeInOutText: {
-        textAlign: 'center',
-        color: COLORS.clearWhite,
-        fontFamily: 'Inter_600SemiBold',
+    bodyContainer: {
+        // flex: 1,
+        height: 70,
+        paddingHorizontal: 35,
+        borderTopLeftRadius: 80,
+        borderTopEndRadius: 80,
+        backgroundColor: COLORS.white
     },
     // 1E1E1E
+    
+    bodyWrapper: {
+        flex: 1,
+        backgroundColor: COLORS.white,
+        padding: 10,
+    },
 
-    belowContainer: {
-        margin: 13,
-    }
+    mainTitle: {
+        paddingHorizontal: 10,
+        marginBottom: 5,
+        fontSize: 16,
+        color: COLORS.darkGray,
+        fontFamily: 'Inter_600SemiBold',
+    },
+
+
 })

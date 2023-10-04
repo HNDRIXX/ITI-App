@@ -62,7 +62,8 @@ const styles = StyleSheet.create({
     topBox: {
         backgroundColor: COLORS.clearWhite,
         padding: 20,
-        marginTop: 20,
+        marginTop: -100,
+        bottom: -20,
         borderRadius: 10,
     },
 

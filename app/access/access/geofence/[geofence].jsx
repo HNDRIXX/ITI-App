@@ -112,60 +112,58 @@ export default function GeofenceIndex () {
     <>
       <View style={styles.topContainer}>
         <TouchableOpacity style={styles.backButton} onPress={() => router.push(`/pages/home/`)}>
-              <AntDesign name='arrowleft' size={30} color={COLORS.clearWhite} />
-          </TouchableOpacity>
-        </View>
+            <AntDesign name='arrowleft' size={30} color={COLORS.clearWhite} />
+        </TouchableOpacity>
+      </View>
             
-        <ScrollView style={styles.container}>
-
-          { onLocation ? (
-            <View style={styles.locWrapper}>
-              <View style={styles.locationPrompt}>
-                <View style={styles.locationPromptWrapper}>
-                  <Ionicons name="warning" size={24} color="red" />
-                  <Text style={styles.floatPromptText}>Prompt</Text>
-                </View>
-
-                <Text style={styles.subFloatText}>Please turn on.</Text>
-
-                <TouchableOpacity style={styles.locationPromptBtn} onPress={onOpenLoc}>
-                  <Text style={styles.locationPromptBtnText}>TURN ON</Text>
-                </TouchableOpacity>
+      <View style={styles.container}>
+        { onLocation ? (
+          <View style={styles.locWrapper}>
+            <View style={styles.locationPrompt}>
+              <View style={styles.locationPromptWrapper}>
+                <Ionicons name="warning" size={24} color="red" />
+                <Text style={styles.floatPromptText}>Prompt</Text>
               </View>
+
+              <Text style={styles.subFloatText}>Please turn on.</Text>
+
+              <TouchableOpacity style={styles.locationPromptBtn} onPress={onOpenLoc}>
+                <Text style={styles.locationPromptBtnText}>TURN ON</Text>
+              </TouchableOpacity>
             </View>
-          ) : ( null )}
+          </View>
+        ) : ( null )}
 
-          <MapView
-              showsPointsOfInterest
-              showsMyLocationButton
-              style={{ height: 300 }}
-              region={mapRegion}
-              showsUserLocation
-              followsUserLocation
-              showsTraffic
-              loadingEnabled
-              userInterfaceStyle='light'
-              userLocationPriority='high'
-              // onPress={handleMapPress}
-          >
-            <Marker
-              coordinate={markerCoordinate}
-              title={`Latitude: ${markerCoordinate.latitude.toFixed(6)}`}
-              description={`Longitude: ${markerCoordinate.longitude.toFixed(6)}`}
-            />
-          </MapView>
+        <MapView
+          showsPointsOfInterest
+          showsMyLocationButton
+          style={{ height: 300 }}
+          region={mapRegion}
+          showsUserLocation
+          followsUserLocation
+          showsTraffic
+          loadingEnabled
+          userInterfaceStyle='light'
+          userLocationPriority='high'
+          // onPress={handleMapPress}
+        >
+          <Marker
+            coordinate={markerCoordinate}
+            title={`Latitude: ${markerCoordinate.latitude.toFixed(6)}`}
+            description={`Longitude: ${markerCoordinate.longitude.toFixed(6)}`}
+          />
+        </MapView>
 
-          <View style={styles.formData}>
-
-            <Image 
-              source={
-                imgUpload != 'null' ? { uri: imgUpload } 
-                : require('../../../../assets/img/noimage.jpg')
-              }
-              style={styles.imgUpload}
-              contentFit='contain'  
-            />
-
+        <View style={styles.formData}>
+          <Image
+            source={
+              imgUpload != 'null' ? { uri: imgUpload } 
+              : require('../../../../assets/img/noimage.jpg')
+            }
+            style={styles.imgUpload}
+            contentFit='contain'  
+          />
+        
           <View style={styles.bottomContainer}>
             {/* <Text style={styles.headText}>{formattedTime}</Text>
             <Text style={styles.subText}>{formattedDay}</Text> */}
@@ -175,9 +173,9 @@ export default function GeofenceIndex () {
               onPress={() => router.push(`/access/features/geofence/camera`)}
             >
               <FontAwesome 
-                name='camera'
-                size={20}
-                color={COLORS.clearWhite}
+              name='camera'
+              size={20}
+              color={COLORS.clearWhite}
               />
             </TouchableOpacity>
 
@@ -188,6 +186,7 @@ export default function GeofenceIndex () {
                   ? styles.disabledBtn 
                   : null 
               ]}
+
               disabled={
                 isDisabled || params.geofence == 'null' 
                 ? true : false
@@ -196,10 +195,11 @@ export default function GeofenceIndex () {
               <Text style={styles.textConfirm}>CONFIRM</Text>
             </TouchableOpacity>
           </View> 
-            {/* <Text>Latitude: {location.latitude}</Text>
-            <Text>Longitude: {location.longitude}</Text> */}
-          </View>
-      </ScrollView>
+
+          {/* <Text>Latitude: {location.latitude}</Text>
+          <Text>Longitude: {location.longitude}</Text> */}
+        </View>
+      </View>
     </>
   )
 }
@@ -318,6 +318,7 @@ const styles = StyleSheet.create({
   },
 
   formData: {
+    flex: 1,
     justifyContent: 'space-evenly',
     flexDirection: 'row',
     alignItems: 'center',

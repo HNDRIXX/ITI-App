@@ -16,13 +16,7 @@ export default function HomeButton () {
     // }, [])
 
     return (
-        <ScrollView 
-            contentContainerStyle={{ 
-                justifyContent: 'center', 
-            }}
-            scrollEnabled={false}
-            showsVerticalScrollIndicator={ Platform.OS == 'web' ? true : false }
-        >     
+        <View style={styles.container}>     
             { isLoading ? (
                 <HomeButtonLoader />
             ) : ( 
@@ -33,7 +27,20 @@ export default function HomeButton () {
                                 style={styles.gridButton}
                                 onPress={() => router.push(`/access/home/`)}
                             >
-                                {/* <Image source={require('../../assets/img/icons/map.png')} style={styles.iconOverlay} /> */}
+                                <Image source={require('../../assets/img/icons/building.png')} style={styles.iconOverlay} />
+
+                                <View style={styles.textButtonWrapper}>
+                                    <Text style={styles.textButton}>Button</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+
+                        <View style={styles.buttonContainer}>
+                            <TouchableOpacity 
+                                style={styles.gridButton}
+                                onPress={() => router.push(`/access/home/`)}
+                            >
+                                <Image source={require('../../assets/img/icons/cogs.png')} style={styles.iconOverlay} />
 
                                 <View style={styles.textButtonWrapper}>
                                     <Text style={styles.textButton}>Button</Text>
@@ -43,7 +50,45 @@ export default function HomeButton () {
 
                         <View style={styles.buttonContainer}>
                             <TouchableOpacity style={styles.gridButton}>
-                                {/* <Image source={require('../../assets/img/icons/clock.png')} style={styles.iconOverlay} /> */}
+                                <Image source={require('../../assets/img/icons/profile.png')} style={styles.iconOverlay} />
+
+                                <View style={styles.textButtonWrapper}>
+                                    <Text style={styles.textButton}>Button</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+
+                    <View style={styles.buttonWrapper}>
+                        <View style={styles.buttonContainer}>
+                            <TouchableOpacity 
+                                style={styles.gridButton}
+                                onPress={() => router.push(`/access/home/`)}
+                            >
+                                <Image source={require('../../assets/img/icons/cash.png')} style={styles.iconOverlay} />
+
+                                <View style={styles.textButtonWrapper}>
+                                    <Text style={styles.textButton}>Button</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+
+                        <View style={styles.buttonContainer}>
+                            <TouchableOpacity 
+                                style={styles.gridButton}
+                                onPress={() => router.push(`/access/home/`)}
+                            >
+                                <Image source={require('../../assets/img/icons/map.png')} style={styles.iconOverlay} />
+
+                                <View style={styles.textButtonWrapper}>
+                                    <Text style={styles.textButton}>Button</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+
+                        <View style={styles.buttonContainer}>
+                            <TouchableOpacity style={styles.gridButton}>
+                                <Image source={require('../../assets/img/icons/clock.png')} style={styles.iconOverlay} />
 
                                 <View style={styles.textButtonWrapper}>
                                     <Text style={styles.textButton}>Button</Text>
@@ -53,24 +98,17 @@ export default function HomeButton () {
                     </View>
                 </>
             )}
-    </ScrollView>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
-
-    hairline: {
-        paddingTop: 15,
-        marginHorizontal: 10,
-        borderBottomColor: COLORS.tr_gray,
-        borderBottomWidth: StyleSheet.hairlineWidth, 
+    container: {
+        flex: 1,
     },
-    
+
     buttonWrapper: {
-        flex: 1, 
         flexDirection: 'row',
-        marginVertical: 5,
-        marginHorizontal: 0,
     }, 
 
     buttonContainer: {
@@ -79,9 +117,9 @@ const styles = StyleSheet.create({
 
     gridButton: {
         borderRadius: 10,
+        marginVertical: 5,
         marginHorizontal: 5,
-        // height: 30,
-        backgroundColor: COLORS.white,
+        backgroundColor: COLORS.clearWhite,
         elevation: 5,
         shadowColor: COLORS.tr_gray,
         shadowOpacity: 0.1,
@@ -89,7 +127,7 @@ const styles = StyleSheet.create({
         shadowOffset : { width: 1, height: 5},
         alignItems: 'center',
         justifyContent: 'center',
-        padding: 5,
+        padding: 20,
     },
 
     iconOverlay: {
