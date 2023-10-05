@@ -38,7 +38,7 @@ export default function CalendarIndex() {
     const day = date.getDate()
     const year = date.getFullYear()
     
-    return { month, day, year }
+    return `${month} ${day}, ${year}`
   }
 
   const formattedDate = formatDate(selectedDate)
@@ -89,13 +89,12 @@ export default function CalendarIndex() {
           markedDates={addMarkedDates()}
         />
 
-        <Text style={styles.bodyTitle}>Calendar Event</Text>
+        {/* <Text style={styles.bodyTitle}>Calendar Event</Text> */}
 
         {selectedDate ? (
           <View style={styles.agenda}>
             <View style={styles.agendaDateWrapper}>
-              <Text style={styles.dayAgenda}>{formattedDate.day}</Text>
-              <Text style={styles.subAgenda}>{formattedDate.month}, {formattedDate.year}</Text>
+              <Text style={styles.dayAgenda}>{formatDate(selectedDate)}</Text>
             </View>
 
             <View style={styles.itemWrapper}>
@@ -117,7 +116,7 @@ export default function CalendarIndex() {
             <AntDesign
               name={'select1'}
               size={70}
-              color={COLORS.tr_gray}
+              color={COLORS.white}
             />
 
             <Text style={styles.promptText}>Select any day in the calendar to display.</Text>
@@ -146,14 +145,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
 
-  bodyTitle: {
-    padding: 10,
-    fontSize: 18,
-    letterSpacing: .2,
-    textAlign: 'center',
-    backgroundColor: COLORS.lightBlue,
-    color: COLORS.clearWhite,
-    fontFamily: 'Inter_600SemiBold',
+  calendarView: {
+    paddingTop: 20,
+    height: 400,
   },
 
   agendaDateWrapper: {
@@ -162,18 +156,16 @@ const styles = StyleSheet.create({
 
   agenda: {
     flex: 1,
-    margin: 10,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
+    backgroundColor: COLORS.blue,
     alignItems: 'center',
   },
 
   itemWrapper: {
-    flex: 1,
-    margin: 5,
     borderRadius: 10,
     padding: 20,
-    height: '100%',
+    width: '90%',
     backgroundColor: COLORS.lightOrange,
     shadowColor: COLORS.tr_gray,
     shadowOpacity: 0.6,
@@ -181,14 +173,10 @@ const styles = StyleSheet.create({
   },
 
   dayAgenda: {
-    fontSize: 60,
-    color: COLORS.blue,
+    fontSize: 15,
+    color: COLORS.clearWhite,
     textAlign: 'center',
     fontFamily: 'Inter_800ExtraBold',
-  },
-
-  subAgenda: {
-    fontFamily: 'Inter_300Light',
   },
 
   agendaItem: {
@@ -200,7 +188,6 @@ const styles = StyleSheet.create({
 
   noEventsText: {
     fontSize: 13,
-    marginTop: 10,
     textAlign: 'center',
     color: COLORS.clearWhite,
     fontFamily: 'Inter_400Regular',
@@ -208,6 +195,9 @@ const styles = StyleSheet.create({
 
   promptView: {
     flex: 1,
+    borderTopLeftRadius: 40,
+    borderTopEndRadius: 40,
+    backgroundColor: COLORS.blue,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -215,7 +205,7 @@ const styles = StyleSheet.create({
   promptText: {
     width: 180,
     padding: 20,
-    color: COLORS.tr_gray,
+    color: COLORS.white,
     fontFamily: 'Inter_400Regular',
     textAlign: 'center',
   },

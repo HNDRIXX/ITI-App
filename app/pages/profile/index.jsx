@@ -1,54 +1,48 @@
-import { View, Text, StyleSheet, Dimensions, ImageBackground, FlatList} from "react-native"
+import { View, Text, StyleSheet, Dimensions, ImageBackground, FlatList, TouchableOpacity} from "react-native"
 import { Image } from "expo-image"
 import { StatusBar } from "expo-status-bar"
 import { COLORS } from "../../../constant"
+import { useState } from "react"
+import UserInfo from "../../../components/section/profile/UserInfo"
 
 const width = Dimensions.get('window').width
 
 export default function ProfileIndex () {
+    const data = [{title: 'Button 1'}, {title: 'Button 2'}]
+    const [activePanel, setActivePanel] = useState(1)
+
+    const switchPanel = (panelNum) => {
+        setActivePanel(panelNum)
+    }
     return (
         <View style={{ flex: 1 }}>
             <View style={styles.topHeader}>
-                <Text style={styles.textHeader}>Calendar</Text>
+                <Text style={styles.textHeader}>Profile</Text>
             </View>
 
-            <View
-                style={styles.topView} 
-            />
-            
-            <View style={styles.centerContent}>
-                <Image 
-                    source={require('../../../assets/img/icons/user.png')}
-                    style={styles.imageProfile}
-                /> 
+            <View style={styles.btnHorizontal}>
+                <TouchableOpacity 
+                    style={styles.button}
+                    onPress={() => switchPanel(1)}
+                >
+                    <Text style={styles.buttonText}>Information</Text>
+                </TouchableOpacity>
 
-                <Text style={styles.nameText}>Lorem Ipsum</Text>
+                <TouchableOpacity 
+                    style={styles.button}
+                    onPress={() => switchPanel(2)}
+                >
+                    <Text style={styles.buttonText}>Payslip</Text>
+                </TouchableOpacity>
             </View>
-        
 
-            {/* <View style={styles.textContainer}>
-                <Text style={styles.informationText}>INFORMATION</Text>
+            { activePanel === 1 && (
+                <UserInfo />
+            )}
 
-                <View style={styles.textWrapper}>
-                    <Text style={styles.titleData}>ID</Text>
-                    <Text style={styles.textData}>Lorem Ipsum</Text>
-                </View>
-
-                <View style={styles.textWrapper}>
-                    <Text style={styles.titleData}>Position</Text>
-                    <Text style={styles.textData}>Lorem Ipsum</Text>
-                </View>
-
-                <View style={styles.textWrapper}>
-                    <Text style={styles.titleData}>Role</Text>
-                    <Text style={styles.textData}>Lorem Ipsum</Text>
-                </View>
-
-                <View style={styles.textWrapper}>
-                    <Text style={styles.titleData}>Account</Text>
-                    <Text style={styles.textData}>Lorem Ipsum</Text>
-                </View>
-            </View> */}
+            { activePanel === 2 && (
+                <></>
+            )}
         </View>
     )
 }
@@ -69,69 +63,25 @@ const styles = StyleSheet.create({
         fontSize: 18,
     },
 
-
-    topView: {
-        backgroundColor: COLORS.blue,
-        marginTop: -170,
-        height: 280,
+    btnHorizontal: {
+        flexDirection: 'row',
+        marginHorizontal: 10,
+        borderBottomColor: COLORS.orange,
+        borderBottomWidth: 3,
     },
 
-    centerContent: {
-        position: 'absolute',
-        top: 20,
-        alignItems: 'center',
-        alignSelf: 'center',
-    },
-     
-    imageProfile: {
-        width: 140, height: 140,
-        backgroundColor: COLORS.clearWhite,
-        borderColor: COLORS.lighterOrange,
-        borderWidth: 6,
-        borderRadius: 70
-    },
-
-    nameText: {
-        fontFamily: 'Inter_500Medium',
-        fontSize: 22,
-        color: COLORS.darkGray,
+    button: {
+        flex: 1,
+        justifyContent: 'space-between',
+        backgroundColor: COLORS.orange,
+        margin: 15,
         padding: 10,
+        borderRadius: 20,
+        alignItems: 'center',
     },
 
-    informationText: {
+    buttonText: {
+        color: COLORS.white,
         fontFamily: 'Inter_600SemiBold',
-        color: COLORS.blue,
-        fontSize: 17,
-        marginBottom: 10,
     },
-
-    textContainer: {
-        marginVertical: 130,
-        margin: 20,
-        padding: 25,
-        borderRadius: 15,
-        backgroundColor: COLORS.white,
-        elevation: 5,
-        shadowColor: COLORS.blue,
-        shadowOpacity: 0.5,
-        shadowRadius: 3,
-        shadowOffset : { width: 1, height: 3},
-    },
-
-    textWrapper: {
-        marginVertical: 10,
-    }, 
-
-    titleData: {
-        fontSize: 12,
-        fontFamily: 'Inter_400Regular',
-        letterSpacing: 0,
-    },
-
-    textData: {
-        fontSize: 16,
-        fontFamily: 'Inter_500Medium',
-        color: COLORS.darkGray,
-        letterSpacing: 0,
-    }
 })

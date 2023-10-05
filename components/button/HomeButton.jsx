@@ -109,6 +109,7 @@ const styles = StyleSheet.create({
 
     buttonWrapper: {
         flexDirection: 'row',
+        marginHorizontal: 10,
     }, 
 
     buttonContainer: {
@@ -117,7 +118,7 @@ const styles = StyleSheet.create({
 
     gridButton: {
         borderRadius: 10,
-        marginVertical: 5,
+        marginBottom: 10,
         marginHorizontal: 5,
         backgroundColor: COLORS.clearWhite,
         elevation: 5,
@@ -127,16 +128,11 @@ const styles = StyleSheet.create({
         shadowOffset : { width: 1, height: 5},
         alignItems: 'center',
         justifyContent: 'center',
-        padding: 20,
-    },
+        padding: 30,   },
 
     iconOverlay: {
         width: 32,
         height: 32,
-    },
-
-    textButtonWrapper: {
-
     },
 
     textButton: {

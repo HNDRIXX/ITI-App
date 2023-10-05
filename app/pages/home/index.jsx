@@ -103,9 +103,11 @@ export default function App () {
                     </View>
                     
                     <View style={{
-                        flex: 1
+                        flex: 1,
+                        marginTop: 10,
                     }}>
                         <Text style={styles.mainTitle}>Dashboard</Text>
+
                         <Dashboard />
                     </View>
                 </ScrollView>
@@ -127,11 +129,6 @@ const styles = StyleSheet.create({
 
     logOutButton: {
         alignItems: 'flex-end',
-    },
-
-    hairline: {
-        borderBottomColor: COLORS.gray,
-        borderBottomWidth: StyleSheet.hairlineWidth, 
     },
 
     headerWrapper: {
@@ -173,7 +170,7 @@ const styles = StyleSheet.create({
 
     bodyContainer: {
         // flex: 1,
-        height: 70,
+        height: 50,
         paddingHorizontal: 35,
         borderTopLeftRadius: 80,
         borderTopEndRadius: 80,
@@ -189,10 +186,10 @@ const styles = StyleSheet.create({
 
     mainTitle: {
         paddingHorizontal: 10,
-        marginBottom: 5,
-        fontSize: 16,
-        color: COLORS.darkGray,
-        fontFamily: 'Inter_600SemiBold',
+        marginBottom: 10,
+        fontSize: 18,
+        color: COLORS.blue,
+        fontFamily: 'Inter_700Bold',
     },
 
 

@@ -14,7 +14,7 @@ export default function RequestButton() {
         { title: 'Button 6' },
     ];
 
-    const [selectedButtonIndex, setSelectedButtonIndex] = useState(null)
+    const [selectedButtonIndex, setSelectedButtonIndex] = useState(0)
     const [displayText, setDisplayText] = useState('')
 
     const handleButtonPress = (index, title) => {
@@ -66,17 +66,24 @@ const styles = StyleSheet.create({
     button: {
         width: 130,
         height: 40,
+        backgroundColor: COLORS.tr_gray,
+        shadowColor: COLORS.darkGray,
+        shadowOffset: {width: 1, height: 1},
+        shadowOpacity: .2,
+        shadowRadius: 10,
+        borderRadius: 20,
+        margin: 10,
         alignItems: 'center',
         justifyContent: 'center',
     },
 
     buttonText: {
-        color: COLORS.baseOrange,
+        color: COLORS.white,
         fontFamily: 'Inter_600SemiBold'
     },
+    
     selectedButton: {
-        borderBottomWidth: 3,
-        borderColor: COLORS.blue,
+        backgroundColor: COLORS.orange,
     },
 
 })
