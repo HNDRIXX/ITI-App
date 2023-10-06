@@ -4,32 +4,41 @@ import { StatusBar } from "expo-status-bar"
 import { COLORS } from "../../../constant"
 import { useState } from "react"
 import UserInfo from "../../../components/section/profile/UserInfo"
+import Payslip from "../../../components/section/profile/Payslip"
 
 const width = Dimensions.get('window').width
 
 export default function ProfileIndex () {
     const data = [{title: 'Button 1'}, {title: 'Button 2'}]
     const [activePanel, setActivePanel] = useState(1)
+    const [isAnimate, setIsAnimate] = useState(true)
 
     const switchPanel = (panelNum) => {
         setActivePanel(panelNum)
     }
+
     return (
         <View style={{ flex: 1 }}>
             <View style={styles.topHeader}>
                 <Text style={styles.textHeader}>Profile</Text>
-            </View>
+            </View> 
 
             <View style={styles.btnHorizontal}>
                 <TouchableOpacity 
-                    style={styles.button}
+                    style={[
+                        styles.button,
+                        activePanel ===  1 && styles.active,
+                    ]}
                     onPress={() => switchPanel(1)}
                 >
                     <Text style={styles.buttonText}>Information</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity 
-                    style={styles.button}
+                <TouchableOpacity
+                    style={[
+                        styles.button,
+                        activePanel ===  2 && styles.active,
+                    ]}
                     onPress={() => switchPanel(2)}
                 >
                     <Text style={styles.buttonText}>Payslip</Text>
@@ -37,11 +46,15 @@ export default function ProfileIndex () {
             </View>
 
             { activePanel === 1 && (
-                <UserInfo />
+                <UserInfo 
+                    onAnimate={true}
+                />
             )}
 
             { activePanel === 2 && (
-                <></>
+                <Payslip 
+                    onAnimate={true}
+                />
             )}
         </View>
     )
@@ -66,14 +79,14 @@ const styles = StyleSheet.create({
     btnHorizontal: {
         flexDirection: 'row',
         marginHorizontal: 10,
-        borderBottomColor: COLORS.orange,
-        borderBottomWidth: 3,
+        borderBottomColor: COLORS.lighterOrange,
+        borderBottomWidth: 2,
     },
 
     button: {
         flex: 1,
         justifyContent: 'space-between',
-        backgroundColor: COLORS.orange,
+        backgroundColor: COLORS.tr_gray,
         margin: 15,
         padding: 10,
         borderRadius: 20,
@@ -84,4 +97,8 @@ const styles = StyleSheet.create({
         color: COLORS.white,
         fontFamily: 'Inter_600SemiBold',
     },
+
+    active: {
+        backgroundColor: COLORS.orange,
+    }
 })

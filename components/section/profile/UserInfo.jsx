@@ -1,10 +1,17 @@
 import { View, Text, ScrollView, StyleSheet } from "react-native";
 import { Image } from "expo-image";
+import * as Animatable from 'react-native-animatable';
+
 import { COLORS } from "../../../constant";
 
-export default function UserInfo () {
+export default function UserInfo (onAnimate) {
+    
     return (
-        <View style={styles.bodyContainer}>
+        <Animatable.View
+            animation={onAnimate ? 'fadeIn' : ''}
+            duration={500}
+            style={[styles.bodyContainer, {opacity: onAnimate ? 1 : 0,}]}
+        >
             <View style={styles.centerContent}>
                 <Image
                     source={require('../../../assets/img/icons/user.png')}
@@ -35,7 +42,7 @@ export default function UserInfo () {
                     <Text style={styles.textSub}>Lorem Ipsum</Text>
                 </View>
             </View>
-        </View>
+        </Animatable.View>
     )
 }
 
@@ -68,12 +75,12 @@ const styles = StyleSheet.create({
         margin: 20,
         padding: 25,
         borderRadius: 15,
-        backgroundColor: COLORS.white,
-        elevation: 5,
-        shadowColor: COLORS.blue,
-        shadowOpacity: 0.5,
-        shadowRadius: 3,
-        shadowOffset : { width: 1, height: 3},
+        backgroundColor: COLORS.clearWhite,
+        // elevation: 7,
+        // shadowColor: COLORS.blue,
+        // shadowOpacity: 0.5,
+        // shadowRadius: 3,
+        // shadowOffset : { width: 1, height: 3},
     },
 
     textContext: {
@@ -84,7 +91,7 @@ const styles = StyleSheet.create({
         marginVertical: 15,
     },
 
-    textTitle: {
+    textTitle: { 
         fontFamily: 'Inter_400Regular',
         color: COLORS.tr_gray,
         fontSize: 13,
