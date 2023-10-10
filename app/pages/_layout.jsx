@@ -8,7 +8,7 @@ export default TabsLayout = () => {
       headerTitleAlign: 'center',
       headerStatusBarHeight: 0,
       headerStyle: {
-        backgroundColor: COLORS.blue,
+        backgroundColor: COLORS.powderBlue,
       },
 
       tabBarStyle: {

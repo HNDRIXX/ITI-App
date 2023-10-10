@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Platform} from 'react-native'
 import { router } from 'expo-router'
 import { Image } from 'expo-image'
+import { Ionicons, Foundation } from '@expo/vector-icons'
 
 import { COLORS } from '../../constant'
 import HomeButtonLoader from '../loader/HomeButtonLoader'
@@ -16,6 +17,7 @@ export default function HomeButton () {
     // }, [])
 
     return (
+
         <View style={styles.container}>     
             { isLoading ? (
                 <HomeButtonLoader />
@@ -27,12 +29,14 @@ export default function HomeButton () {
                                 style={styles.gridButton}
                                 onPress={() => router.push(`/access/home/`)}
                             >
-                                <Image source={require('../../assets/img/icons/building.png')} style={styles.iconOverlay} />
-
-                                <View style={styles.textButtonWrapper}>
-                                    <Text style={styles.textButton}>Button</Text>
-                                </View>
+                                <Ionicons 
+                                    name={'ios-calendar'}
+                                    size={40}
+                                    color={COLORS.orange}
+                                />
                             </TouchableOpacity>
+
+                            <Text style={styles.textButton}>Timesheet</Text>
                         </View>
 
                         <View style={styles.buttonContainer}>
@@ -40,22 +44,25 @@ export default function HomeButton () {
                                 style={styles.gridButton}
                                 onPress={() => router.push(`/access/home/`)}
                             >
-                                <Image source={require('../../assets/img/icons/cogs.png')} style={styles.iconOverlay} />
-
-                                <View style={styles.textButtonWrapper}>
-                                    <Text style={styles.textButton}>Button</Text>
-                                </View>
+                                <Foundation 
+                                    name={'book'}
+                                    size={45}
+                                    color={COLORS.orange}
+                                />
                             </TouchableOpacity>
+
+                            <Text style={styles.textButton}>Ledger</Text>
                         </View>
 
                         <View style={styles.buttonContainer}>
-                            <TouchableOpacity style={styles.gridButton}>
-                                <Image source={require('../../assets/img/icons/profile.png')} style={styles.iconOverlay} />
-
-                                <View style={styles.textButtonWrapper}>
-                                    <Text style={styles.textButton}>Button</Text>
-                                </View>
+                            <TouchableOpacity 
+                                style={styles.gridButton}
+                                onPress={() => router.push(`/access/home/`)}
+                            >
+                                
                             </TouchableOpacity>
+
+                            <Text style={styles.textButton}></Text>
                         </View>
                     </View>
 
@@ -65,12 +72,10 @@ export default function HomeButton () {
                                 style={styles.gridButton}
                                 onPress={() => router.push(`/access/home/`)}
                             >
-                                <Image source={require('../../assets/img/icons/cash.png')} style={styles.iconOverlay} />
-
-                                <View style={styles.textButtonWrapper}>
-                                    <Text style={styles.textButton}>Button</Text>
-                                </View>
+                                
                             </TouchableOpacity>
+
+                            <Text style={styles.textButton}></Text>
                         </View>
 
                         <View style={styles.buttonContainer}>
@@ -78,22 +83,21 @@ export default function HomeButton () {
                                 style={styles.gridButton}
                                 onPress={() => router.push(`/access/home/`)}
                             >
-                                <Image source={require('../../assets/img/icons/map.png')} style={styles.iconOverlay} />
-
-                                <View style={styles.textButtonWrapper}>
-                                    <Text style={styles.textButton}>Button</Text>
-                                </View>
+                              
                             </TouchableOpacity>
+
+                            <Text style={styles.textButton}></Text>
                         </View>
 
                         <View style={styles.buttonContainer}>
-                            <TouchableOpacity style={styles.gridButton}>
-                                <Image source={require('../../assets/img/icons/clock.png')} style={styles.iconOverlay} />
-
-                                <View style={styles.textButtonWrapper}>
-                                    <Text style={styles.textButton}>Button</Text>
-                                </View>
+                            <TouchableOpacity 
+                                style={styles.gridButton}
+                                onPress={() => router.push(`/access/home/`)}
+                            >
+                               
                             </TouchableOpacity>
+
+                            <Text style={styles.textButton}></Text>
                         </View>
                     </View>
                 </>
@@ -114,33 +118,32 @@ const styles = StyleSheet.create({
 
     buttonContainer: {
         flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 15,
     },
 
     gridButton: {
         borderRadius: 10,
-        marginBottom: 10,
-        marginHorizontal: 5,
+        marginHorizontal: 10,
         backgroundColor: COLORS.clearWhite,
         elevation: 5,
-        shadowColor: COLORS.tr_gray,
+        shadowColor: COLORS.darkGray,
         shadowOpacity: 0.1,
         shadowRadius: 2,
         shadowOffset : { width: 1, height: 5},
         alignItems: 'center',
         justifyContent: 'center',
-        padding: 30,   },
-
-    iconOverlay: {
-        width: 32,
-        height: 32,
+        width: 70,
+        height: 70,
     },
 
     textButton: {
-        fontFamily: 'Montserrat_500Medium',
+        fontFamily: 'Inter_500Medium',
         color: COLORS.darkGray,
-        fontSize: 12,
-        lineHeight: 17,
-        letterSpacing: -.5,
+        paddingTop: 5,
+        fontSize: 13,
+        textAlign: 'center'
     },
 
     partitionWrapper: { 

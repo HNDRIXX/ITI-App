@@ -9,7 +9,9 @@ export default function UserInfo (onAnimate) {
     return (
         <Animatable.View
             animation={onAnimate ? 'fadeIn' : ''}
+            easing={'ease-in-out'}
             duration={500}
+            useNativeDriver
             style={[styles.bodyContainer, {opacity: onAnimate ? 1 : 0,}]}
         >
             <View style={styles.centerContent}>

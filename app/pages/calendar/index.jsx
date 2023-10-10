@@ -173,10 +173,10 @@ const styles = StyleSheet.create({
   },
 
   dayAgenda: {
-    fontSize: 15,
+    fontSize: 16,
     color: COLORS.clearWhite,
     textAlign: 'center',
-    fontFamily: 'Inter_800ExtraBold',
+    fontFamily: 'Inter_700Bold',
   },
 
   agendaItem: {

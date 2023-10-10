@@ -16,23 +16,26 @@ export default function GeofenceIndex () {
   const [isDisabled, setIsDisabled] = useState(true)
   const [location, setLocation] = useState("")
 
+  const navigation = useNavigation()
+  const isFocused = useIsFocused()
+
   const currDate = new Date()
   const dateOptions = { weekday: 'long' }
-  const formattedDay = currDate.toLocaleDateString(undefined, dateOptions)
+
+  const timeOptions = { 
+    hour: 'numeric', 
+    minute: 'numeric',
+    second: 'numeric', 
+    hour12: true 
+  }
+
+  const formattedDate = currDate.toLocaleDateString(undefined, dateOptions)
+  const formattedTime = currDate.toLocaleTimeString(undefined, timeOptions)
 
   const params = useLocalSearchParams()
 
-  console.log(params.geofence)
   const imgUpload = params.geofence.replace(/\^/g, '/')
 
-  const timeOptions = {
-    hour: 'numeric',
-    minute: 'numeric',
-    second: 'numeric',
-    hour12: true
-  }
-
-  // const formattedTime = currDate.toLocaleTimeString(undefined, timeOptions)
   const onOpenLoc = async () => {
     const { status } = await Location.requestForegroundPermissionsAsync()
 
@@ -50,8 +53,13 @@ export default function GeofenceIndex () {
   //   return () => clearInterval(intervalId)
   // }, [])
 
-  const navigation = useNavigation()
-  const isFocused = useIsFocused()
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrTime(new Date())
+    }, 1000)
+
+    return () => clearInterval(intervalId);
+  }, [])
 
   useEffect(() => {
     const backAction = () => {
@@ -63,17 +71,16 @@ export default function GeofenceIndex () {
     }
 
     const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
+
     return () => backHandler.remove()
   }, [isFocused, navigation])
 
   useEffect(() => {
     (async () => {
       const locationStatus = await Location.requestForegroundPermissionsAsync()
-
-      if (locationStatus.status === 'granted') {
-        const currentLocation = await Location.getCurrentPositionAsync({})
-        setLocation(currentLocation.coords)
-      }
+      const currentLocation = await Location.getCurrentPositionAsync({})
+      setLocation(currentLocation.coords)
+      console.log(location)
     })()
   }, [])
 
@@ -116,7 +123,7 @@ export default function GeofenceIndex () {
         </TouchableOpacity>
       </View>
             
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         { onLocation ? (
           <View style={styles.locWrapper}>
             <View style={styles.locationPrompt}>
@@ -137,7 +144,7 @@ export default function GeofenceIndex () {
         <MapView
           showsPointsOfInterest
           showsMyLocationButton
-          style={{ height: 300 }}
+          style={{ height: 620 }}
           region={mapRegion}
           showsUserLocation
           followsUserLocation
@@ -155,20 +162,20 @@ export default function GeofenceIndex () {
         </MapView>
 
         <View style={styles.formData}>
-          <Image
+          {/* <Image
             source={
               imgUpload != 'null' ? { uri: imgUpload } 
               : require('../../../../assets/img/noimage.jpg')
             }
             style={styles.imgUpload}
             contentFit='contain'  
-          />
+          /> */}
         
           <View style={styles.bottomContainer}>
             {/* <Text style={styles.headText}>{formattedTime}</Text>
             <Text style={styles.subText}>{formattedDay}</Text> */}
 
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={styles.cameraBtn}
               onPress={() => router.push(`/access/features/geofence/camera`)}
             >
@@ -177,18 +184,23 @@ export default function GeofenceIndex () {
               size={20}
               color={COLORS.clearWhite}
               />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
+
+            <View style={styles.dateTimeWrapper}>
+              <Text style={styles.dateText}>{formattedDate}</Text>
+              <Text style={styles.timeText}>{formattedTime}</Text>
+            </View>
 
             <TouchableOpacity 
               style={[
                 styles.confirmBtn, 
-                isDisabled || params.geofence == 'null' 
+                isDisabled || location == ""
                   ? styles.disabledBtn 
                   : null 
               ]}
 
               disabled={
-                isDisabled || params.geofence == 'null' 
+                isDisabled || location == ""
                 ? true : false
               }
             >
@@ -199,7 +211,7 @@ export default function GeofenceIndex () {
           {/* <Text>Latitude: {location.latitude}</Text>
           <Text>Longitude: {location.longitude}</Text> */}
         </View>
-      </View>
+      </ScrollView>
     </>
   )
 }
@@ -278,15 +290,22 @@ const styles = StyleSheet.create({
   },
 
   bottomContainer: {
-
-    justifyContent: 'ceneter',
+    justifyContent: 'center',
     alignItems: 'center',
   },
 
-  headText: {
-    fontSize: 27,
-    color: COLORS.darkGray,
-    fontFamily: 'Inter_600SemiBold'
+  dateTimeWrapper: {
+    alignItems: 'center',
+  },
+
+  dateText: {
+    fontSize: 12,
+    fontFamily: 'Inter_500Medium'
+  },
+
+  timeText: {
+    fontSize: 25,
+    fontFamily: 'Inter_700Bold'
   },
 
   confirmBtn: {

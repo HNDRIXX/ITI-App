@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Modal, Button } from "react-native";
+import * as Animatable from 'react-native-animatable';
+import { AntDesign } from "@expo/vector-icons";
 
 import { COLORS } from "../../../constant";
 
-export default function PanelOne () {
+export default function PanelOne ( onAnimate ) {
     const [isModalVisible, setIsModalVisible] = useState(false)
 
     const data = [
@@ -21,7 +23,11 @@ export default function PanelOne () {
     }    
 
     return (
-        <View style={{ flex: 1}}>
+        <Animatable.View
+            animation={onAnimate ? 'fadeIn' : ''}
+            duration={600}
+            style={[styles.bodyContainer, {opacity: onAnimate ? 1 : 0,}]}
+        >
             <Text style={styles.titleText}>Panel One</Text>
 
             <TouchableOpacity 
@@ -32,7 +38,7 @@ export default function PanelOne () {
             </TouchableOpacity>
 
             <FlatList 
-                data={data}
+                data={data} 
                 renderItem={({item, index}) => (
                     <View style={styles.itemWrapper}>
                         <Text style={styles.itemText}>{item.name}</Text>
@@ -49,22 +55,37 @@ export default function PanelOne () {
             >
                 <View style={styles.modalContainer}>
                     <View style={styles.modalContent}>
-                        <Text>This is a Modal</Text>
-
                         <TouchableOpacity 
                             style={styles.closeBtn}
                             onPress={toggleModal}
                         >
-                            <Text style={styles.closeText}>CLOSE</Text>
+                            <AntDesign
+                                name={'close'}
+                                size={20}
+                                color={COLORS.blue}
+                            />
                         </TouchableOpacity>
+
+                        <Text>This is a Modal</Text>
+
+                        {/* <TouchableOpacity 
+                            style={styles.closeBtn}
+                            onPress={toggleModal}
+                        >
+                            <Text style={styles.closeText}>CLOSE</Text>
+                        </TouchableOpacity> */}
                     </View>
                 </View>
             </Modal>
-        </View> 
+        </Animatable.View> 
     )
 }
 
 const styles = StyleSheet.create({
+    bodyContainer: {
+        flex: 1,
+    },
+
     titleText: {
         fontSize: 25,
         fontFamily: 'Inter_600SemiBold',
@@ -72,7 +93,7 @@ const styles = StyleSheet.create({
     },
 
     itemWrapper: {
-        backgroundColor: COLORS.shadowGray,
+        backgroundColor: COLORS.clearWhite,
         padding: 30,
         marginHorizontal: 10,
         margin: 5,
@@ -90,7 +111,7 @@ const styles = StyleSheet.create({
 
     addText: {
         color: COLORS.white,
-        fontFamily: 'Inter_500Medium',
+        fontFamily: 'Inter_600SemiBold',
     },
 
     modalContainer: {
@@ -109,9 +130,9 @@ const styles = StyleSheet.create({
     },
 
     closeBtn: {
-        backgroundColor: COLORS.blue,
         padding: 10,
         width: 100,
+        alignSelf: 'flex-end',
         alignItems: 'center',
         borderRadius: 20,
         marginTop: 10,

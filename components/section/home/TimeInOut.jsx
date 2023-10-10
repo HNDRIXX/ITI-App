@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { router } from 'expo-router';
 
+import { Entypo } from '@expo/vector-icons';
 import { COLORS } from "../../../constant"
 
 export default function TimeInOutSection () {
@@ -47,11 +48,18 @@ export default function TimeInOutSection () {
                 <Text style={styles.dateText}>{formattedDate}</Text>
                 <Text style={styles.timeText}>{formattedTime}</Text>
 
+                <Text style={styles.clockInOutText}>Clocked Out: September 18 at 6:18:00 PM</Text>
+
                 <TouchableOpacity
                     style={styles.timeInOutButton}
                     onPress={() => { router.push(`/access/access/geofence/${null}`)}}
                 >
-                    <Text style={styles.timeInOutText}>TIME-IN</Text>
+                    <Entypo
+                        name={'clock'}
+                        size={20}
+                        color={COLORS.clearWhite}
+                    />
+                    <Text style={styles.timeInOutText}>Clock-In</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -64,25 +72,34 @@ const styles = StyleSheet.create({
         padding: 20,
         marginTop: -110,
         bottom: -20,
-        borderRadius: 10,
+        borderRadius: 20,
+        borderColor: COLORS.orange,
+        borderWidth: 2,
     },
 
     timeInOutButton: {
         backgroundColor: COLORS.orange,
-        padding: 10,
-        marginTop: 15,
+        padding: 13,
+        width: 200,
         borderRadius: 10,
+        marginTop: 10,
+        flexDirection: 'row',
+        alignItems: 'center',
+        alignSelf: 'center',
+        justifyContent: 'center'
     },
 
     timeInOutText: {
         textAlign: 'center',
+        fontSize: 17,
+        marginLeft: 10,
         color: COLORS.clearWhite,
-        fontFamily: 'Inter_600SemiBold',
+        fontFamily: 'Inter_700Bold',
     },
 
     timeText: {
         fontFamily: 'Inter_700Bold', 
-        fontSize: 27,
+        fontSize: 23,
         textAlign: 'center',
         color: COLORS.darkGray,
     },
@@ -90,6 +107,12 @@ const styles = StyleSheet.create({
     dateText: {
         fontFamily: 'Inter_400Regular',
         textAlign: 'center',
-        fontSize: 13,
+        fontSize: 11,
+    },
+
+    clockInOutText: {
+        color: COLORS.darkGray,
+        fontSize: 12,
+        textAlign: 'center'
     }
 })

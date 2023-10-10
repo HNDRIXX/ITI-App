@@ -3,18 +3,19 @@ import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native
 
 import { COLORS } from '../../constant';
 import PanelOne from '../section/request/PanelOne';
+import PanelTwo from '../section/request/PanelTwo';
 
 export default function RequestButton() {
     const data = [
-        { title: 'Button 1' },
-        { title: 'Button 2' },
-        { title: 'Button 3' },
-        { title: 'Button 4' },
-        { title: 'Button 5' },
-        { title: 'Button 6' },
+        { title: 'Panel One' },
+        { title: 'Panel Two' },
+        { title: 'Panel Three' },
+        { title: 'Panel Four' },
+        { title: 'Panel Five' },
+        { title: 'Panel Six' },
     ];
 
-    const [selectedButtonIndex, setSelectedButtonIndex] = useState(0)
+    const [selectedButtonIndex, setSelectedButtonIndex] = useState(1)
     const [displayText, setDisplayText] = useState('')
 
     const handleButtonPress = (index, title) => {
@@ -45,13 +46,15 @@ export default function RequestButton() {
             </View>
 
             { selectedButtonIndex == 0 && (
-                <PanelOne />
+                <PanelOne 
+                    onAnimate={true}
+                />
             )}
 
             { selectedButtonIndex == 1 && (
-                <View>
-                    <Text>Set Display</Text>
-                </View>
+                <PanelTwo 
+                    onAnimate={true}
+                />
             )}
         </>
     )
@@ -61,6 +64,9 @@ const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
         alignItems: 'center',
+        borderBottomColor: COLORS.orange,
+        borderBottomWidth: 2,
+        marginHorizontal: 10,
     },
 
     button: {
@@ -72,7 +78,8 @@ const styles = StyleSheet.create({
         shadowOpacity: .2,
         shadowRadius: 10,
         borderRadius: 20,
-        margin: 10,
+        margin: 13,
+        marginLeft: 0,
         alignItems: 'center',
         justifyContent: 'center',
     },

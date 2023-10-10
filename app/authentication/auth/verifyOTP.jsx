@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     borderRadius: 10,
     fontSize: 27,
-    fontFamily: 'Montserrat_600SemiBold'
+    fontFamily: 'Inter_600SemiBold'
   },
 
   singleInput: {

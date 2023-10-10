@@ -11,7 +11,6 @@ const width = Dimensions.get('window').width
 export default function ProfileIndex () {
     const data = [{title: 'Button 1'}, {title: 'Button 2'}]
     const [activePanel, setActivePanel] = useState(1)
-    const [isAnimate, setIsAnimate] = useState(true)
 
     const switchPanel = (panelNum) => {
         setActivePanel(panelNum)
@@ -21,7 +20,7 @@ export default function ProfileIndex () {
         <View style={{ flex: 1 }}>
             <View style={styles.topHeader}>
                 <Text style={styles.textHeader}>Profile</Text>
-            </View> 
+            </View>
 
             <View style={styles.btnHorizontal}>
                 <TouchableOpacity 
@@ -33,7 +32,7 @@ export default function ProfileIndex () {
                 >
                     <Text style={styles.buttonText}>Information</Text>
                 </TouchableOpacity>
-
+                
                 <TouchableOpacity
                     style={[
                         styles.button,
@@ -62,7 +61,6 @@ export default function ProfileIndex () {
 
 
 const styles = StyleSheet.create({
-    
     topHeader: {
         padding: 3,
         paddingBottom: 10,

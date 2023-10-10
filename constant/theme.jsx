@@ -18,6 +18,7 @@ const COLORS = {
     lightBlue: '#5D9FEF',
     blue: '#2F78D1',
     darkBlue: '#073DCC',
+    powderBlue: '#72A7FF',
 
     tr_gray: '#2A2A2A73',
     lightGray: '#EAEAEA',
