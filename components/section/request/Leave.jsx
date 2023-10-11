@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Modal, Button } from "react-native";
 import * as Animatable from 'react-native-animatable';
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, FontAwesome } from "@expo/vector-icons";
 
 import { COLORS } from "../../../constant";
 
-export default function PanelOne ( onAnimate ) {
+export default function LeavePanel ( onAnimate ) {
     const [isModalVisible, setIsModalVisible] = useState(false)
 
     const data = [
@@ -28,14 +28,24 @@ export default function PanelOne ( onAnimate ) {
             duration={600}
             style={[styles.bodyContainer, {opacity: onAnimate ? 1 : 0,}]}
         >
-            <Text style={styles.titleText}>Panel One</Text>
+            <View style={styles.topContainer}>
+                <View style={styles.searchContainer}>
+                    <FontAwesome 
+                        name="search"
+                        size={20}
+                        color={COLORS.orange}
+                    />
 
-            <TouchableOpacity 
-                style={styles.addBtn}
-                onPress={toggleModal}
-            >
-                <Text style={styles.addText}>NEW REQUEST</Text>
-            </TouchableOpacity>
+                    <Text style={styles.searchText}>Search</Text>
+                </View>
+
+                <TouchableOpacity 
+                    style={styles.newReqButton}
+                    onPress={toggleModal}
+                >
+                    <Text style={styles.newReqText}>NEW REQUEST</Text>
+                </TouchableOpacity>
+            </View>
 
             <FlatList 
                 data={data} 
@@ -100,20 +110,6 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
 
-    addBtn: {
-        backgroundColor: COLORS.blue,
-        alignItems: 'center',
-        padding: 10,
-        marginHorizontal: 10,
-        marginVertical: 5,
-        borderRadius: 20,
-    },
-
-    addText: {
-        color: COLORS.white,
-        fontFamily: 'Inter_600SemiBold',
-    },
-
     modalContainer: {
         flex: 1,
         justifyContent: 'center',
@@ -141,5 +137,38 @@ const styles = StyleSheet.create({
     closeText: {
         color: COLORS.white,
         fontFamily: 'Inter_500Medium',
-    }
+    },
+
+    // Top Container
+    topContainer: {
+        width: '100%',
+        padding: 20,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+
+    // Search Text
+    searchContainer: {
+        flexDirection: 'row',    
+    },
+
+    searchText: {
+        fontFamily: 'Inter_500Medium',
+        fontSize: 15
+    },
+
+    // New Request Button
+    addBtn: {
+        backgroundColor: COLORS.blue,
+        alignItems: 'center',
+        padding: 10,
+        marginHorizontal: 10,
+        marginVertical: 5,
+        borderRadius: 20,
+    },
+
+    addText: {
+        color: COLORS.white,
+        fontFamily: 'Inter_600SemiBold',
+    },
 })

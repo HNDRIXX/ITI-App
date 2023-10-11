@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Platform} from 'react-native'
 import { router } from 'expo-router'
 import { Image } from 'expo-image'
-import { Ionicons, Foundation } from '@expo/vector-icons'
+import { Ionicons, Foundation, MaterialCommunityIcons } from '@expo/vector-icons'
 
 import { COLORS } from '../../constant'
 import HomeButtonLoader from '../loader/HomeButtonLoader'
@@ -59,10 +59,14 @@ export default function HomeButton () {
                                 style={styles.gridButton}
                                 onPress={() => router.push(`/access/home/`)}
                             >
-                                
+                                 <MaterialCommunityIcons 
+                                    name="folder-information" 
+                                    size={42} 
+                                    color={COLORS.orange}     
+                                />
                             </TouchableOpacity>
 
-                            <Text style={styles.textButton}></Text>
+                            <Text style={styles.textButton}>Pending</Text>
                         </View>
                     </View>
 
@@ -72,7 +76,7 @@ export default function HomeButton () {
                                 style={styles.gridButton}
                                 onPress={() => router.push(`/access/home/`)}
                             >
-                                
+                            
                             </TouchableOpacity>
 
                             <Text style={styles.textButton}></Text>

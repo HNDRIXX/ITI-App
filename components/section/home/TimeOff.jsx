@@ -10,8 +10,9 @@ export default function TimeOff () {
                 <View style={styles.alignWrapper}>
                     <FontAwesome5 
                         name='umbrella-beach'
-                        size={30}
+                        size={40}
                         color={COLORS.orange}
+                        style={{paddingRight: 10}}
                     /> 
 
                     <View style={styles.textContent}>
@@ -25,8 +26,9 @@ export default function TimeOff () {
                 <View style={styles.alignWrapper}>
                     <FontAwesome5 
                         name='briefcase-medical'
-                        size={30}
+                        size={43}
                         color={COLORS.orange}
+                        style={{paddingRight: 10}}
                     /> 
 
                     <View style={styles.textContent}>
@@ -53,11 +55,11 @@ const styles = StyleSheet.create({
     wrapper: {
         flex: 1,
         backgroundColor: COLORS.clearWhite,
-        elevation: 5,
-        shadowColor: COLORS.darkGray,
-        shadowOpacity: 0.1,
-        shadowRadius: 2,
-        shadowOffset : { width: 1, height: 5},
+        // elevation: 5,
+        // shadowColor: COLORS.darkGray,
+        // shadowOpacity: 0.1,
+        // shadowRadius: 2,
+        // shadowOffset : { width: 1, height: 5},
         marginHorizontal: 6,
         flexDirection: 'row',
         borderRadius: 20,
@@ -78,20 +80,19 @@ const styles = StyleSheet.create({
     },
 
     textContent: {
-        marginLeft: 20,
+        // marginLeft: 20,
     },
 
     totalText: {
         fontFamily: 'Inter_700Bold',
-        fontSize: 20,
+        fontSize: 17,
         textAlign: 'center'
     },
 
     title: {
         color: COLORS.darkGray,
-        fontSize: 12,
+        fontSize: 10,
         textAlign: 'center',
         fontFamily: 'Inter_500Medium',
     },
-
 })

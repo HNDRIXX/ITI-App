@@ -86,7 +86,9 @@ export default function App () {
                                 />
                             </TouchableOpacity>
 
-                            <TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={() => router.push('/access/navigation/notification') }
+                            >
                                 <FontAwesome 
                                     name={'bell'}
                                     size={25}
@@ -188,7 +190,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Inter_800ExtraBold',
         letterSpacing: -.5,
         color: COLORS.clearWhite,
-        fontSize: 17,
+        fontSize: 18,
     },
 
     belowHeaderText: {
@@ -219,7 +221,7 @@ const styles = StyleSheet.create({
 
     timeInOutWrapper: {
         // flex: 1,
-        height: 70,
+        height: 85,
         paddingHorizontal: 35,
         borderTopLeftRadius: 80,
         borderTopEndRadius: 80,

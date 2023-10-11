@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     padding: 3,
     paddingBottom: 10,
     alignItems: 'center',
-    backgroundColor: COLORS.blue,
+    backgroundColor: COLORS.powderBlue,
   },
 
   textHeader: {

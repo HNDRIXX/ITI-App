@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 
 import { COLORS } from '../../constant';
-import PanelOne from '../section/request/PanelOne';
+import LeavePanel from '../section/request/Leave';
 import PanelTwo from '../section/request/PanelTwo';
 
 export default function RequestButton() {
     const data = [
-        { title: 'Panel One' },
+        { title: 'Leave' },
         { title: 'Panel Two' },
         { title: 'Panel Three' },
         { title: 'Panel Four' },
@@ -15,7 +15,7 @@ export default function RequestButton() {
         { title: 'Panel Six' },
     ];
 
-    const [selectedButtonIndex, setSelectedButtonIndex] = useState(1)
+    const [selectedButtonIndex, setSelectedButtonIndex] = useState(0)
     const [displayText, setDisplayText] = useState('')
 
     const handleButtonPress = (index, title) => {
@@ -36,7 +36,12 @@ export default function RequestButton() {
                             ]}
                             onPress={() => handleButtonPress(index, item.title)}
                         >
-                            <Text style={styles.buttonText}>{item.title}</Text>
+                            <Text 
+                                style={[
+                                    styles.buttonText,
+                                    selectedButtonIndex === index && styles.selectedTextButton
+                                ]}
+                            >{item.title}</Text>
                         </TouchableOpacity>
                     )}
                     style={styles.buttonList}
@@ -46,13 +51,13 @@ export default function RequestButton() {
             </View>
 
             { selectedButtonIndex == 0 && (
-                <PanelOne 
+                <LeavePanel
                     onAnimate={true}
                 />
             )}
 
             { selectedButtonIndex == 1 && (
-                <PanelTwo 
+                <PanelTwo  
                     onAnimate={true}
                 />
             )}
@@ -72,7 +77,6 @@ const styles = StyleSheet.create({
     button: {
         width: 130,
         height: 40,
-        backgroundColor: COLORS.tr_gray,
         shadowColor: COLORS.darkGray,
         shadowOffset: {width: 1, height: 1},
         shadowOpacity: .2,
@@ -85,12 +89,15 @@ const styles = StyleSheet.create({
     },
 
     buttonText: {
-        color: COLORS.white,
-        fontFamily: 'Inter_600SemiBold'
+        color: COLORS.tr_gray,
+        fontFamily: 'Inter_700Bold'
     },
     
     selectedButton: {
         backgroundColor: COLORS.orange,
     },
 
+    selectedTextButton: {
+        color: COLORS.clearWhite
+    }
 })

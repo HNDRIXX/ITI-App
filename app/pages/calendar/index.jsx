@@ -1,7 +1,8 @@
 import React, { useState, useRef } from "react";
 import { View, Text, StyleSheet, SafeAreaView, ScrollView, RefreshControl } from "react-native";
 import { Calendar } from "react-native-calendars";
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, FontAwesome } from "@expo/vector-icons";
+import DashedLine from "react-native-dashed-line";
 
 import { COLORS } from "../../../constant";
 
@@ -70,7 +71,7 @@ export default function CalendarIndex() {
           <RefreshControl
             refreshing={refreshing}
             onRefresh={refresh}
-            tintColor={COLORS.blue}
+            tintColor={COLORS.powderBlue}
           />
         }
       >
@@ -83,7 +84,7 @@ export default function CalendarIndex() {
           }}
           theme={{
             dotColor: COLORS.orange,
-            todayTextColor: COLORS.blue,
+            todayTextColor: COLORS.powderBlue,
             arrowColor: COLORS.orange,
           }}
           markedDates={addMarkedDates()}
@@ -92,13 +93,8 @@ export default function CalendarIndex() {
         {/* <Text style={styles.bodyTitle}>Calendar Event</Text> */}
 
         {selectedDate ? (
-          <View style={styles.agenda}>
-            <View style={styles.agendaDateWrapper}>
-              <Text style={styles.dayAgenda}>{formatDate(selectedDate)}</Text>
-            </View>
-
-            <View style={styles.itemWrapper}>
-              {events.length === 0 ? (
+          <ScrollView style={styles.agenda}>
+            {/* {events.length === 0 ? (
                 <Text style={styles.noEventsText}>
                   No agenda or event
                 </Text>
@@ -108,17 +104,74 @@ export default function CalendarIndex() {
                     {event.name}
                   </Text>
                 ))
-              )}
+              )} */}
+
+            <View style={styles.agendaDateWrapper}>
+              <Text style={styles.todayText}>Today</Text>
+              <Text style={styles.dayAgenda}>{formatDate(selectedDate)}</Text>
             </View>
-          </View>
+
+            <View style={styles.itemWrapper}>
+              <View style={styles.dayStatusWrapper}>
+                <FontAwesome 
+                  name={'circle'}
+                  size={40}
+                  color={COLORS.powderBlue}
+                  style={{ paddingLeft: 5, }}
+                />
+
+                <Text style={styles.dayStatusText}>Holiday</Text>
+              </View>
+
+              <View style={styles.dayContentWrapper}>
+                <Text style={styles.dayContentText}>Lorem Ipsum Dolor</Text>
+              </View>
+
+              <View style={styles.prevNextContainer}>
+                <View style={styles.prevNextDateWrapper}>
+                  <Text style={styles.prevNextText}>Previous</Text>
+                  <Text style={styles.prevNextDayText}>{formatDate(selectedDate)}</Text>
+                </View>
+
+                <View style={styles.dayStatusWrapper}>
+                  <FontAwesome 
+                    name={'circle'}
+                    size={25}
+                    color={COLORS.powderBlue}
+                    style={{ paddingLeft: 5, }}
+                  />
+
+                  <Text style={styles.belowDayStatusText}>Work Day</Text>
+                </View>
+              </View>
+
+              <View style={styles.prevNextContainer}>
+                <View style={styles.prevNextDateWrapper}>
+                  <Text style={styles.prevNextText}>Upcoming</Text>
+                  <Text style={styles.prevNextDayText}>{formatDate(selectedDate)}</Text>
+                </View>
+
+                <View style={styles.dayStatusWrapper}>
+                  <FontAwesome 
+                    name={'circle'}
+                    size={25}
+                    color={COLORS.powderBlue}
+                    style={{ paddingLeft: 5, }}
+                  />
+
+                  <Text style={styles.belowDayStatusText}>Work Day</Text>
+                </View>
+              </View>
+            </View>
+          </ScrollView>
         ) : (
           <View style={styles.promptView}>
             <AntDesign
               name={'select1'}
               size={70}
-              color={COLORS.white}
+              color={COLORS.powderBlue}
             />
-
+            
             <Text style={styles.promptText}>Select any day in the calendar to display.</Text>
           </View>
         )}
@@ -130,13 +183,14 @@ export default function CalendarIndex() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: COLORS.clearWhite
   },
 
   topHeader: {
     padding: 3,
     paddingBottom: 10,
     alignItems: 'center',
-    backgroundColor: COLORS.blue,
+    backgroundColor: COLORS.powderBlue,
   },
 
   textHeader: {
@@ -147,43 +201,103 @@ const styles = StyleSheet.create({
 
   calendarView: {
     paddingTop: 20,
-    height: 400,
+    height: 380,
   },
 
   agendaDateWrapper: {
     padding: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
 
   agenda: {
     flex: 1,
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
-    backgroundColor: COLORS.blue,
-    alignItems: 'center',
+    paddingHorizontal: 10,
+    elevation: 15,
+    shadowColor: COLORS.darkGray,
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    shadowOffset : { width: 1, height: 5},
+    backgroundColor: COLORS.clearWhite,
+    // alignItems: 'center',
+  },
+
+  todayText: {
+    fontFamily: 'Inter_600SemiBold',
+    fontSize: 18,
+    color: COLORS.darkGray,
+  },  
+
+  dayAgenda: {
+    fontSize: 13,
+    color: COLORS.darkGray,
+    textAlign: 'center',
+    fontFamily: 'Inter_400Regular',
   },
 
   itemWrapper: {
-    borderRadius: 10,
-    padding: 20,
-    width: '90%',
-    backgroundColor: COLORS.lightOrange,
-    shadowColor: COLORS.tr_gray,
-    shadowOpacity: 0.6,
-    shadowOffset: { width: 1, height: 1 }
+    paddingHorizontal: 20,
+    paddingBottom: 10,
+    backgroundColor: COLORS.clearWhite,
   },
 
-  dayAgenda: {
-    fontSize: 16,
-    color: COLORS.clearWhite,
+  dayStatusWrapper: {
+    flex: 0,
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '50%',
+    borderRadius: 50,
+    backgroundColor: COLORS.clearWhite,
+    elevation: 5,
+    shadowColor: COLORS.darkGray,
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    shadowOffset : { width: 1, height: 5},
+  },  
+
+  dayStatusText: {
     textAlign: 'center',
-    fontFamily: 'Inter_700Bold',
+    paddingLeft: 10,
+    fontSize: 16,
+    fontFamily: 'Inter_500Medium',
   },
 
-  agendaItem: {
-    fontSize: 14,
+  dayContentWrapper: {
+    padding: 20,
+    borderBottomColor: COLORS.orange,
+    borderBottomWidth: 2,
+  },
+
+  dayContentText: {
+    textAlign: 'center',
     fontFamily: 'Inter_500Medium',
-    color: COLORS.clearWhite,
-    marginVertical: 7,
+  },
+
+  prevNextContainer: {
+    paddingHorizontal: 10,
+    padding: 5,
+  },
+
+  prevNextDateWrapper: {
+
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+
+  prevNextText: {
+    fontFamily: 'Inter_500Medium'
+  },
+
+  prevNextDayText: {
+    fontFamily: 'Inter_400Regular',
+    fontSize: 12,
+  },
+
+  belowDayStatusText: {
+    padding: 10,
+    fontFamily: 'Inter_400Regular'
   },
 
   noEventsText: {
@@ -197,7 +311,12 @@ const styles = StyleSheet.create({
     flex: 1,
     borderTopLeftRadius: 40,
     borderTopEndRadius: 40,
-    backgroundColor: COLORS.blue,
+    elevation: 15,
+    shadowColor: COLORS.darkGray,
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    shadowOffset : { width: 1, height: 5},
+    backgroundColor: COLORS.clearWhite,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -205,8 +324,8 @@ const styles = StyleSheet.create({
   promptText: {
     width: 180,
     padding: 20,
-    color: COLORS.white,
-    fontFamily: 'Inter_400Regular',
+    color: COLORS.powderBlue,
+    fontFamily: 'Inter_500Medium',
     textAlign: 'center',
   },
 
