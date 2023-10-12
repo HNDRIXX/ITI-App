@@ -20,6 +20,14 @@ const COLORS = {
     darkBlue: '#073DCC',
     powderBlue: '#72A7FF',
 
+    purple: '#BA5CFF',
+
+    red: '#EE2C38',
+
+    green: '#1BD51F',
+    
+    yellow: '#FFF52B',
+
     tr_gray: '#2A2A2A73',
     lightGray: '#EAEAEA',
     lightGray2: '#EFEFEF',

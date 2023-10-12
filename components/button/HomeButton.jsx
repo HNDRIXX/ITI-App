@@ -27,7 +27,7 @@ export default function HomeButton () {
                         <View style={styles.buttonContainer}>
                             <TouchableOpacity 
                                 style={styles.gridButton}
-                                onPress={() => router.push(`/access/home/`)}
+                                onPress={() => router.push(`/access/navigation/home/timesheet`)}
                             >
                                 <Ionicons 
                                     name={'ios-calendar'}
