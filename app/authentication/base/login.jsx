@@ -16,8 +16,6 @@ export default function SignInIndex () {
             <StatusBar style='dark' />
 
             <View style={styles.inputContainer}>
-                <Text style={styles.signInTitle}>Log-In</Text>
-
                 <View style={styles.inputWrapper}>
                     <TextInput
                         style={styles.textInput}
@@ -39,19 +37,21 @@ export default function SignInIndex () {
                     />
                 </View>
 
-                <TouchableOpacity 
-                    style={styles.submitBtn}
-                    onPress={() => router.push(`/pages/home/`)}
-                >
-                    <Text style={styles.submitText}>SUBMIT</Text>
-                </TouchableOpacity>
-
                 <TouchableOpacity
                     style={styles.forgotBtn}
                     onPress={() => router.push(`/authentication/base/forgotPass`)}
                 >
-                    <Text style={styles.forgotText}>Forgot Password</Text>
+                    <Text style={styles.forgotText}>Forgot Password?</Text>
                 </TouchableOpacity>
+
+                <TouchableOpacity 
+                    style={styles.loginBtn}
+                    onPress={() => router.push(`/pages/home/`)}
+                >
+                    <Text style={styles.loginText}>LOG IN</Text>
+                </TouchableOpacity>
+
+                <Text style={styles.textFooter}>Powered by{'\n'}Intellismart Technology Inc.</Text>
             </View>
         </View>
     )
@@ -72,32 +72,20 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 
-    signInTitle: {
-        fontFamily: 'Inter_800ExtraBold',
-        fontSize: 43,
-        color: COLORS.orange,
-        marginBottom: 15,
-    },
-
     inputWrapper: {
         flexDirection: 'row',
         alignItems: 'center',
-        padding: 20,
+        padding: 10,
+        paddingHorizontal: 20,
         backgroundColor: COLORS.clearWhite,
         borderRadius: 30,
         marginBottom: 15,
 
-        elevation: 7,
-        shadowColor: COLORS.tr_gray,
+        elevation: 5,
+        shadowColor: COLORS.darkGray,
         shadowOffset: { width: 2, height: 2 },
         shadowOpacity: 0.5, 
         shadowRadius: 5, 
-    },
-
-    iconInput: {
-        borderRightWidth: 1,
-        borderRightColor: COLORS.gray,
-        padding: 10
     },
 
     textInput: {
@@ -106,29 +94,42 @@ const styles = StyleSheet.create({
         color: COLORS.darkGray
     },
 
-    submitBtn: {
-        backgroundColor: COLORS.blue,
+    loginBtn: {
+        backgroundColor: COLORS.orange,
         alignItems: 'center',
         alignSelf: 'center',
-        width: 200,
+        width: 160,
         padding: 15,
-        borderRadius: 10,
-        marginTop: 5,
+        borderRadius: 50,
+        marginTop: 100,
+
+        elevation: 5,
+        shadowColor: COLORS.darkGray,
+        shadowOffset: { width: 2, height: 2 },
+        shadowOpacity: 0.5, 
+        shadowRadius: 5, 
     },
 
-    submitText: {
+    loginText: {
         color: COLORS.clearWhite,
         fontSize: 15,
-        fontFamily: 'Inter_600SemiBold'
+        fontFamily: 'Inter_800ExtraBold'
     },
 
     forgotBtn: {
         alignSelf: 'center',
-        margin: 15,
     },
 
     forgotText: {
-        color: COLORS.tr_gray,
+        color: COLORS.darkGray,
         fontFamily: 'Inter_400Regular'
+    },
+
+    textFooter: {
+        textAlign: 'center',
+        position: 'absolute',
+        color: COLORS.darkGray,
+        fontFamily: 'Inter_400Regular',
+        bottom: 30
     }
 })

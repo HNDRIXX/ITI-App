@@ -7,11 +7,11 @@ import RequestButton from '../../../components/button/RequestButton'
 export default function RequestIndex() {
   return (
     <View style={styles.container}>
-      <View style={styles.topHeader}>
+      {/* <View style={styles.topHeader}>
         <Text style={styles.textHeader}>Request</Text>
       </View>
       
-      <RequestButton />
+      <RequestButton /> */}
     </View>
   )
 }

@@ -18,7 +18,7 @@ export default function ProfileIndex () {
 
     return (
         <View style={{ flex: 1 }}>
-            <View style={styles.topHeader}>
+            {/* <View style={styles.topHeader}>
                 <Text style={styles.textHeader}>Profile</Text>
             </View>
 
@@ -54,7 +54,7 @@ export default function ProfileIndex () {
                 <Payslip 
                     onAnimate={true}
                 />
-            )}
+            )} */}
         </View>
     )
 }

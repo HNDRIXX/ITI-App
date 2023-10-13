@@ -16,7 +16,11 @@ export default function forgotPasswordIndex () {
                 style={styles.backBtn}
                 onPress={() => router.back()}
             >
-                <AntDesign name='arrowleft' size={28} color={COLORS.blue} />
+                <AntDesign 
+                    name='arrowleft' 
+                    size={28} 
+                    color={COLORS.orange} 
+                />
             </TouchableOpacity>
             
             <View style={styles.wrapper}>
@@ -34,10 +38,10 @@ export default function forgotPasswordIndex () {
                 </View>
 
                 <TouchableOpacity 
-                    style={styles.submitBtn}
+                    style={styles.sendCodeBtn}
                     onPress={() => router.push(`/authentication/auth/verifyOTP`)}
                 >
-                    <Text style={styles.textBtn}>SUBMIT</Text>
+                    <Text style={styles.textBtn}>SEND CODE</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -66,12 +70,14 @@ const styles = StyleSheet.create({
     inputWrapper: {
         flexDirection: 'row',
         alignItems: 'center',
-        padding: 20,
+        padding: 10,
+        paddingHorizontal: 20,
         backgroundColor: COLORS.clearWhite,
         borderRadius: 30,
-        marginVertical: 20,
+        marginTop: 50,
 
-        shadowColor: COLORS.tr_gray,
+        elevation: 5,
+        shadowColor: COLORS.darkGray,
         shadowOffset: { width: 2, height: 2 },
         shadowOpacity: 0.5, 
         shadowRadius: 5, 
@@ -83,30 +89,31 @@ const styles = StyleSheet.create({
     },
 
     forgotText: {
-        fontFamily: 'Inter_800ExtraBold',
-        color: COLORS.orange,
-        fontSize: 43,
-        lineHeight: 44,
+        fontFamily: 'Inter_700Bold',
+        textAlign: 'center',
+        color: COLORS.darkGray,
+        fontSize: 26,
     },
 
     subText: {
+        textAlign: 'center',
         fontFamily: 'Inter_400Regular',
         color: COLORS.darkGray
     },  
 
-    submitBtn: {
-        backgroundColor: COLORS.blue,
+    sendCodeBtn: {
+        backgroundColor: COLORS.orange,
         alignItems: 'center',
         alignSelf: 'center',
-        width: 200,
+        width: 170,
+        marginTop: 100,
         padding: 15,
-        borderRadius: 10,
-        marginTop: 5,
+        borderRadius: 30,
     },
 
     textBtn: {
         color: COLORS.clearWhite,
-        fontFamily: 'Inter_600SemiBold',
+        fontFamily: 'Inter_700Bold',
         fontSize: 15,
     }
 })

@@ -1,46 +1,55 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, TextInput, Text, StyleSheet, TouchableOpacity, } from 'react-native';
+import { View, TextInput, Text, StyleSheet, TouchableOpacity, Modal } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { AntDesign } from '@expo/vector-icons';
 import { router } from 'expo-router';
 
 import { COLORS } from '../../../constant';
 
-export default function VerifyOTPIndex () {
-  const [code, setCode] = useState(['', '', '', '', ''])
-  const codeRefs = [useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)]
+export default function VerifyOTPIndex() {
+  const [code, setCode] = useState(['', '', '', '']);
+  const codeRefs = [useRef(null), useRef(null), useRef(null), useRef(null)]
+  const [isCustomAlertVisible, setCustomAlertVisible] = useState(false)
 
   const handleCodeChange = (text, index) => {
     const newCode = [...code]
     newCode[index] = text
     setCode(newCode)
 
-    console.log(newCode)
-
-
-    if (text.length === 1 && index < 4) {
+    if (text.length === 0 && index > 0) {
+      codeRefs[index - 1].current.focus()
+    } else if (text.length === 1 && index < 3) {
       codeRefs[index + 1].current.focus()
     }
-
   }
 
-  const codeResult = code.join('')
-  const isSubmitDisabled = code.some((value) => value.length !== 1)
+  const codeResult = code.join('');
+  const isSubmitDisabled = code.some((value) => value.length !== 1);
+
+  const openCustomAlert = () => {
+    setCustomAlertVisible(true);
+  }
+
+  const closeCustomAlert = () => {
+    setCustomAlertVisible(false)
+
+    router.push(`/authentication/base/resetPass`)
+  }
 
   return (
     <View style={styles.container}>
       <StatusBar style='dark' />
 
-      <TouchableOpacity 
-          style={styles.backBtn}
-          onPress={() => router.back()}
+      <TouchableOpacity
+        style={styles.backBtn}
+        onPress={() => router.back()}
       >
-          <AntDesign name='arrowleft' size={28} color={COLORS.blue} />
+        <AntDesign name='arrowleft' size={28} color={COLORS.orange} />
       </TouchableOpacity>
 
       <View style={styles.wrapper}>
-        <Text style={styles.label}>Verify</Text>
-        <Text style={styles.subText}>Enter the received input.</Text>
+        <Text style={styles.verificationText}>Verification</Text>
+        <Text style={styles.subText}>We sent a 4-digit verification code to your email address</Text>
 
         <View style={styles.codeContainer}>
           {code.map((value, index) => (
@@ -54,26 +63,61 @@ export default function VerifyOTPIndex () {
               ref={codeRefs[index]}
             />
           ))}
+        </View>
 
-          {/* <TextInput
-              style={styles.singleInput}
-              value={''}
-              keyboardType="numeric"
-              maxLength={1}
-          /> */}
+        <View style={styles.resendWrapper}>
+          <Text>Didn't receive a code?</Text>
+          <TouchableOpacity style={styles.resendButton}>
+            <Text style={styles.resendText}>Resend</Text>
+          </TouchableOpacity>
         </View>
 
         <TouchableOpacity
-          style={[styles.submitBtn, isSubmitDisabled ? styles.disabledBtn : null]}
-          onPress={() => console.log(codeResult)} 
-          disabled={ isSubmitDisabled ? true : false }
+          style={[styles.verifyBtn, isSubmitDisabled ? styles.disabledBtn : null]}
+          onPress={openCustomAlert}
+          disabled={isSubmitDisabled}
         >
-          <Text style={styles.textBtn}>SUBMIT</Text>
+          <Text style={styles.textBtn}>VERIFY</Text>
         </TouchableOpacity>
       </View>
+
+      {/* Custom Alert */}
+      <CustomAlert visible={isCustomAlertVisible} onClose={closeCustomAlert} />
     </View>
   )
 }
+
+// Custom Alert Component
+const CustomAlert = ({ visible, onClose }) => {
+  return (
+    <Modal
+      transparent={true}
+      visible={visible}
+      animationType="fade"
+    >
+      <View style={styles.modalView}>
+        <View style={styles.modalWrapper}>
+          <AntDesign 
+            name={'checkcircle'}
+            size={70}
+            color={COLORS.green}
+          />
+
+          <Text style={styles.verifiedText}>Verified</Text>
+          <Text style={styles.verifiedSubText}>You have successfully verified the account.</Text>
+
+          <TouchableOpacity 
+            onPress={onClose}
+            style={styles.updatePassBtn}
+          >
+            <Text style={styles.updatePassText}>UPDATE PASSWORD</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </Modal>
+  );
+};
+
 
 const styles = StyleSheet.create({
   container: {
@@ -87,15 +131,19 @@ const styles = StyleSheet.create({
     marginTop: 60,
   },
 
-  label: {
-    fontFamily: 'Inter_800ExtraBold',
-    color: COLORS.orange,
-    fontSize: 40,
+  verificationText: {
+    fontFamily: 'Inter_700Bold',
+    color: COLORS.black,
+    fontSize: 26,
+    textAlign: 'center',
   },
 
   subText: {
     fontFamily: 'Inter_400Regular',
-    color: COLORS.darkGray
+    color: COLORS.black,
+    textAlign: 'center',
+    alignSelf: 'center',
+    width: '70%',
   },
 
   wrapper: {
@@ -114,13 +162,18 @@ const styles = StyleSheet.create({
   input: {
     width: 60,
     height: 60,
-    marginHorizontal: 4,
-    borderWidth: 1,
-    borderColor: 'gray',
+    marginHorizontal: 12,
     textAlign: 'center',
     borderRadius: 10,
     fontSize: 27,
-    fontFamily: 'Inter_600SemiBold'
+    backgroundColor: COLORS.clearWhite,
+    fontFamily: 'Inter_600SemiBold',
+
+    elevation: 5,
+    shadowColor: COLORS.darkGray,
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.5, 
+    shadowRadius: 5, 
   },
 
   singleInput: {
@@ -138,28 +191,82 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5, 
     shadowRadius: 5,
   },
+
+  resendWrapper: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    marginBottom: 100,
+  },
   
-  submitBtn: {
-    backgroundColor: COLORS.blue,
+  resendButton: {
+    paddingHorizontal: 5,
+  },
+
+  resendText: {
+    color: COLORS.orange,
+    fontFamily: 'Inter_700Bold',
+  },
+
+  verifyBtn: {
+    backgroundColor: COLORS.orange,
     padding: 14,
     alignItems: 'center',
     alignSelf: 'center',
-    width: 200,
-    borderRadius: 10,
-  },
-
-  bottomContainer: {
-    flex:  1,
-  },
-
-  disabledBtn: {
-      backgroundColor: 'gray',
-      opacity: 0.3,
+    width: 180,
+    borderRadius: 30,
   },
 
   textBtn: {
     color: COLORS.clearWhite,
-    fontFamily: 'Inter_600SemiBold',
+    fontFamily: 'Inter_800ExtraBold',
     fontSize: 15,
+  },
+
+  disabledBtn: {
+    backgroundColor: 'gray',
+    opacity: 0.3,
+  },
+
+  modalView: {
+    flex: 1, 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    backgroundColor: 'rgba(0, 0, 0, 0.5)'
+  },
+
+  modalWrapper: {
+    backgroundColor: COLORS.clearWhite, 
+    padding: 30, 
+    borderRadius: 15,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+
+  verifiedText: {
+    color: COLORS.darkGray,
+    fontFamily: 'Inter_700Bold',
+    fontSize: 22,
+  },
+
+  verifiedSubText: {
+    fontSize: 13,
+    fontFamily: 'Inter_400Regular',
+  },
+
+  updatePassBtn: {
+    backgroundColor: COLORS.orange,
+    padding: 15,
+    paddingVertical: 10,
+    borderRadius: 30,
+    marginTop: 20,
+    width: 200,
+  },
+
+  updatePassText: {
+    textAlign: 'center',
+    color: COLORS.clearWhite,
+    fontFamily: 'Inter_800ExtraBold',
   }
+
 })

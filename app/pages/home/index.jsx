@@ -220,9 +220,8 @@ const styles = StyleSheet.create({
     },
 
     timeInOutWrapper: {
-        // flex: 1,
-        height: 85,
         paddingHorizontal: 35,
+        paddingBottom: 30,
         borderTopLeftRadius: 80,
         borderTopEndRadius: 80,
         backgroundColor: COLORS.white
@@ -248,5 +247,6 @@ const styles = StyleSheet.create({
     timeOffContainer: {
         flex: 1,
         marginTop: 10,
+        paddingBottom: 20,
     }
 })

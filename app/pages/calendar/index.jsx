@@ -4,6 +4,7 @@ import { Calendar } from "react-native-calendars";
 import { AntDesign, FontAwesome } from "@expo/vector-icons";
 
 import { COLORS } from "../../../constant";
+import TimeSheetPrompt from "../../../components/note/CalendarPrompt";
 
 export default function CalendarIndex() {
   const [currDate, setCurrDate] = useState(null)
@@ -23,6 +24,7 @@ export default function CalendarIndex() {
     '2023-10-05': [ { event: 'Approved Leave', status: 'Leave', }, ],
     '2023-10-06': [ { event: 'Government Declared Holiday', status: 'Holiday' } ],
     '2023-10-07': [ { event: 'No Work Schedule', status: 'Rest Day' } ],
+    '2023-10-08': [ { event: 'No Work Schedule', status: 'Rest Day' } ],
     '2023-10-30': [ { event: 'Election', status: 'Holiday' } ],
     '2023-10-31': [ { event: '7:00 AM to 4:00 PM', status: 'Work Day' } ],
   }
@@ -89,20 +91,18 @@ export default function CalendarIndex() {
     const monthNames = [
       'January', 'February', 'March', 'April', 'May', 'June', 'July',
       'August', 'September', 'October', 'November', 'December'
-    ];
+    ]
+
+    const parts = originalDate.split(' ')
   
-    // Split the original date into parts
-    const parts = originalDate.split(' ');
-  
-    // Extract the month, day, and year
-    const month = monthNames.indexOf(parts[0]) + 1; // Adding 1 because the array is 0-based
-    const day = parseInt(parts[1].replace(',', ''), 10); // Parse day as an integer
-    const year = parseInt(parts[2], 10); // Parse year as an integer
+    const month = monthNames.indexOf(parts[0]) + 1
+    const day = parseInt(parts[1].replace(',', ''), 10)
+    const year = parseInt(parts[2], 10)
   
     // Create the formatted date
-    const formattedDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+    const formattedDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`
   
-    return formattedDate;
+    return formattedDate
   }
 
   return (
@@ -250,13 +250,7 @@ export default function CalendarIndex() {
           </ScrollView>
         ) : (
           <View style={styles.promptView}>
-            <AntDesign
-              name={'select1'}
-              size={70}
-              color={COLORS.powderBlue}
-            />
-            
-            <Text style={styles.promptText}>Select any day in the calendar to display.</Text>
+            <TimeSheetPrompt />
           </View>
         )}
       </ScrollView>
@@ -389,28 +383,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: COLORS.darkGray,
     fontFamily: 'Inter_400Regular',
-  },
-
-  promptView: {
-    flex: 1,
-    borderTopLeftRadius: 40,
-    borderTopEndRadius: 40,
-    elevation: 15,
-    shadowColor: COLORS.darkGray,
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    shadowOffset : { width: 1, height: 5},
-    backgroundColor: COLORS.clearWhite,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
-  promptText: {
-    width: 180,
-    padding: 20,
-    color: COLORS.powderBlue,
-    fontFamily: 'Inter_500Medium',
-    textAlign: 'center',
   },
 
   scrollView: {

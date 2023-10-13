@@ -5,11 +5,16 @@ import { AntDesign } from '@expo/vector-icons'
 import { Agenda } from 'react-native-calendars'
 import { Calendar } from 'react-native-big-calendar'
 import { Entypo, FontAwesome } from '@expo/vector-icons'
+import DashedLine from 'react-native-dashed-line'
 
 import { COLORS } from '../../../../constant'
+import CalendarPrompt from '../../../../components/note/CalendarPrompt'
 
 export default function Timesheet () {
     const [isLoading, setIsLoading] = useState(true)
+    
+    const [month, setMonth] = useState('October')
+    const [year, setYear] = useState('2023')
 
     const [selectedDate, setSelectedDate] = useState(null)
     const [events, setEvents] = useState(null)
@@ -20,12 +25,16 @@ export default function Timesheet () {
             { time: '06:01:02 PM', location: '12 Cataduanes St. Quezon City' }],
         
         '2023-10-11': [
-                { time: '07:49:01 AM', location: '12 Cataduanes St. Quezon City' },
-                { time: '06:20:05 PM', location: '12 Cataduanes St. Quezon City' }],
+            { time: '07:49:01 AM', location: '12 Cataduanes St. Quezon City' },
+            { time: '06:20:05 PM', location: '12 Cataduanes St. Quezon City' }],
         
         '2023-10-12': [
             { time: '07:31:01 AM', location: '12 Cataduanes St. Quezon City' },
             { time: '08:31:01 PM', location: '12 Cataduanes St. Quezon City' }],
+        
+        '2023-10-13': [
+            { time: '07:21:19 AM', location: '12 Cataduanes St. Quezon City' },
+            { time: null, location: null }],
     }
     
     const currentDate = new Date()
@@ -37,9 +46,19 @@ export default function Timesheet () {
     }, [])
 
     const dayPress = (day) => {
-        setSelectedDate(day.dateString)
-        setEvents(items[day.dateString] || [])
-    }
+        setSelectedDate(day.dateString);
+        setEvents(items[day.dateString] || []);
+    
+        // Convert the selected date string to a JavaScript Date object
+        const selectedDateObj = new Date(day.dateString);
+    
+        // Get the month and year
+        const month = selectedDateObj.toLocaleString('default', { month: 'long' });
+        const year = selectedDateObj.getFullYear();
+    
+        setMonth(month)
+        setYear(year)
+    }    
     
     return (
         <View style={styles.container}>
@@ -57,7 +76,7 @@ export default function Timesheet () {
                     </View>
 
                     <View style={styles.agendaCalendar}>
-                        <Text style={styles.monthYearText}>{currentMonth} {currentYear}</Text>
+                        <Text style={styles.monthYearText}>{month} {year}</Text>
                         <Agenda
                             items={items}
                             onDayPress={dayPress}
@@ -65,35 +84,54 @@ export default function Timesheet () {
 
                             renderList={() => (
                                 <View style={styles.agendaItem}>
+                                    {selectedDate == null && (
+                                        <CalendarPrompt />
+                                    )}
+                                    
                                     {selectedDate && events && events.length === 0 ? (
                                         <Text style={styles.noEventsText}>No events to display</Text>
                                     ) : (
                                         events && events.map((event, index) => (
                                             <View
-                                                key={index}
-                                                style={index === 3 ? { paddingBottom: 500 } : {}}
+                                                key={ index }
+                                                style={ index === 3 ? { paddingBottom: 500 } : {}}
                                             >
                                                 <Text style={styles.clockInOutText}>
-                                                    {index === 1 ? "Clock-in"
-                                                    : index === 0 ? "Clock-out" : null}:
+                                                    { index === 0 ? "Clock-in : "
+                                                    : index === 1 ? "Clock-out :" : null}
                                                 </Text>
 
                                                 <View style={styles.itemContainer}>
                                                     <FontAwesome 
-                                                        name={index === 1 ? "sign-in" 
-                                                        : index === 0 ? "sign-out" : null}
+                                                        name={ 
+                                                            index === 1 ? "sign-in" : 
+                                                            index === 0 ? "sign-out" : null
+                                                        }
                                                         size={34} 
-                                                        color={index === 1 ? COLORS.orange 
-                                                        : index === 0 ? COLORS.powderBlue : null}
+                                                        color={
+                                                            index === 1 ? COLORS.orange : 
+                                                            index === 0 ? COLORS.powderBlue : null
+                                                        }
                                                         style={{ paddingRight: 20 }}
                                                     />
 
                                                     <View style={styles.item}>
-                                                        <Text style={styles.itemText}>{event.time}</Text>
-
-                                                        <Text style={styles.itemLoc}>
-                                                            {event.location ? event.location : "Empty"}
-                                                        </Text>
+                                                        {!event.time && !event.location ? 
+                                                            ( 
+                                                                <DashedLine 
+                                                                    dashLength={5}
+                                                                    dashColor={COLORS.darkGray}
+                                                                    dashGap={2}
+                                                                    dashThickness={2}
+                                                                    style={{ width: 130, }}
+                                                                />
+                                                            )
+                                                        : (
+                                                            <>
+                                                                <Text style={styles.itemText}>{event.time}</Text>
+                                                                <Text style={styles.itemLoc}>{event.location}</Text>
+                                                            </>
+                                                        )}
                                                     </View>
                                                 </View>
                                             </View>
@@ -101,7 +139,6 @@ export default function Timesheet () {
                                     )}
                                 </View>
                             )}
-
 
                             renderEmptyData={() => (
                                 <Text style={styles.noDisplayText}>No agenda for this day.</Text>
@@ -126,6 +163,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignSelf: 'center',
         alignItems: 'center',
+    },
+
+    line: {
+        borderBottomColor: 'black',
+        borderBottomWidth: StyleSheet.hairlineWidth,
     },
 
     backButton: {
@@ -198,11 +240,10 @@ const styles = StyleSheet.create({
         fontSize: 12,
     },
 
-    noDisplayText: {
-        justifyContent: 'center',
-        alignSelf: 'center',
+    noEventsText: {
+        color: COLORS.tr_gray,
+        textAlign: 'center',
         padding: 20,
-        color: COLORS.darkGray,
         fontFamily: 'Inter_500Medium'
-    }
+    },
 })
