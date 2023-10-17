@@ -51,7 +51,7 @@ export default function Timesheet () {
     
         // Convert the selected date string to a JavaScript Date object
         const selectedDateObj = new Date(day.dateString);
-    
+        
         // Get the month and year
         const month = selectedDateObj.toLocaleString('default', { month: 'long' });
         const year = selectedDateObj.getFullYear();

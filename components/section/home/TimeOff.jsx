@@ -2,18 +2,18 @@ import { View, Text, StyleSheet } from "react-native";
 
 import { COLORS } from "../../../constant";
 import { AntDesign, FontAwesome5 } from "@expo/vector-icons";
+import { Image } from "expo-image";
 
 export default function TimeOff () {
     return (
         <View style={styles.container}>
             <View style={styles.wrapper}>
                 <View style={styles.alignWrapper}>
-                    <FontAwesome5 
-                        name='umbrella-beach'
-                        size={40}
-                        color={COLORS.orange}
-                        style={{paddingRight: 10}}
-                    /> 
+                    <Image 
+                        source={require('../../../assets/img/icons/vacation.png')}
+                        style={{ width: 50, height: 50 }}
+                        contentFit="contain"
+                    />
 
                     <View style={styles.textContent}>
                         <Text style={styles.totalText}>3.00</Text>
@@ -22,14 +22,13 @@ export default function TimeOff () {
                 </View>
             </View>
 
-            <View style={styles.wrapper}>
+            <View style={[styles.wrapper, { padding: 15 }]}>
                 <View style={styles.alignWrapper}>
-                    <FontAwesome5 
-                        name='briefcase-medical'
-                        size={43}
-                        color={COLORS.orange}
-                        style={{paddingRight: 10}}
-                    /> 
+                    <Image 
+                        source={require('../../../assets/img/icons/medicine.png')}
+                        style={{ width: 39, height: 39, marginRight: 10, }}
+                        contentFit="contain"
+                    />
 
                     <View style={styles.textContent}>
                         <Text style={styles.totalText}>1.50</Text>
@@ -49,7 +48,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly',
         alignItems: 'center',
         paddingHorizontal: 5,
-        marginVertical: 12,
+        marginTop: 10,
     },
 
     wrapper: {

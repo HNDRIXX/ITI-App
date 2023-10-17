@@ -1,12 +1,24 @@
 import React, { useState } from "react"
-import { View, Text, StyleSheet, TextInput } from "react-native";
+import { View, Text, StyleSheet, TextInput, TouchableOpacity} from "react-native";
+import { router } from 'expo-router'
 
 import { COLORS } from "../../../constant";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import SuccessPrompt from "../../../components/prompt/SuccessPrompt";
 
 export default function ResetPassword () {
     const [newPassword, setNewPassword] = useState(null)
     const [confirmPassword, setConfirmPassword] = useState(null)
+    const [isSuccessAlertVisible, setIsSuccessAlertVisible] = useState(false)
+
+    const openCustomAlert = () => {
+        setIsSuccessAlertVisible(true);
+    }
+
+    const closeCustomAlert = () => {
+        setIsSuccessAlertVisible(false)
+
+        router.push(`/authentication/base/login`)
+    }
 
     return (
         <View style={styles.container}>
@@ -36,10 +48,19 @@ export default function ResetPassword () {
 
                 <TouchableOpacity
                     style={styles.updateBtn}
+                    onPress={openCustomAlert}
                 >
                     <Text style={styles.textBtn}>UPDATE</Text>
                 </TouchableOpacity>
             </View>
+
+            <SuccessPrompt
+                title={"Password Change!"}
+                subTitle={"You have successfully change your password."}
+                buttonText={"OKAY"}
+                visible={isSuccessAlertVisible} 
+                onClose={closeCustomAlert} 
+            />
         </View>
     )
 }

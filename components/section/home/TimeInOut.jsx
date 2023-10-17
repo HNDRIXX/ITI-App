@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     timeInOutButton: {
         backgroundColor: COLORS.orange,
         padding: 13,
-        width: 200,
+        width: 270,
         borderRadius: 10,
         marginTop: 10,
         flexDirection: 'row',

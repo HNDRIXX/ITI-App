@@ -58,7 +58,7 @@ export default function GeofenceIndex () {
       setCurrTime(new Date())
     }, 1000)
 
-    return () => clearInterval(intervalId);
+    return () => clearInterval(intervalId)
   }, [])
 
   useEffect(() => {

@@ -5,11 +5,12 @@ import { AntDesign } from '@expo/vector-icons';
 import { router } from 'expo-router';
 
 import { COLORS } from '../../../constant';
+import SuccessPrompt from '../../../components/prompt/SuccessPrompt';
 
 export default function VerifyOTPIndex() {
   const [code, setCode] = useState(['', '', '', '']);
   const codeRefs = [useRef(null), useRef(null), useRef(null), useRef(null)]
-  const [isCustomAlertVisible, setCustomAlertVisible] = useState(false)
+  const [isSuccessAlertVisible, setIsSuccessAlertVisible] = useState(false)
 
   const handleCodeChange = (text, index) => {
     const newCode = [...code]
@@ -27,11 +28,11 @@ export default function VerifyOTPIndex() {
   const isSubmitDisabled = code.some((value) => value.length !== 1);
 
   const openCustomAlert = () => {
-    setCustomAlertVisible(true);
+    setIsSuccessAlertVisible(true);
   }
 
   const closeCustomAlert = () => {
-    setCustomAlertVisible(false)
+    setIsSuccessAlertVisible(false)
 
     router.push(`/authentication/base/resetPass`)
   }
@@ -81,43 +82,16 @@ export default function VerifyOTPIndex() {
         </TouchableOpacity>
       </View>
 
-      {/* Custom Alert */}
-      <CustomAlert visible={isCustomAlertVisible} onClose={closeCustomAlert} />
+      <SuccessPrompt
+        title={"Verified"}
+        subTitle={"You have successfully verfied the account"}
+        buttonText={"UPDATE PASSWORD"}
+        visible={isSuccessAlertVisible} 
+        onClose={closeCustomAlert} 
+      />
     </View>
   )
 }
-
-// Custom Alert Component
-const CustomAlert = ({ visible, onClose }) => {
-  return (
-    <Modal
-      transparent={true}
-      visible={visible}
-      animationType="fade"
-    >
-      <View style={styles.modalView}>
-        <View style={styles.modalWrapper}>
-          <AntDesign 
-            name={'checkcircle'}
-            size={70}
-            color={COLORS.green}
-          />
-
-          <Text style={styles.verifiedText}>Verified</Text>
-          <Text style={styles.verifiedSubText}>You have successfully verified the account.</Text>
-
-          <TouchableOpacity 
-            onPress={onClose}
-            style={styles.updatePassBtn}
-          >
-            <Text style={styles.updatePassText}>UPDATE PASSWORD</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </Modal>
-  );
-};
-
 
 const styles = StyleSheet.create({
   container: {
@@ -227,46 +201,4 @@ const styles = StyleSheet.create({
     backgroundColor: 'gray',
     opacity: 0.3,
   },
-
-  modalView: {
-    flex: 1, 
-    justifyContent: 'center', 
-    alignItems: 'center', 
-    backgroundColor: 'rgba(0, 0, 0, 0.5)'
-  },
-
-  modalWrapper: {
-    backgroundColor: COLORS.clearWhite, 
-    padding: 30, 
-    borderRadius: 15,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-
-  verifiedText: {
-    color: COLORS.darkGray,
-    fontFamily: 'Inter_700Bold',
-    fontSize: 22,
-  },
-
-  verifiedSubText: {
-    fontSize: 13,
-    fontFamily: 'Inter_400Regular',
-  },
-
-  updatePassBtn: {
-    backgroundColor: COLORS.orange,
-    padding: 15,
-    paddingVertical: 10,
-    borderRadius: 30,
-    marginTop: 20,
-    width: 200,
-  },
-
-  updatePassText: {
-    textAlign: 'center',
-    color: COLORS.clearWhite,
-    fontFamily: 'Inter_800ExtraBold',
-  }
-
 })

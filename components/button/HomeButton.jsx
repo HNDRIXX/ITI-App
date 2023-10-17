@@ -27,13 +27,14 @@ export default function HomeButton () {
                         <View style={styles.buttonContainer}>
                             <TouchableOpacity 
                                 style={styles.gridButton}
-                                onPress={() => router.push(`/access/navigation/home/timesheet`)}
+                                onPress={() => router.push(`/access/navigation/home/timesheets`)}
                             >
-                                <Ionicons 
-                                    name={'ios-calendar'}
-                                    size={40}
-                                    color={COLORS.orange}
+                                <Image 
+                                    source={require('../../assets/img/icons/calendar.png')}
+                                    style={{ width: 40, height: 40 }}
+                                    contentFit="contain"
                                 />
+
                             </TouchableOpacity>
 
                             <Text style={styles.textButton}>Timesheet</Text>
@@ -44,10 +45,10 @@ export default function HomeButton () {
                                 style={styles.gridButton}
                                 onPress={() => router.push(`/access/home/`)}
                             >
-                                <Foundation 
-                                    name={'book'}
-                                    size={45}
-                                    color={COLORS.orange}
+                                 <Image 
+                                    source={require('../../assets/img/icons/book.png')}
+                                    style={{ width: 40, height: 40 }}
+                                    contentFit="contain"
                                 />
                             </TouchableOpacity>
 
@@ -59,11 +60,12 @@ export default function HomeButton () {
                                 style={styles.gridButton}
                                 onPress={() => router.push(`/access/home/`)}
                             >
-                                 <MaterialCommunityIcons 
-                                    name="folder-information" 
-                                    size={42} 
-                                    color={COLORS.orange}     
+                                <Image 
+                                    source={require('../../assets/img/icons/pending.png')}
+                                    style={{ width: 45, height: 45 }}
+                                    contentFit="contain"
                                 />
+
                             </TouchableOpacity>
 
                             <Text style={styles.textButton}>Pending</Text>
@@ -76,10 +78,16 @@ export default function HomeButton () {
                                 style={styles.gridButton}
                                 onPress={() => router.push(`/access/home/`)}
                             >
+
+                                <Image 
+                                    source={require('../../assets/img/icons/petition.png')}
+                                    style={{ width: 45, height: 45 }}
+                                    contentFit="contain"
+                                />
                             
                             </TouchableOpacity>
 
-                            <Text style={styles.textButton}></Text>
+                            <Text style={[styles.textButton, { fontSize: 12 }]}>COS Request</Text>
                         </View>
 
                         <View style={styles.buttonContainer}>
@@ -87,10 +95,15 @@ export default function HomeButton () {
                                 style={styles.gridButton}
                                 onPress={() => router.push(`/access/home/`)}
                             >
+                                <Image 
+                                    source={require('../../assets/img/icons/briefcase.png')}
+                                    style={{ width: 43, height: 43 }}
+                                    contentFit="contain"
+                                />
                               
                             </TouchableOpacity>
 
-                            <Text style={styles.textButton}></Text>
+                            <Text style={[styles.textButton, { fontSize: 12 }]}>OB Request</Text>
                         </View>
 
                         <View style={styles.buttonContainer}>
@@ -98,10 +111,15 @@ export default function HomeButton () {
                                 style={styles.gridButton}
                                 onPress={() => router.push(`/access/home/`)}
                             >
+                                <Image 
+                                    source={require('../../assets/img/icons/clock.png')}
+                                    style={{ width: 45, height: 45 }}
+                                    contentFit="contain"
+                                />
                                
                             </TouchableOpacity>
 
-                            <Text style={styles.textButton}></Text>
+                            <Text style={[styles.textButton, { fontSize: 12 }]}>OT Request</Text>
                         </View>
                     </View>
                 </>
@@ -124,7 +142,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 15,
+        marginTop: 10,
     },
 
     gridButton: {

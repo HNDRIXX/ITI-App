@@ -64,10 +64,10 @@ export default function CalendarIndex() {
   }
 
   const dayPress = (day) => {
-    setSelectedDate(day.dateString)
-    const previousDate = getPreviousDate(day.dateString)
-    const nextDate = getNextDate(day.dateString)
-    setEvents(valueEvents[day.dateString] || [])
+    setSelectedDate("2023-10-04")
+    const previousDate = getPreviousDate("2023-10-04")
+    const nextDate = getNextDate("2023-10-04")
+    setEvents(valueEvents["2023-10-04"] || [])
     setPreviousDate(previousDate)
     setNextDate(nextDate)
   }  

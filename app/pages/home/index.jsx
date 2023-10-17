@@ -6,13 +6,15 @@ import { COLORS, useFonts } from '../../../constant';
 import { AntDesign, Entypo, FontAwesome } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import { router } from 'expo-router';
+import { Shadow } from 'react-native-shadow-2';
 import NetInfo from '@react-native-community/netinfo';
 
 import HomeButton from '../../../components/button/HomeButton'
 import TimeInOut from '../../../components/section/home/TimeInOut'
 import Notification from '../../../components/section/Notification'
 import ConnectionPrompt from '../../../components/prompt/connection';
-import TimeOff from '..../../../components/section/home/TimeOff';
+import TimeOff from '../../../components/section/home/TimeOff';
+
 
 export default function App () {
     const router = useRouter()
@@ -87,7 +89,7 @@ export default function App () {
                             </TouchableOpacity>
 
                             <TouchableOpacity
-                                onPress={() => router.push('/access/navigation/notification') }
+                                onPress={() => router.push('/access/navigation/notifications') }
                             >
                                 <FontAwesome 
                                     name={'bell'}
@@ -121,9 +123,16 @@ export default function App () {
                         <Text style={styles.timeClockText}>Time Clock</Text>
                     </View>
                 
-                <View style={styles.timeInOutWrapper}>
-                    <TimeInOut />
-                </View>
+                    
+                    <Shadow
+                        distance={20}
+                        style={styles.timeInOutWrapper}
+                    >
+                        <View >
+                            <TimeInOut />         
+                        </View>
+                    </Shadow>
+                    
 
                 <ScrollView
                     style={styles.bodyWrapper}
@@ -220,17 +229,21 @@ const styles = StyleSheet.create({
     },
 
     timeInOutWrapper: {
+        alignContent: 'center',
+        alignItems: 'center',
+        justifyContent: 'center',
         paddingHorizontal: 35,
         paddingBottom: 30,
         borderTopLeftRadius: 80,
         borderTopEndRadius: 80,
-        backgroundColor: COLORS.white
+        backgroundColor: COLORS.white,
+        width: '100%',
     },
    
     bodyWrapper: {
         flex: 1,
         backgroundColor: COLORS.white,
-        padding: 20,
+        paddingHorizontal: 20,
     },
 
     mainTitle: {
@@ -246,7 +259,7 @@ const styles = StyleSheet.create({
 
     timeOffContainer: {
         flex: 1,
-        marginTop: 10,
+        marginTop: 20,
         paddingBottom: 20,
     }
 })

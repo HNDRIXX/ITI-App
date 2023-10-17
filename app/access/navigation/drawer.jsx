@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { AntDesign, FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Image } from "expo-image";
 import { router } from "expo-router";
 
 import { COLORS } from "../../../constant";
@@ -23,12 +24,10 @@ export default function Drawer () {
                     <TouchableOpacity
                         style={styles.button}
                     >
-                        <FontAwesome5 
-                            name={'user-lock'}
-                            size={23}
-                            color={COLORS.orange}
-                            style={{paddingLeft: 5, paddingRight: 10}}
-
+                        <Image 
+                            source={require('../../../assets/img/icons/privacy.png')}
+                            style={{ width: 25, height: 25 }}
+                            contentFit="contain"
                         />
 
                         <Text style={styles.textButton}>Privacy Policy</Text>
@@ -37,11 +36,10 @@ export default function Drawer () {
                     <TouchableOpacity
                         style={styles.button}
                     >
-                        <MaterialCommunityIcons 
-                            name={'file-image'}
-                            size={32}
-                            color={COLORS.orange}
-                            style={{paddingRight: 10}}
+                        <Image 
+                            source={require('../../../assets/img/icons/terms.png')}
+                            style={{ width: 27, height: 27 }}
+                            contentFit="contain"
                         />
 
                         <Text style={styles.textButton}>Terms and Condition</Text>
@@ -50,11 +48,10 @@ export default function Drawer () {
                     <TouchableOpacity
                         style={styles.button}
                     >
-                        <FontAwesome5 
-                            name={'info-circle'}
-                            size={25}
-                            color={COLORS.orange}
-                            style={{paddingLeft: 6, paddingRight: 11}}
+                        <Image 
+                            source={require('../../../assets/img/icons/info.png')}
+                            style={{ width: 27, height: 27 }}
+                            contentFit="contain"
                         />
 
                         <Text style={styles.textButton}>About Us</Text>
