@@ -4,6 +4,8 @@ import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native
 import { COLORS } from '../../../constant'
 import ChangeOfSchedulePanel from '../../../components/panel/request/ChangeOfSchedule';
 import OfficialWork from '../../../components/panel/request/OfficialWork';
+import OverTime from '../../../components/panel/request/OverTime';
+import Leave from '../../../components/panel/request/Leave';
 
 export default function RequestIndex() {
   const data = [
@@ -58,6 +60,11 @@ export default function RequestIndex() {
     {
       selectedButtonIndex == 0 ? ( <ChangeOfSchedulePanel onAnimate={true} /> )
       : selectedButtonIndex == 1 ? ( <OfficialWork onAnimate={true} /> )
+      : selectedButtonIndex == 2 ? ( <OverTime onAnimate={true} /> )
+      : selectedButtonIndex == 3 ? ( null )
+      : selectedButtonIndex == 4 ? ( <Leave onAnimate={true} /> )
+      : selectedButtonIndex == 5 ? ( null )
+      : selectedButtonIndex == 6 ? ( null )
       : ( <ChangeOfSchedulePanel onAnimate={true} /> )
     }
     

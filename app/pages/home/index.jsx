@@ -89,7 +89,7 @@ export default function App () {
                             </TouchableOpacity>
 
                             <TouchableOpacity
-                                onPress={() => router.push('/access/navigation/notifications') }
+                                onPress={() => router.push('/access/navigation/notification') }
                             >
                                 <FontAwesome 
                                     name={'bell'}

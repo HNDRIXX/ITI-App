@@ -1,52 +1,64 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Modal, TextInput } from "react-native";
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Modal, } from "react-native";
 import * as Animatable from 'react-native-animatable';
-import { AntDesign, Entypo, FontAwesome } from "@expo/vector-icons";
+import { AntDesign, Entypo, FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import moment from "moment";
+import moment from "moment/moment";
 
 import { COLORS } from "../../../constant";
-import RequestItem from "../../use/request/RequestItem";
 import { SearchAndNewRequest } from "../../use/SearchAndNewRequest";
+import RequestItem from "../../use/request/RequestItem";
 
 // Filed, Reviewed, Approved, Cancelled (Denied)
 const data = [
     { 
-        status: 'Reviewed',
-        date: '20231018',
-        location: 'Sofitel Philippine Plaza, Manila',
-        reason: 'Client Meeting'
-    },
-    { 
-        status: 'Reviewed',
-        date: '20230930',
-        location: '2138 Roxas Blvd, Manila',
-        reason: 'Client Meeting'
-    },
-    { 
-        status: 'Cancelled',
+        status: 'Reviewed',  
         date: '20231001',
-        location: 'Sofitel Philippine Plaza, Manila',
-        reason: 'Client Meeting'
+        type: 'Vacation Leave',
+        reason: 'Family Vacation'
+    },
+    { 
+        status: 'Reviewed', 
+        date: '20231021',
+        type: 'Vacation Leave',
+        reason: 'Family Vacation'
+    },
+    { 
+        status: 'Approved', 
+        date: '20230910',
+        type: 'Vacation Leave',
+        reason: 'Family Vacation'
     },
     { 
         status: 'Approved',
-        date: '20230902',
-        location: 'Sofitel Philippine Plaza, Manila',
-        reason: 'Client Meeting'
+        date: '20231020',
+        type: 'Sick Leave',
+        reason: 'Flu'
     },
     { 
-        status: 'Filed',
-        date: '20231030',
-        location: 'Sofitel Philippine Plaza, Manila',
-        reason: 'Client Meeting'
+        status: 'Cancelled', 
+        date: '20230903',
+        type: 'Vacation Leave',
+        reason: 'Family Vacation'
+    },
+    { 
+        status: 'Approved',
+        date: '20230926',
+        type: 'Sick Leave',
+        reason: 'Flu'
+    },
+    { 
+        status: 'Approved',
+        date: '20231009',
+        type: 'Sick Leave',
+        reason: 'Flu'
     },
 ]
 
-export default function OfficialWorkPanel ( onAnimate ) {
+export default function Leave ( onAnimate ) {
     const [isModalVisible, setIsModalVisible] = useState(false)
     const [filterText, setFilterText] = useState('')
-
+    
     const currentDate = moment()
     const dateThreshold = currentDate.clone().subtract(7, 'days')
 
@@ -92,7 +104,7 @@ export default function OfficialWorkPanel ( onAnimate ) {
                         if (!itemDate.isBefore(dateThreshold)) {
                             return (
                                 <RequestItem 
-                                    onPanel={1}
+                                    onPanel={4}
                                     item={item}
                                     index={index}
                                     newItem={newItem}
@@ -122,7 +134,7 @@ export default function OfficialWorkPanel ( onAnimate ) {
                         if (itemDate.isBefore(dateThreshold)) {
                             return (
                                 <RequestItem 
-                                    onPanel={1}
+                                    onPanel={4}
                                     item={item}
                                     index={index}
                                     newItem={newItem}
@@ -188,6 +200,13 @@ const styles = StyleSheet.create({
         fontSize: 25,
         fontFamily: 'Inter_600SemiBold',
         margin: 10,
+    },
+
+  
+    moreText: {
+        fontSize: 12,
+        color: COLORS.tr_gray,
+        paddingTop: 10,
     },
 
     itemStatusText: {

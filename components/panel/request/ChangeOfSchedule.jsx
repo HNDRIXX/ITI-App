@@ -1,46 +1,44 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Modal, TextInput } from "react-native";
 import * as Animatable from 'react-native-animatable';
-import { AntDesign, Entypo, FontAwesome } from "@expo/vector-icons";
+import { AntDesign, Entypo, FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
+import moment from "moment/moment";
 
 import { COLORS } from "../../../constant";
 import { SearchAndNewRequest } from "../../use/SearchAndNewRequest";
+import RequestItem from "../../use/request/RequestItem";
+import { ScrollView } from "react-native-gesture-handler";
 
 // Filed, Reviewed, Approved, Cancelled (Denied)
 const data = [
     { 
-        status: 'Filed', 
-        name: 'Listing 1', 
-        currDate: 'Sept 18, 2023',
+        status: 'Filed',  
+        date: '20231012',
         requestedSched: '7:00 AM - 4:00 PM',
         reason: '----'
     },
     { 
         status: 'Reviewed', 
-        name: 'Listing 2', 
-        currDate: 'Sept 20, 2023',
+        date: '20230922',
         requestedSched: '7:00 AM - 4:00 PM',
         reason: '----'
     },
     { 
-        status: 'Approved', 
-        name: 'Listing 3', 
-        currDate: 'Sept 22, 2023',
+        status: 'Approved',
+        date: '20230923',
         requestedSched: '7:00 AM - 4:00 PM',
         reason: '----'
     },
     { 
-        status: 'Cancelled', 
-        name: 'Listing 4', 
-        currDate: 'Sept 27, 2023',
+        status: 'Cancelled',
+        date: '20230927',
         requestedSched: '7:00 AM - 4:00 PM',
         reason: '----'
     },
     { 
-        status: 'Cancelled', 
-        name: 'Listing 5', 
-        currDate: 'Sept 30, 2023',
+        status: 'Cancelled',
+        date: '20230930',
         requestedSched: '7:00 AM - 4:00 PM',
         reason: '----'
     },
@@ -50,9 +48,12 @@ export default function ChangeOfSchedulePanel ( onAnimate ) {
     const [isModalVisible, setIsModalVisible] = useState(false)
     const [filterText, setFilterText] = useState('')
 
+    const currentDate = moment()
+    const dateThreshold = currentDate.clone().subtract(7, 'days')
+
     const filteredData = data.filter(item =>
         item.status.toLowerCase().includes(filterText.toLowerCase()) ||
-        item.currDate.toLowerCase().includes(filterText.toLowerCase())
+        item.date.toLowerCase().includes(filterText.toLowerCase())
     )
 
     const toggleModal = () => {
@@ -71,58 +72,69 @@ export default function ChangeOfSchedulePanel ( onAnimate ) {
                 toggleModal={toggleModal}
             />
 
+
             { filteredData.length > 0 ? (
-                <FlatList 
-                    data={filteredData}
-                    keyExtractor={(item, index) => index.toString()}
-                    renderItem={({item, index}) => (
-                        <View style={styles.itemContainer} key={index}>
-                            <View style={styles.itemWrapper}>
-                                <View style={styles.dateRowWrapper(item)}>
-                                    <Text style={styles.currDateText}>{item.currDate}</Text>
+                <ScrollView>
+                    <Text style={styles.itemStatusText}>New</Text>
 
-                                    <View style={styles.rowWrapper}>
-                                        { item.status == "Cancelled" ? (
-                                            <Entypo
-                                                name="circle-with-cross"
-                                                size={19}
-                                                color={COLORS.clearWhite}
-                                            /> 
-                                        ) : (
-                                            <AntDesign
-                                                name="checkcircle"
-                                                size={17}
-                                                color={COLORS.clearWhite}
-                                            />
-                                        )}
+                    {filteredData.map((item, index) => {
+                        const year = item.date.substring(0, 4)
+                        const month = item.date.substring(4, 6)
+                        const day = item.date.substring(6)
 
-                                        <Text style={styles.statusText}>{item.status}</Text>
-                                    </View>
+                        const formattedDate = moment(`${month}-${day}-${year}`, 'MM-DD-YYYY').format('MMMM DD YYYY')
 
-                                </View>
+                        const newItem = {
+                            ...item,
+                            formattedDate: formattedDate,
+                        }
 
-                                <View style={styles.bodyWrapper}>
-                                    <View style={styles.rowWrapper}>
-                                        <Text style={styles.boldText}>Requested Schedule: </Text>
-                                        <Text style={styles.valueText}>{item.requestedSched}</Text>
-                                    </View>
+                        const itemDate = moment(formattedDate, 'MMM DD, YYYY')
 
-                                    <View style={styles.reasonWrapper}>
-                                        <View style={styles.rowWrapper}>
-                                            <Text style={styles.boldText}>Reason: </Text>
-                                            <Text style={styles.valueText}>{item.reason}</Text>
-                                        </View>
+                        if (!itemDate.isBefore(dateThreshold)) {
+                            return (
+                                <RequestItem 
+                                    onPanel={0}
+                                    item={item}
+                                    index={index}
+                                    newItem={newItem}
+                                    key={index}
+                                    formattedDate={formattedDate}
+                                />
+                            )
+                        }
+                    })}
 
-                                        <TouchableOpacity
-                                            onPress={() => router.push(`access/navigation/request/changeofschedule/more/${encodeURIComponent(JSON.stringify(item))}`)}
-                                        >
-                                            <Text style={styles.moreText}>More {'>'}</Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                </View>
-                            </View>
-                        </View>
-                    )}/>
+                    <Text style={styles.itemStatusText}>Earlier</Text>
+
+                    {filteredData.map((item, index) => {
+                        const year = item.date.substring(0, 4)
+                        const month = item.date.substring(4, 6)
+                        const day = item.date.substring(6)
+
+                        const formattedDate = moment(`${month}-${day}-${year}`, 'MM-DD-YYYY').format('MMMM DD YYYY')
+
+                        const newItem = {
+                            ...item,
+                            formattedDate: formattedDate,
+                        }
+
+                        const itemDate = moment(formattedDate, 'MMM DD, YYYY')
+
+                        if (itemDate.isBefore(dateThreshold)) {
+                            return (
+                                <RequestItem 
+                                    onPanel={0}
+                                    item={item}
+                                    index={index}
+                                    newItem={newItem}
+                                    key={index}
+                                    formattedDate={formattedDate}
+                                />
+                            )
+                        }
+                    })}
+                </ScrollView>
             ) : ( 
                 <View style={styles.noSearchWrapper}>
                     <AntDesign
@@ -180,68 +192,19 @@ const styles = StyleSheet.create({
         margin: 10,
     },
 
-    itemContainer: {
-        backgroundColor: COLORS.clearWhite,
-        marginHorizontal: 20,
-        marginBottom: 25,
-        borderRadius: 20,
-        elevation: 2,
-    },
-
-    dateRowWrapper: (item)  => ({
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        padding: 10,
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
-        backgroundColor: 
-            item.status == "Approved" ? COLORS.green :
-            item.status == "Reviewed" ? COLORS.purple :
-            item.status == "Filed" ? COLORS.yellow :
-            item.status == "Cancelled" ? COLORS.red 
-            : COLORS.orange
-        ,
-        paddingHorizontal: 20,
-    }),
-
-    rowWrapper: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-
-    currDateText: {
-        fontFamily: 'Inter_700Bold',
-        color: COLORS.clearWhite,
-    },
-
-    statusText: {
-        fontFamily: 'Inter_700Bold',
-        paddingLeft: 10,
-        color: COLORS.clearWhite,
-    },
-
-    bodyWrapper: {
-        paddingHorizontal: 15,
-        paddingVertical: 10,
-    },
-
-    reasonWrapper: {
-        justifyContent: 'space-between',
-        flexDirection: 'row',
-    },
-
-    boldText: {
-        fontFamily: 'Inter_600SemiBold'
-    },
-
-    valueText: {
-        fontFamily: 'Inter_400Regular',
-    },
-
+  
     moreText: {
         fontSize: 12,
         color: COLORS.tr_gray,
         paddingTop: 10,
+    },
+
+    itemStatusText: {
+        fontFamily: 'Inter_500Medium',
+        color: COLORS.darkGray,
+        padding: 10,
+        fontSize: 18,
+        marginHorizontal: 15
     },
 
     modalContainer: {

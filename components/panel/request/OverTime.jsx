@@ -1,49 +1,48 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Modal, TextInput } from "react-native";
 import * as Animatable from 'react-native-animatable';
-import { AntDesign, Entypo, FontAwesome } from "@expo/vector-icons";
-import { router } from "expo-router";
-import moment from "moment";
+import { AntDesign, Entypo, FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons";
+import moment from "moment/moment";
 
 import { COLORS } from "../../../constant";
-import RequestItem from "../../use/request/RequestItem";
 import { SearchAndNewRequest } from "../../use/SearchAndNewRequest";
+import RequestItem from "../../use/request/RequestItem";
 
 // Filed, Reviewed, Approved, Cancelled (Denied)
 const data = [
     { 
-        status: 'Reviewed',
-        date: '20231018',
-        location: 'Sofitel Philippine Plaza, Manila',
-        reason: 'Client Meeting'
+        status: 'Approved',  
+        date: '20230913',
+        overTimeHours: '6:00 PM - 8:30 PM',
+        reason: 'QA Testing'
     },
     { 
         status: 'Reviewed',
-        date: '20230930',
-        location: '2138 Roxas Blvd, Manila',
-        reason: 'Client Meeting'
-    },
-    { 
-        status: 'Cancelled',
-        date: '20231001',
-        location: 'Sofitel Philippine Plaza, Manila',
-        reason: 'Client Meeting'
+        date: '20230920',
+        overTimeHours: '6:00 PM - 8:00 PM',
+        reason: 'QA Testing'
     },
     { 
         status: 'Approved',
-        date: '20230902',
-        location: 'Sofitel Philippine Plaza, Manila',
-        reason: 'Client Meeting'
+        date: '20230922',
+        overTimeHours: '6:00 PM - 8:10 PM',
+        reason: 'QA Testing'
     },
     { 
         status: 'Filed',
-        date: '20231030',
-        location: 'Sofitel Philippine Plaza, Manila',
-        reason: 'Client Meeting'
+        date: '20230911',
+        overTimeHours: '6:00 PM - 8:00 PM',
+        reason: 'QA Testing'
+    },
+    { 
+        status: 'Filed',
+        date: '20230918',
+        overTimeHours: '6:00 PM - 8:00 PM',
+        reason: 'QA Testing'
     },
 ]
 
-export default function OfficialWorkPanel ( onAnimate ) {
+export default function OverTime ( onAnimate ) {
     const [isModalVisible, setIsModalVisible] = useState(false)
     const [filterText, setFilterText] = useState('')
 
@@ -92,7 +91,7 @@ export default function OfficialWorkPanel ( onAnimate ) {
                         if (!itemDate.isBefore(dateThreshold)) {
                             return (
                                 <RequestItem 
-                                    onPanel={1}
+                                    onPanel={2}
                                     item={item}
                                     index={index}
                                     newItem={newItem}
@@ -122,7 +121,7 @@ export default function OfficialWorkPanel ( onAnimate ) {
                         if (itemDate.isBefore(dateThreshold)) {
                             return (
                                 <RequestItem 
-                                    onPanel={1}
+                                    onPanel={2}
                                     item={item}
                                     index={index}
                                     newItem={newItem}

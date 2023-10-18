@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import * as Animatable from 'react-native-animatable';
-import { AntDesign, Entypo } from "@expo/vector-icons";
+import { AntDesign, Entypo, FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useGlobalSearchParams } from "expo-router";
 import { router } from "expo-router";
 
@@ -10,9 +10,9 @@ import { Shadow } from "react-native-shadow-2";
 export default function COSRequest () {
     const params = useGlobalSearchParams()
 
-    const item = JSON.parse(params.item || '{}')
+    const item = JSON.parse(params.newItem || '{}')
 
-    console.log(item.currDate)
+    console.log(item.date + " : " +  item.status)
 
     return (
         <View style={{ flex: 1 }}>
@@ -34,24 +34,38 @@ export default function COSRequest () {
                 style={{ opacity: 1, flex: 1 }}
             >
                 <View style={styles.topContent(item)}>
-                    <Text style={styles.topText}>{item.currDate}</Text>
+                    <Text style={styles.topText}>{item.formattedDate}</Text>
                     
                     <View style={styles.rowWrapper}>
-                        { item.status == "Cancelled" ? (
-                            <Entypo
-                                name="circle-with-cross"
-                                size={19}
+                        { item.status == "Filed" ? (
+                            <FontAwesome5 
+                                name="file-import" 
+                                size={17} 
                                 color={COLORS.clearWhite}
                                 style={{ marginRight: 10 }}
-                            /> 
-                        ) : (
+                            />
+                        ) : item.status == "Reviewed" ? (
+                            <MaterialCommunityIcons 
+                                name="file-find" 
+                                size={20} 
+                                color={COLORS.clearWhite} 
+                                style={{ marginRight: 10 }}
+                            />
+                        ) : item.status == "Approved" ? (
                             <AntDesign
                                 name="checkcircle"
                                 size={17}
                                 color={COLORS.clearWhite}
                                 style={{ marginRight: 10 }}
                             />
-                        )}
+                        ) : item.status == "Cancelled" ? (
+                            <Entypo
+                                name="circle-with-cross"
+                                size={19}
+                                color={COLORS.clearWhite}
+                                style={{ marginRight: 10 }}
+                            /> 
+                        ) : ( null )}
 
                         <Text style={styles.topText}>{item.status}</Text>
                     </View>
