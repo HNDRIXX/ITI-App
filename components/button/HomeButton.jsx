@@ -43,7 +43,7 @@ export default function HomeButton () {
                         <View style={styles.buttonContainer}>
                             <TouchableOpacity 
                                 style={styles.gridButton}
-                                onPress={() => router.push(`/access/home/`)}
+                                onPress={() => router.push(``)}
                             >
                                  <Image 
                                     source={require('../../assets/img/icons/book.png')}
@@ -58,7 +58,7 @@ export default function HomeButton () {
                         <View style={styles.buttonContainer}>
                             <TouchableOpacity 
                                 style={styles.gridButton}
-                                onPress={() => router.push(`/access/home/`)}
+                                onPress={() => router.push(`/access/navigation/home/pending`)}
                             >
                                 <Image 
                                     source={require('../../assets/img/icons/pending.png')}

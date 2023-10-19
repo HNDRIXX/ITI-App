@@ -42,16 +42,24 @@ const data = [
     },
 ]
 
-export default function OverTime ( onAnimate ) {
+export default function OfficialWorkPanel ( onAnimate ) {
     const [isModalVisible, setIsModalVisible] = useState(false)
     const [filterText, setFilterText] = useState('')
 
     const currentDate = moment()
     const dateThreshold = currentDate.clone().subtract(7, 'days')
 
-    const filteredData = data.filter(item =>
-        item.status.toLowerCase().includes(filterText.toLowerCase()) ||
-        item.date.toLowerCase().includes(filterText.toLowerCase())
+    const filteredData = data.filter((newItem) => {
+            const formattedDate = formattedDateString(newItem.date)
+            const itemDate = moment(formattedDate, 'MMMM DD YYYY')
+
+            console.log(formattedDate)
+
+            return (
+                newItem.status.toLowerCase().includes(filterText.toLowerCase()) ||
+                formattedDate.toLowerCase().includes(filterText.toLowerCase())
+            )
+        }
     )
 
     const toggleModal = () => {
@@ -70,23 +78,14 @@ export default function OverTime ( onAnimate ) {
                 toggleModal={toggleModal}
             />
 
+
             { filteredData.length > 0 ? (
                 <ScrollView>
                     <Text style={styles.itemStatusText}>New</Text>
 
-                    {data.map((item, index) => {
-                        const year = item.date.substring(0, 4)
-                        const month = item.date.substring(4, 6)
-                        const day = item.date.substring(6)
-
-                        const formattedDate = moment(`${month}-${day}-${year}`, 'MM-DD-YYYY').format('MMMM DD YYYY')
-
-                        const newItem = {
-                            ...item,
-                            formattedDate: formattedDate,
-                        }
-
-                        const itemDate = moment(formattedDate, 'MMM DD, YYYY')
+                    {filteredData.map((item, index) => {
+                        const formattedDate = formattedDateString(item.date)
+                        const itemDate = moment(formattedDate, 'MMMM DD YYYY')
 
                         if (!itemDate.isBefore(dateThreshold)) {
                             return (
@@ -94,7 +93,7 @@ export default function OverTime ( onAnimate ) {
                                     onPanel={2}
                                     item={item}
                                     index={index}
-                                    newItem={newItem}
+                                    newItem={{ ...item, formattedDate: formattedDate }}
                                     key={index}
                                     formattedDate={formattedDate}
                                 />
@@ -104,19 +103,9 @@ export default function OverTime ( onAnimate ) {
 
                     <Text style={styles.itemStatusText}>Earlier</Text>
 
-                    {data.map((item, index) => {
-                        const year = item.date.substring(0, 4)
-                        const month = item.date.substring(4, 6)
-                        const day = item.date.substring(6)
-
-                        const formattedDate = moment(`${month}-${day}-${year}`, 'MM-DD-YYYY').format('MMMM DD YYYY')
-
-                        const newItem = {
-                            ...item,
-                            formattedDate: formattedDate,
-                        }
-
-                        const itemDate = moment(formattedDate, 'MMM DD, YYYY')
+                    {filteredData.map((item, index) => {
+                        const formattedDate = formattedDateString(item.date)
+                        const itemDate = moment(formattedDate, 'MMMM,DD YYYY')
 
                         if (itemDate.isBefore(dateThreshold)) {
                             return (
@@ -124,7 +113,7 @@ export default function OverTime ( onAnimate ) {
                                     onPanel={2}
                                     item={item}
                                     index={index}
-                                    newItem={newItem}
+                                    newItem={{ ...item, formattedDate: formattedDate }}
                                     key={index}
                                     formattedDate={formattedDate}
                                 />
@@ -164,19 +153,20 @@ export default function OverTime ( onAnimate ) {
                         </TouchableOpacity>
 
                         <Text>This is a Modal</Text>
-
-                        {/* <TouchableOpacity 
-                            style={styles.closeBtn}
-                            onPress={toggleModal}
-                        >
-                            <Text style={styles.closeText}>CLOSE</Text>
-                        </TouchableOpacity> */}
                     </View>
                 </View>
             </Modal>
         </Animatable.View> 
     )
 }
+
+const formattedDateString = (date) => {
+    const year = date.substring(0, 4);
+    const month = date.substring(4, 6);
+    const day = date.substring(6);
+
+    return moment(`${month}-${day}-${year}`, 'MM-DD-YYYY').format('MMMM DD YYYY');
+}    
 
 const styles = StyleSheet.create({
     bodyContainer: {

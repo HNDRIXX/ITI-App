@@ -14,7 +14,7 @@ import { ScrollView } from "react-native-gesture-handler";
 const data = [
     { 
         status: 'Filed',  
-        date: '20231012',
+        date: '2023101',
         requestedSched: '7:00 AM - 4:00 PM',
         reason: '----'
     },
@@ -40,7 +40,7 @@ const data = [
         status: 'Cancelled',
         date: '20230930',
         requestedSched: '7:00 AM - 4:00 PM',
-        reason: '----'
+        reason: '----',
     },
 ]
 
@@ -48,12 +48,21 @@ export default function ChangeOfSchedulePanel ( onAnimate ) {
     const [isModalVisible, setIsModalVisible] = useState(false)
     const [filterText, setFilterText] = useState('')
 
+    var totalMismo = 0;
     const currentDate = moment()
     const dateThreshold = currentDate.clone().subtract(7, 'days')
 
-    const filteredData = data.filter(item =>
-        item.status.toLowerCase().includes(filterText.toLowerCase()) ||
-        item.date.toLowerCase().includes(filterText.toLowerCase())
+    const filteredData = data.filter((newItem) => {
+            const formattedDate = formattedDateString(newItem.date)
+            const itemDate = moment(formattedDate, 'MMMM DD YYYY')
+
+            console.log(formattedDate)
+
+            return (
+                newItem.status.toLowerCase().includes(filterText.toLowerCase()) ||
+                formattedDate.toLowerCase().includes(filterText.toLowerCase())
+            )
+        }
     )
 
     const toggleModal = () => {
@@ -78,26 +87,16 @@ export default function ChangeOfSchedulePanel ( onAnimate ) {
                     <Text style={styles.itemStatusText}>New</Text>
 
                     {filteredData.map((item, index) => {
-                        const year = item.date.substring(0, 4)
-                        const month = item.date.substring(4, 6)
-                        const day = item.date.substring(6)
+                        const formattedDate = formattedDateString(item.date)
+                        const itemDate = moment(formattedDate, 'MMMM DD YYYY')
 
-                        const formattedDate = moment(`${month}-${day}-${year}`, 'MM-DD-YYYY').format('MMMM DD YYYY')
-
-                        const newItem = {
-                            ...item,
-                            formattedDate: formattedDate,
-                        }
-
-                        const itemDate = moment(formattedDate, 'MMM DD, YYYY')
-
-                        if (!itemDate.isBefore(dateThreshold)) {
+                        if (!itemDate.isBefore()) {
                             return (
                                 <RequestItem 
                                     onPanel={0}
                                     item={item}
                                     index={index}
-                                    newItem={newItem}
+                                    newItem={{ ...item, formattedDate: formattedDate }}
                                     key={index}
                                     formattedDate={formattedDate}
                                 />
@@ -108,18 +107,8 @@ export default function ChangeOfSchedulePanel ( onAnimate ) {
                     <Text style={styles.itemStatusText}>Earlier</Text>
 
                     {filteredData.map((item, index) => {
-                        const year = item.date.substring(0, 4)
-                        const month = item.date.substring(4, 6)
-                        const day = item.date.substring(6)
-
-                        const formattedDate = moment(`${month}-${day}-${year}`, 'MM-DD-YYYY').format('MMMM DD YYYY')
-
-                        const newItem = {
-                            ...item,
-                            formattedDate: formattedDate,
-                        }
-
-                        const itemDate = moment(formattedDate, 'MMM DD, YYYY')
+                        const formattedDate = formattedDateString(item.date)
+                        const itemDate = moment(formattedDate, 'MMMM,DD YYYY')
 
                         if (itemDate.isBefore(dateThreshold)) {
                             return (
@@ -127,7 +116,7 @@ export default function ChangeOfSchedulePanel ( onAnimate ) {
                                     onPanel={0}
                                     item={item}
                                     index={index}
-                                    newItem={newItem}
+                                    newItem={{ ...item, formattedDate: formattedDate }}
                                     key={index}
                                     formattedDate={formattedDate}
                                 />
@@ -179,6 +168,14 @@ export default function ChangeOfSchedulePanel ( onAnimate ) {
             </Modal>
         </Animatable.View> 
     )
+}
+
+const formattedDateString = (date) => {
+    const year = date.substring(0, 4);
+    const month = date.substring(4, 6);
+    const day = date.substring(6);
+
+    return moment(`${month}-${day}-${year}`, 'MM-DD-YYYY').format('MMMM DD YYYY');
 }
 
 const styles = StyleSheet.create({

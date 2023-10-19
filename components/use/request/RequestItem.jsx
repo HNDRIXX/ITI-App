@@ -10,7 +10,7 @@ export default function RequestItem ({onPanel, item, newItem, index, formattedDa
         <View style={styles.itemContainer} key={index}>
             <View style={styles.itemWrapper}>
                 <View style={styles.dateRowWrapper(item)}>
-                    <Text style={styles.currDateText}>{formattedDate}</Text>
+                    <Text style={styles.currDateText}>{newItem.formattedDate}</Text>
 
                     <View style={styles.rowWrapper}>
                         { item.status == "Filed" ? (

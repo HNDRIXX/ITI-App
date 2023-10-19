@@ -1,7 +1,8 @@
 import React, { useState, useRef } from "react";
-import { View, Text, StyleSheet, SafeAreaView, ScrollView, RefreshControl } from "react-native";
+import { View, Text, StyleSheet, ScrollView, RefreshControl } from "react-native";
 import { Calendar } from "react-native-calendars";
 import { AntDesign, FontAwesome } from "@expo/vector-icons";
+import moment from "moment";
 
 import { COLORS } from "../../../constant";
 import TimeSheetPrompt from "../../../components/note/CalendarPrompt";
@@ -15,27 +16,39 @@ export default function CalendarIndex() {
   const [refreshing, setRefreshing] = useState(false)
   const scrollViewRef = useRef(null)
 
-  // Static Data
   const valueEvents = {
-    '2023-10-01': [ { event: '7:00 AM to 4:00 PM', status: 'Work Day', }, ],
-    '2023-10-02': [ { event: '7:00 AM to 4:00 PM', status: 'Work Day', }, ],
-    '2023-10-03': [ { event: '7:00 AM to 4:00 PM', status: 'Work Day', }, ],
-    '2023-10-04': [ { event: '7:00 AM to 4:00 PM', status: 'Work Day', }, ],
-    '2023-10-05': [ { event: 'Approved Leave', status: 'Leave', }, ],
-    '2023-10-06': [ { event: 'Government Declared Holiday', status: 'Holiday' } ],
-    '2023-10-07': [ { event: 'No Work Schedule', status: 'Rest Day' } ],
-    '2023-10-08': [ { event: 'No Work Schedule', status: 'Rest Day' } ],
-    '2023-10-30': [ { event: 'Election', status: 'Holiday' } ],
-    '2023-10-31': [ { event: '7:00 AM to 4:00 PM', status: 'Work Day' } ],
+    '20231001': [ { event: '7:00 AM to 4:00 PM', status: 'Work Day', }, ],
+    '20231002': [ { event: '7:00 AM to 4:00 PM', status: 'Work Day', }, ],
+    '20231003': [ { event: '7:00 AM to 4:00 PM', status: 'Work Day', }, ],
+    '20231004': [ { event: '7:00 AM to 4:00 PM', status: 'Work Day', }, ],
+    '20231005': [ { event: 'Approved Leave', status: 'Leave', }, ],
+    '20231006': [ { event: 'Government Declared Holiday', status: 'Holiday' } ],
+    '20231007': [ { event: 'No Work Schedule', status: 'Rest Day' } ],
+    '20231008': [ { event: 'No Work Schedule', status: 'Rest Day' } ],
+    '20231018': [ { event: 'No Work Schedule', status: 'Rest Day' } ],
+    '20231019': [ { event: 'No Work Schedule', status: 'Rest Day' } ],
+    '20231020': [ { event: 'No Work Schedule', status: 'Rest Day' } ],
+    '20231030': [ { event: 'Election', status: 'Holiday' } ],
+    '20231031': [ { event: '7:00 AM to 4:00 PM', status: 'Work Day' } ],
   }
+
+  const updatedValueEvents = {}
+
+  for (const key in valueEvents) {
+    const formattedDate = key.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3')
+    updatedValueEvents[formattedDate] = valueEvents[key]
+  }
+  
+  const today = moment().format("MMMM DD, YYYY")
+  const todayDate = moment(today, "MMMM DD, YYYY")
+  const yesterday = todayDate.clone().subtract(1, 'days')
+  const tomorrow = todayDate.clone().add(1, 'days')
 
   const addMarkedDates = () => {
     const marked = {}
-    
-    for (const date in valueEvents) {
+    for (const date in updatedValueEvents) {
       marked[date] = { marked: true }
     }
-
     return marked
   }
 
@@ -64,10 +77,10 @@ export default function CalendarIndex() {
   }
 
   const dayPress = (day) => {
-    setSelectedDate("2023-10-04")
-    const previousDate = getPreviousDate("2023-10-04")
-    const nextDate = getNextDate("2023-10-04")
-    setEvents(valueEvents["2023-10-04"] || [])
+    setSelectedDate(day.dateString)
+    const previousDate = getPreviousDate(day.dateString)
+    const nextDate = getNextDate(day.dateString)
+    setEvents(updatedValueEvents[day.dateString] || [])
     setPreviousDate(previousDate)
     setNextDate(nextDate)
   }  
@@ -87,7 +100,6 @@ export default function CalendarIndex() {
   }
 
   const defaultDate = (originalDate) => {
-    // Define an array to map month names to month numbers
     const monthNames = [
       'January', 'February', 'March', 'April', 'May', 'June', 'July',
       'August', 'September', 'October', 'November', 'December'
@@ -99,10 +111,36 @@ export default function CalendarIndex() {
     const day = parseInt(parts[1].replace(',', ''), 10)
     const year = parseInt(parts[2], 10)
   
-    // Create the formatted date
     const formattedDate = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`
   
     return formattedDate
+  }
+
+  const checkColor = (valueColor) => {
+    let color
+
+    switch (valueColor) {
+      case "Work Day":
+        color = COLORS.green
+        break
+
+      case "Holiday":
+        color = COLORS.red
+        break
+
+      case "Leave": 
+        color = COLORS.yellow
+        break
+      
+      case "Rest Day": 
+        color = COLORS.purple
+        break
+
+      default:
+        color = COLORS.tr_gray
+    }
+
+    return color
   }
 
   return (
@@ -140,54 +178,39 @@ export default function CalendarIndex() {
         {selectedDate ? (
           <ScrollView style={styles.agenda}>
             <View style={styles.agendaDateWrapper}>
-              <Text style={styles.todayText}>Today</Text>
+              <Text style={styles.todayText}>
+                {
+                  (formatDate(selectedDate) == moment().format("MMMM DD, YYYY")) ?
+                    "Today" : 
+                  (formatDate(selectedDate) == yesterday.format("MMMM DD, YYYY")) ?
+                    "Yesterday" :
+                  (formatDate(selectedDate) == tomorrow.format("MMMM DD, YYYY")) ?
+                    "Tommorow" : "Event"
+                }
+              </Text>
               <Text style={styles.dayAgenda}>{formatDate(selectedDate)}</Text>
             </View>
 
             <View style={styles.itemWrapper}>
-              <View style={styles.dayStatusWrapper}>
                 {events.map((event, index) => {
-
-                  let color
-                  switch (event.status) {
-                    case "Work Day":
-                      color = COLORS.green
-                      break
-
-                    case "Holiday":
-                      color = COLORS.red
-                      break
-
-                    case "Leave": 
-                      color = COLORS.yellow
-                      break
-                    
-                    case "Rest Day": 
-                      color = COLORS.purple
-                      break
-
-                    default:
-                      color = COLORS.orange
-                  }
+                  const valueColor = event.status
+                  const color = checkColor(valueColor)
 
                   return (
-                    <FontAwesome
-                      key={index}
-                      name="circle"
-                      size={40}
-                      color={color}
-                      style={{ paddingLeft: 5 }}
-                    />
+                    <View style={styles.dayStatusWrapper(color)} key={index}>
+                      <FontAwesome
+                        name="circle"
+                        size={40}
+                        color={color}
+                        style={styles.topCircle}
+                      />
+
+                      <Text style={styles.dayStatusText}>
+                        {event.status}
+                      </Text>
+                    </View>
                   )
                 })}
-
-                {events.map((event, index) => (
-                  <Text key={index} style={styles.dayStatusText}>
-                    {event.status}
-                  </Text>
-                ))}
-
-              </View>
 
               <View style={styles.dayContentWrapper}>
                 {events.length === 0 ? (
@@ -209,20 +232,28 @@ export default function CalendarIndex() {
                   <Text style={styles.prevNextDayText}>{previousDate}</Text>
                 </View>
 
-                <View style={styles.dayStatusWrapper}>
-                  <FontAwesome 
-                    name={'circle'}
-                    size={25}
-                    color={COLORS.powderBlue}
-                    style={{ paddingLeft: 5, }}
-                  />
+                {events.map((event, index) => {
+                  const valueColor = updatedValueEvents[defaultDate(previousDate)] ? updatedValueEvents[defaultDate(previousDate)][0].status : null
 
-                  <Text style={styles.belowDayStatusText}>
-                    {valueEvents[defaultDate(previousDate)] ? (
-                      valueEvents[defaultDate(previousDate)][0].status
-                    ) : 'Empty'}
-                  </Text>
-                </View>
+                  const color = checkColor(valueColor)
+
+                  return (
+                    <View style={styles.dayBelowStatusWrapper(color)} key={index}>
+                      <FontAwesome
+                        name="circle"
+                        size={27}
+                        color={color}
+                        style={styles.topCircle}
+                      />
+
+                      <Text style={styles.belowDayStatusText}>
+                        {updatedValueEvents[defaultDate(previousDate)] ? (
+                          updatedValueEvents[defaultDate(previousDate)][0].status
+                        ) : 'Empty'}
+                      </Text>
+                    </View>
+                  )
+                })}
               </View>
 
               <View style={styles.prevNextContainer}>
@@ -231,20 +262,28 @@ export default function CalendarIndex() {
                   <Text style={styles.prevNextDayText}>{nextDate}</Text>
                 </View>
 
-                <View style={styles.dayStatusWrapper}>
-                  <FontAwesome 
-                    name={'circle'}
-                    size={25}
-                    color={COLORS.powderBlue}
-                    style={{ paddingLeft: 5 }}
-                  />
+                {events.map((event, index) => {
+                  const valueColor = updatedValueEvents[defaultDate(nextDate)] ? updatedValueEvents[defaultDate(nextDate)][0].status : null
 
-                  <Text style={styles.belowDayStatusText}>
-                    {valueEvents[defaultDate(nextDate)] ? (
-                      valueEvents[defaultDate(nextDate)][0].status
-                    ) : 'Empty'}
-                  </Text>
-                </View>
+                  const color = checkColor(valueColor)
+
+                  return (
+                    <View style={styles.dayBelowStatusWrapper(color)} key={index}>
+                      <FontAwesome
+                        name="circle"
+                        size={27}
+                        color={color}
+                        style={styles.topCircle}
+                      />
+
+                      <Text style={styles.belowDayStatusText}>
+                        {updatedValueEvents[defaultDate(nextDate)] ? (
+                          updatedValueEvents[defaultDate(nextDate)][0].status
+                        ) : 'Empty'}
+                      </Text>
+                    </View>
+                  )
+                })}
               </View>
             </View>
           </ScrollView>
@@ -255,7 +294,7 @@ export default function CalendarIndex() {
         )}
       </ScrollView>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -299,7 +338,6 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     shadowOffset : { width: 1, height: 5},
     backgroundColor: COLORS.clearWhite,
-    // alignItems: 'center',
   },
 
   todayText: {
@@ -321,19 +359,46 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.clearWhite,
   },
 
-  dayStatusWrapper: {
-    flex: 0,
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: '50%',
-    borderRadius: 50,
-    backgroundColor: COLORS.clearWhite,
-    elevation: 5,
-    shadowColor: COLORS.darkGray,
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    shadowOffset : { width: 1, height: 5},
-  },  
+  topCircle: {
+    position: 'absolute',
+    zIndex: 99,
+  },
+
+  dayStatusWrapper: (color) => ({
+      flex: 0,
+      flexDirection: 'row',
+      alignItems: 'center',
+      width: '50%',
+      height: 35,
+      paddingLeft: 40,
+      borderRadius: 50,
+      borderColor: color,
+      borderColor: color ? COLORS.clearWhite : null,
+      backgroundColor: COLORS.clearWhite,
+      elevation: 5,
+      // shadowColor: COLORS.darkGray,
+      // shadowOpacity: 0.1,
+      // shadowRadius: 2,
+      // shadowOffset : { width: 1, height: 5},
+    }),
+
+    dayBelowStatusWrapper: (color) => ({
+      flex: 0,
+      flexDirection: 'row',
+      alignItems: 'center',
+      width: '50%',
+      height: 25,
+      paddingLeft: 40,
+      borderRadius: 50,
+      borderColor: color,
+      borderWidth: 2,
+      backgroundColor: COLORS.clearWhite,
+    }),
+
+    belowDayStatusText: {
+      fontSize: 10,
+      fontFamily: 'Inter_400Regular'
+    },
 
   dayStatusText: {
     textAlign: 'center',
@@ -369,13 +434,10 @@ const styles = StyleSheet.create({
   },
 
   prevNextDayText: {
+    marginTop: 5,
     fontFamily: 'Inter_400Regular',
+    color: COLORS.darkGray,
     fontSize: 12,
-  },
-
-  belowDayStatusText: {
-    padding: 10,
-    fontFamily: 'Inter_400Regular'
   },
 
   noEventsText: {
