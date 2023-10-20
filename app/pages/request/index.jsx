@@ -59,10 +59,10 @@ export default function RequestIndex() {
 
     {
       selectedButtonIndex == 0 ? ( <ChangeOfSchedulePanel onAnimate={true} /> )
-      : selectedButtonIndex == 1 ? ( <OfficialWork onAnimate={true} /> )
-      : selectedButtonIndex == 2 ? ( <OverTime onAnimate={true} /> )
+      : selectedButtonIndex == 1 ? ( null )
+      : selectedButtonIndex == 2 ? ( null )
       : selectedButtonIndex == 3 ? ( null )
-      : selectedButtonIndex == 4 ? ( <Leave onAnimate={true} /> )
+      : selectedButtonIndex == 4 ? ( null )
       : selectedButtonIndex == 5 ? ( null )
       : selectedButtonIndex == 6 ? ( null )
       : ( <ChangeOfSchedulePanel onAnimate={true} /> )

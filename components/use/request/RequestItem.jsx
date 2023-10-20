@@ -69,7 +69,7 @@ export default function RequestItem ({onPanel, item, newItem, index, formattedDa
                         </View>
 
                         <TouchableOpacity
-                            onPress={() => router.push(`access/navigation/request/changeofschedule/more/${encodeURIComponent(JSON.stringify(newItem))}`)}
+                            onPress={() => router.push(`access/navigation/request/changeofschedule/more/${encodeURIComponent(JSON.stringify(newItem))}/direct`)}
                         >
                             <Text style={styles.moreText}>More {'>'}</Text>
                         </TouchableOpacity>

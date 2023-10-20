@@ -12,6 +12,7 @@ export const SearchAndNewRequest = ({ filterText, setFilterText, toggleModal }) 
         <TextInput
           style={styles.searchValueText}
           placeholder="Search."
+          editable={false}
           onChangeText={(text) => setFilterText(text)}
           value={filterText}
         />

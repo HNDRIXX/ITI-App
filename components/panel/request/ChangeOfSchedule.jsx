@@ -10,11 +10,10 @@ import { SearchAndNewRequest } from "../../use/SearchAndNewRequest";
 import RequestItem from "../../use/request/RequestItem";
 import { ScrollView } from "react-native-gesture-handler";
 
-// Filed, Reviewed, Approved, Cancelled (Denied)
 const data = [
     { 
         status: 'Filed',  
-        date: '2023101',
+        date: '20231014',
         requestedSched: '7:00 AM - 4:00 PM',
         reason: '----'
     },
@@ -52,6 +51,9 @@ export default function ChangeOfSchedulePanel ( onAnimate ) {
     const currentDate = moment()
     const dateThreshold = currentDate.clone().subtract(7, 'days')
 
+    const [newCount1, setNewCount1] = useState(0);
+    const [newCount2, setNewCount2] = useState(0);
+
     const filteredData = data.filter((newItem) => {
             const formattedDate = formattedDateString(newItem.date)
             const itemDate = moment(formattedDate, 'MMMM DD YYYY')
@@ -65,10 +67,31 @@ export default function ChangeOfSchedulePanel ( onAnimate ) {
         }
     )
 
+    useEffect(() => {
+        let count1 = 0;
+        let count2 = 0;
+    
+        filteredData.forEach((item) => {
+          const formattedDate = formattedDateString(item.date)
+          const itemDate = moment(formattedDate, 'MMMM DD YYYY')
+    
+          if (!itemDate.isBefore(dateThreshold)) {
+            count1++
+          }
+    
+          if (itemDate.isBefore(dateThreshold)) {
+            count2++
+          }
+        })
+    
+        setNewCount1(count1)
+        setNewCount2(count2)
+      }, [filteredData, dateThreshold])
+
     const toggleModal = () => {
         setIsModalVisible(!isModalVisible)
     }    
-
+      
     return (
         <Animatable.View
             animation={onAnimate ? 'fadeIn' : ''}
@@ -81,16 +104,15 @@ export default function ChangeOfSchedulePanel ( onAnimate ) {
                 toggleModal={toggleModal}
             />
 
-
             { filteredData.length > 0 ? (
                 <ScrollView>
-                    <Text style={styles.itemStatusText}>New</Text>
+                    { newCount1 > 0 && (<Text style={styles.itemStatusText}>New</Text>) }
 
                     {filteredData.map((item, index) => {
                         const formattedDate = formattedDateString(item.date)
                         const itemDate = moment(formattedDate, 'MMMM DD YYYY')
 
-                        if (!itemDate.isBefore()) {
+                        if (!itemDate.isBefore(dateThreshold)) {
                             return (
                                 <RequestItem 
                                     onPanel={0}
@@ -104,11 +126,11 @@ export default function ChangeOfSchedulePanel ( onAnimate ) {
                         }
                     })}
 
-                    <Text style={styles.itemStatusText}>Earlier</Text>
+                    { newCount2 > 0 && (<Text style={styles.itemStatusText}>Earlier</Text>) }
 
                     {filteredData.map((item, index) => {
                         const formattedDate = formattedDateString(item.date)
-                        const itemDate = moment(formattedDate, 'MMMM,DD YYYY')
+                        const itemDate = moment(formattedDate, 'MMMM DD YYYY')
 
                         if (itemDate.isBefore(dateThreshold)) {
                             return (

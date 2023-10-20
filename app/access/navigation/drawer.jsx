@@ -26,7 +26,7 @@ export default function Drawer () {
                     >
                         <Image 
                             source={require('../../../assets/img/icons/privacy.png')}
-                            style={{ width: 25, height: 25 }}
+                            style={{ width: 35, height: 35 }}
                             contentFit="contain"
                         />
 
@@ -38,7 +38,7 @@ export default function Drawer () {
                     >
                         <Image 
                             source={require('../../../assets/img/icons/terms.png')}
-                            style={{ width: 27, height: 27 }}
+                            style={{ width: 35, height: 35 }}
                             contentFit="contain"
                         />
 
@@ -50,7 +50,7 @@ export default function Drawer () {
                     >
                         <Image 
                             source={require('../../../assets/img/icons/info.png')}
-                            style={{ width: 27, height: 27 }}
+                            style={{ width: 35, height: 35 }}
                             contentFit="contain"
                         />
 

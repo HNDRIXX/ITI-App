@@ -92,7 +92,7 @@ export default function OfficialWorkPanel ( onAnimate ) {
                         if (!itemDate.isBefore(dateThreshold)) {
                             return (
                                 <RequestItem 
-                                    onPanel={0}
+                                    onPanel={1}
                                     item={item}
                                     index={index}
                                     newItem={{ ...item, formattedDate: formattedDate }}
@@ -112,7 +112,7 @@ export default function OfficialWorkPanel ( onAnimate ) {
                         if (itemDate.isBefore(dateThreshold)) {
                             return (
                                 <RequestItem 
-                                    onPanel={0}
+                                    onPanel={1}
                                     item={item}
                                     index={index}
                                     newItem={{ ...item, formattedDate: formattedDate }}

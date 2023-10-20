@@ -30,8 +30,8 @@ export default function HomeButton () {
                                 onPress={() => router.push(`/access/navigation/home/timesheets`)}
                             >
                                 <Image 
-                                    source={require('../../assets/img/icons/calendar.png')}
-                                    style={{ width: 40, height: 40 }}
+                                    source={require('../../assets/img/icons/timesheet.png')}
+                                    style={{ width: 49, height: 49 }}
                                     contentFit="contain"
                                 />
 
@@ -46,8 +46,8 @@ export default function HomeButton () {
                                 onPress={() => router.push(``)}
                             >
                                  <Image 
-                                    source={require('../../assets/img/icons/book.png')}
-                                    style={{ width: 40, height: 40 }}
+                                    source={require('../../assets/img/icons/ledger.png')}
+                                    style={{ width: 50, height: 50 }}
                                     contentFit="contain"
                                 />
                             </TouchableOpacity>
@@ -80,8 +80,8 @@ export default function HomeButton () {
                             >
 
                                 <Image 
-                                    source={require('../../assets/img/icons/petition.png')}
-                                    style={{ width: 45, height: 45 }}
+                                    source={require('../../assets/img/icons/cos.png')}
+                                    style={{ width: 50, height: 50 }}
                                     contentFit="contain"
                                 />
                             
@@ -96,8 +96,8 @@ export default function HomeButton () {
                                 onPress={() => router.push(`/access/home/`)}
                             >
                                 <Image 
-                                    source={require('../../assets/img/icons/briefcase.png')}
-                                    style={{ width: 43, height: 43 }}
+                                    source={require('../../assets/img/icons/ob.png')}
+                                    style={{ width: 50, height: 50 }}
                                     contentFit="contain"
                                 />
                               
@@ -112,8 +112,8 @@ export default function HomeButton () {
                                 onPress={() => router.push(`/access/home/`)}
                             >
                                 <Image 
-                                    source={require('../../assets/img/icons/clock.png')}
-                                    style={{ width: 45, height: 45 }}
+                                    source={require('../../assets/img/icons/ot.png')}
+                                    style={{ width: 50, height: 50 }}
                                     contentFit="contain"
                                 />
                                

@@ -11,7 +11,7 @@ export default function TimeOff () {
                 <View style={styles.alignWrapper}>
                     <Image 
                         source={require('../../../assets/img/icons/vacation.png')}
-                        style={{ width: 50, height: 50 }}
+                        style={{ width: 50, height: 50, marginRight: 10 }}
                         contentFit="contain"
                     />
 
@@ -25,8 +25,8 @@ export default function TimeOff () {
             <View style={[styles.wrapper, { padding: 15 }]}>
                 <View style={styles.alignWrapper}>
                     <Image 
-                        source={require('../../../assets/img/icons/medicine.png')}
-                        style={{ width: 39, height: 39, marginRight: 10, }}
+                        source={require('../../../assets/img/icons/health.png')}
+                        style={{ width: 45, height: 45, marginRight: 10, }}
                         contentFit="contain"
                     />
 
