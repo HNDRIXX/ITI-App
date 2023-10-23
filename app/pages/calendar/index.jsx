@@ -80,7 +80,7 @@ export default function CalendarIndex() {
     setSelectedDate(day.dateString)
     const previousDate = getPreviousDate(day.dateString)
     const nextDate = getNextDate(day.dateString)
-    setEvents(updatedValueEvents[day.dateString] || [])
+    setEvents(updatedValueEvents[''] || [])
     setPreviousDate(previousDate)
     setNextDate(nextDate)
   }  

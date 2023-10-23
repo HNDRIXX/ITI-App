@@ -5,8 +5,8 @@ import { useRouter } from 'expo-router';
 import { COLORS, useFonts } from '../../../constant';
 import { AntDesign, Entypo, FontAwesome } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
-import { router } from 'expo-router';
 import { Shadow } from 'react-native-shadow-2';
+import { router, useLocalSearchParams } from 'expo-router';
 import NetInfo from '@react-native-community/netinfo';
 
 import HomeButton from '../../../components/button/HomeButton'
@@ -20,6 +20,11 @@ export default function App () {
     const router = useRouter()
     const [fontsLoaded] = useFonts()
     const [isConnected, setIsConnected] = useState(null)
+    const [clockStatus, setClockStatus] = useState(1)
+
+    const params = useLocalSearchParams()
+    const paramsClockStatus = params.index
+    console.log(paramsClockStatus)
 
     useEffect(() => {
         const unsubscribe = NetInfo.addEventListener((state) => {
@@ -129,7 +134,10 @@ export default function App () {
                         style={styles.timeInOutWrapper}
                     >
                         <View >
-                            <TimeInOut />         
+                            <TimeInOut 
+                                clockStatus={clockStatus}
+                                setClockStatus={setClockStatus}
+                            />         
                         </View>
                     </Shadow>
                     

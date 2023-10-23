@@ -58,7 +58,7 @@ export default function HomeButton () {
                         <View style={styles.buttonContainer}>
                             <TouchableOpacity 
                                 style={styles.gridButton}
-                                onPress={() => router.push(`/access/navigation/home/pending`)}
+                                onPress={() => router.push(`/access/navigation/home/pendings`)}
                             >
                                 <Image 
                                     source={require('../../assets/img/icons/pending.png')}

@@ -4,46 +4,75 @@ import MapView, { Marker } from 'react-native-maps';
 import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 import { Image } from 'expo-image';
+import moment from 'moment';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
-
-import { COLORS, useFonts } from '../../../../constant';
+import { COLORS } from '../../../../constant';
+import { Shadow } from 'react-native-shadow-2';
+import SuccessTimeClock from '../../../../components/prompt/SuccessTimeClock';
 
 export default function GeofenceIndex () {
   const [onLocation, setOnLocation] = useState(false)
   const [currTime, setCurrTime] = useState(new Date())
   const [isDisabled, setIsDisabled] = useState(true)
-  const [location, setLocation] = useState("")
+  const [isSuccessAlertVisible, setIsSuccessAlertVisible] = useState(false)
+  const [clockedTime, setClockedTime] = useState('')
+  const [clockedDate, setClockedDate] = useState('')
+  const [location, setLocation] = useState(null)
+  const [currAddress, setCurrAddress] = useState('')
+  const [mapRegion, setMapRegion] = useState({})
+
+  const params = useLocalSearchParams()
+  const clockStatus = params.geofence
+
+  const currentTime = moment().format('hh:mm:ss A')
+  const currentDate = moment().format('MMMM D, YYYY, dddd')
+
+  const [markerCoordinate, setMarkerCoordinate] = useState({
+    latitude: 14.643779,
+    longitude: 121.026478,
+  })
 
   const navigation = useNavigation()
   const isFocused = useIsFocused()
 
-  const currDate = new Date()
-  const dateOptions = { weekday: 'long' }
+  const fetchLocationAndAddress = async () => {
+    const location = await Location.getCurrentPositionAsync({})
+      setLocation(location)
+  
+      const { coords } = location
+      const address = await Location.reverseGeocodeAsync({
+        latitude: coords.latitude,
+        longitude: coords.longitude,
+      })
 
-  const timeOptions = { 
-    hour: 'numeric', 
-    minute: 'numeric',
-    second: 'numeric', 
-    hour12: true 
+      setMapRegion({
+        latitude: coords.latitude,
+        longitude: coords.longitude,
+        latitudeDelta: 0.001,
+        longitudeDelta: 0.005,
+      })
+
+      const fullAddress = `${address[0].name} ${address[0].street}, ${address[0].city}, ${address[0].country}`
+      setCurrAddress("null")
   }
-
-  const formattedDate = currDate.toLocaleDateString(undefined, dateOptions)
-  const formattedTime = currDate.toLocaleTimeString(undefined, timeOptions)
-
-  const params = useLocalSearchParams()
-
-  const imgUpload = params.geofence.replace(/\^/g, '/')
 
   const onOpenLoc = async () => {
     const { status } = await Location.requestForegroundPermissionsAsync()
-
-    if (status !== 'granted') { return }
-
-    try { const location = await Location.getCurrentPositionAsync({}) } 
-    catch (error) { console.log(error) }
+  
+    if (status !== 'granted') {
+      return
+    }
+  
+    try {
+      const location = await Location.getCurrentPositionAsync({})
+      fetchLocationAndAddress()
+    } catch (error) {
+      console.log(error)
+    }
   }
+  
 
   // useEffect(() => {
   //   const intervalId = setInterval(() => {
@@ -54,39 +83,10 @@ export default function GeofenceIndex () {
   // }, [])
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      setCurrTime(new Date())
-    }, 1000)
-
-    return () => clearInterval(intervalId)
-  }, [])
-
-  useEffect(() => {
-    const backAction = () => {
-      if (isFocused) {
-          router.push(`pages/home`)
-          return true
-      }
-      return false
-    }
-
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction)
-
-    return () => backHandler.remove()
-  }, [isFocused, navigation])
-
-  useEffect(() => {
-    (async () => {
-      const locationStatus = await Location.requestForegroundPermissionsAsync()
-      const currentLocation = await Location.getCurrentPositionAsync({})
-      setLocation(currentLocation.coords)
-      console.log(location)
-    })()
-  }, [])
-
-  useEffect(() => {
     const interval = setInterval(async () => {
       try {
+        fetchLocationAndAddress()
+
         const isLocationEnabled = await Location.getProviderStatusAsync()
 
         if (!isLocationEnabled.locationServicesEnabled) {
@@ -95,35 +95,42 @@ export default function GeofenceIndex () {
         } else {
           setOnLocation(false)
           setIsDisabled(false)
-        }                
+        }                   
 
       } catch (error) { console.error("Error checking location services:", error) }
     }, 1000)
 
     return () => clearInterval(interval)
   }, [])
+  
+  const openCustomAlert = () => {
+    fetchLocationAndAddress()
+    setIsSuccessAlertVisible(true)
 
-  const [mapRegion, setMapRegion] = useState({
-    latitude: 14.643779,
-    longitude: 121.026478,
-    latitudeDelta: 0.001,
-    longitudeDelta: 0.005,
-  })
+    setClockedDate(currentDate)
+    setClockedTime(currentTime)
+  }
 
-  const [markerCoordinate, setMarkerCoordinate] = useState({
-    latitude: 14.643779,
-    longitude: 121.026478,
-  })
+  const closeCustomAlert = () => {
+    setIsSuccessAlertVisible(false)
+    clockStatus = 0
+    router.push(`/pages/home/${clockStatus}`)
+  }
 
   return (
     <>
-      <View style={styles.topContainer}>
-        <TouchableOpacity style={styles.backButton} onPress={() => router.push(`/pages/home/`)}>
-            <AntDesign name='arrowleft' size={30} color={COLORS.clearWhite} />
-        </TouchableOpacity>
+      <View style={styles.topHeader}>
+          <TouchableOpacity 
+              style={styles.backButton} 
+              onPress={() => router.push(`/pages/home/[index]`)}
+          >
+              <AntDesign name='arrowleft' size={30} color={COLORS.clearWhite} />
+          </TouchableOpacity>
+
+          <Text style={styles.textHeader}>Time Clock</Text>
       </View>
-            
-      <ScrollView style={styles.container}>
+
+      <View style={styles.container}>
         { onLocation ? (
           <View style={styles.locWrapper}>
             <View style={styles.locationPrompt}>
@@ -132,7 +139,7 @@ export default function GeofenceIndex () {
                 <Text style={styles.floatPromptText}>Prompt</Text>
               </View>
 
-              <Text style={styles.subFloatText}>Please turn on.</Text>
+              <Text style={styles.subFloatText}>Please turn on your location.</Text>
 
               <TouchableOpacity style={styles.locationPromptBtn} onPress={onOpenLoc}>
                 <Text style={styles.locationPromptBtnText}>TURN ON</Text>
@@ -144,7 +151,7 @@ export default function GeofenceIndex () {
         <MapView
           showsPointsOfInterest
           showsMyLocationButton
-          style={{ height: 620 }}
+          style={{ flex: 1, height: 'auto' }}
           region={mapRegion}
           showsUserLocation
           followsUserLocation
@@ -160,58 +167,48 @@ export default function GeofenceIndex () {
             description={`Longitude: ${markerCoordinate.longitude.toFixed(6)}`}
           />
         </MapView>
-
-        <View style={styles.formData}>
-          {/* <Image
-            source={
-              imgUpload != 'null' ? { uri: imgUpload } 
-              : require('../../../../assets/img/noimage.jpg')
-            }
-            style={styles.imgUpload}
-            contentFit='contain'  
-          /> */}
         
-          <View style={styles.bottomContainer}>
-            {/* <Text style={styles.headText}>{formattedTime}</Text>
-            <Text style={styles.subText}>{formattedDay}</Text> */}
+        <Shadow style={styles.bottomContainer}>
 
-            {/* <TouchableOpacity
-              style={styles.cameraBtn}
-              onPress={() => router.push(`/access/features/geofence/camera`)}
-            >
-              <FontAwesome 
-              name='camera'
-              size={20}
+          <View style={styles.dateTimeWrapper}>
+            <Text style={styles.dateText}>{currentDate}</Text>
+            <Text style={styles.timeText}>{currentTime}</Text>
+          </View>
+
+          <TouchableOpacity 
+            style={[
+              styles.confirmBtn, 
+              isDisabled && location == "" && currAddress == ""
+                ? styles.disabledBtn 
+                : null 
+            ]}
+
+            disabled={
+              isDisabled && location == "" && currAddress == ""
+              ? true : false
+            }
+
+            onPress={openCustomAlert}
+          >
+            <Ionicons
+              name='stopwatch'
+              size={25}
               color={COLORS.clearWhite}
-              />
-            </TouchableOpacity> */}
+            />
 
-            <View style={styles.dateTimeWrapper}>
-              <Text style={styles.dateText}>{formattedDate}</Text>
-              <Text style={styles.timeText}>{formattedTime}</Text>
-            </View>
+            <Text style={styles.textClockIn}>Clock-In</Text>
+          </TouchableOpacity>
+        </Shadow> 
+      </View>
 
-            <TouchableOpacity 
-              style={[
-                styles.confirmBtn, 
-                isDisabled || location == ""
-                  ? styles.disabledBtn 
-                  : null 
-              ]}
-
-              disabled={
-                isDisabled || location == ""
-                ? true : false
-              }
-            >
-              <Text style={styles.textConfirm}>CONFIRM</Text>
-            </TouchableOpacity>
-          </View> 
-
-          {/* <Text>Latitude: {location.latitude}</Text>
-          <Text>Longitude: {location.longitude}</Text> */}
-        </View>
-      </ScrollView>
+      <SuccessTimeClock
+        clockedTime={clockedTime}
+        clockedDate={clockedDate}
+        clockedStatus={"Clocked-In"}
+        subText={currAddress}
+        visible={isSuccessAlertVisible}
+        onClose={closeCustomAlert}
+      />
     </>
   )
 }
@@ -221,14 +218,26 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
-  topContainer: {
-    backgroundColor: COLORS.blue,
-    paddingTop: 40,
-    paddingBottom: 10,
+  backButton: {
+      paddingHorizontal: 10,
   },
 
-  backButton: {
-    paddingHorizontal: 10,
+  topHeader: {
+      padding: 1,
+      paddingBottom: 10,
+      paddingVertical: 50,
+      alignItems: 'center',
+      flexDirection: 'row',
+      backgroundColor: COLORS.powderBlue,
+  },
+
+  textHeader: {
+      color: COLORS.clearWhite,
+      fontFamily: 'Inter_600SemiBold',
+      fontSize: 18,
+      flex: 1,
+      textAlign: 'center',
+      marginRight: 50,
   },
 
   disabledBtn: {
@@ -276,7 +285,7 @@ const styles = StyleSheet.create({
   },  
   
   locationPromptBtn: {
-    backgroundColor: COLORS.blue,
+    backgroundColor: COLORS.powderBlue,
     alignItems: 'center',
     padding: 15,
     marginTop: 15,
@@ -290,8 +299,11 @@ const styles = StyleSheet.create({
   },
 
   bottomContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: '100%',
+    backgroundColor: COLORS.clearWhite,
+    padding: 30,
+    borderTopLeftRadius: 50,
+    borderTopRightRadius: 50,
   },
 
   dateTimeWrapper: {
@@ -311,36 +323,18 @@ const styles = StyleSheet.create({
   confirmBtn: {
     width: 170,
     marginTop: 10,
-    backgroundColor: COLORS.blue,
-    alignItems: 'center',
+    flexDirection: 'row',
+    alignSelf: 'center',
+    backgroundColor: COLORS.orange,
+    justifyContent: 'center',
     padding: 13,
     borderRadius: 8
   },
 
-  textConfirm: {
+  textClockIn: {
     color: COLORS.clearWhite,
+    fontSize: 17,
+    paddingLeft: 10,
     fontFamily: 'Inter_600SemiBold'
   },
-
-  cameraBtn: {
-    backgroundColor: COLORS.orange,
-    padding: 15,
-    width: 170,
-    alignItems: 'center',
-    borderRadius: 10,
-  },
-
-  imgUpload: {
-    width: 200, 
-    height: 200,
-    borderRadius: 10,
-  },
-
-  formData: {
-    flex: 1,
-    justifyContent: 'space-evenly',
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 20,
-  }
 })

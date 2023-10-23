@@ -2,14 +2,20 @@ import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { router } from 'expo-router';
 
-import { Entypo } from '@expo/vector-icons';
+import { Entypo, Ionicons } from '@expo/vector-icons';
 import { COLORS } from "../../../constant"
 
-export default function TimeInOutSection () {
+export default function TimeInOutSection ({ clockStatus, setClockStatus }) {
     const [currTime, setCurrTime] = useState(new Date())
 
     const currDate = new Date()
-    const dateOptions = { weekday: 'long' }
+    const dateOptions = {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+        weekday: 'long',
+    }
+
     const formattedDay = currDate.toLocaleDateString(undefined, dateOptions)
 
     const timeOptions = { 
@@ -22,9 +28,6 @@ export default function TimeInOutSection () {
     const formattedDate = currDate.toLocaleDateString(undefined, dateOptions)
     const formattedTime = currDate.toLocaleTimeString(undefined, timeOptions)
 
-    const currDateSplit = formattedDay.split(', ')
-    const day = currDateSplit[0]
-    const date = currDateSplit[1]
 
     useEffect(() => {
         const intervalId = setInterval(() => {
@@ -32,15 +35,7 @@ export default function TimeInOutSection () {
         }, 1000)
 
         return () => clearInterval(intervalId);
-      }, [])
-    
-      const formatTime = (date) => {
-        const hours = date.getHours()
-        const minutes = date.getMinutes()
-        const seconds = date.getSeconds()
-    
-        return `${hours}:${minutes}:${seconds}`
-    }
+    }, [])
 
     return (
         <View style={styles.topBox}>
@@ -52,13 +47,14 @@ export default function TimeInOutSection () {
 
                 <TouchableOpacity
                     style={styles.timeInOutButton}
-                    onPress={() => { router.push(`/access/access/geofence/${null}`)}}
+                    onPress={() => { router.push(`/access/access/geofence/${clockStatus}`)}}
                 >
-                    <Entypo
-                        name={'clock'}
-                        size={20}
+                    <Ionicons
+                        name='stopwatch'
+                        size={25}
                         color={COLORS.clearWhite}
                     />
+
                     <Text style={styles.timeInOutText}>Clock-In</Text>
                 </TouchableOpacity>
             </View>

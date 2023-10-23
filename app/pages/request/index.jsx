@@ -65,7 +65,7 @@ export default function RequestIndex() {
       : selectedButtonIndex == 4 ? ( null )
       : selectedButtonIndex == 5 ? ( null )
       : selectedButtonIndex == 6 ? ( null )
-      : ( <ChangeOfSchedulePanel onAnimate={true} /> )
+      : ( null )
     }
     
     </View>

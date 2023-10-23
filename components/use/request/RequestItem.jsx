@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
         backgroundColor: 
             item.status == "Approved" ? COLORS.green :
             item.status == "Reviewed" ? COLORS.purple :
-            item.status == "Filed" ? COLORS.yellow :
+            item.status == "Filed" ? COLORS.filed :
             item.status == "Cancelled" ? COLORS.red 
             : COLORS.orange
         ,

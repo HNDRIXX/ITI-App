@@ -19,7 +19,7 @@ export default TabsLayout = () => {
       tabBarIcon: ({ focused, color, size }) => {
         let iconName
 
-        if (route.name === "home/index") {
+        if (route.name === "home/[index]") {
           iconName = focused
             ? "ios-home"
             : "ios-home-outline"
@@ -36,7 +36,7 @@ export default TabsLayout = () => {
       tabBarActiveTintColor: COLORS.lightOrange
     })}>
       <Tabs.Screen
-        name="home/index" 
+        name="home/[index]" 
         options={{
           title: "",
           tabBarLabel: 'Home',
