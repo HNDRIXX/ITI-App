@@ -80,7 +80,7 @@ export default function CalendarIndex() {
     setSelectedDate(day.dateString)
     const previousDate = getPreviousDate(day.dateString)
     const nextDate = getNextDate(day.dateString)
-    setEvents(updatedValueEvents[''] || [])
+    setEvents(updatedValueEvents[day.dateString] || [])
     setPreviousDate(previousDate)
     setNextDate(nextDate)
   }  
@@ -129,7 +129,7 @@ export default function CalendarIndex() {
         break
 
       case "Leave": 
-        color = COLORS.yellow
+        color = COLORS.filed
         break
       
       case "Rest Day": 
@@ -137,7 +137,7 @@ export default function CalendarIndex() {
         break
 
       default:
-        color = COLORS.tr_gray
+        color = COLORS.darkGray
     }
 
     return color
@@ -362,6 +362,7 @@ const styles = StyleSheet.create({
   topCircle: {
     position: 'absolute',
     zIndex: 99,
+    marginLeft: -1,
   },
 
   dayStatusWrapper: (color) => ({
@@ -391,7 +392,7 @@ const styles = StyleSheet.create({
       paddingLeft: 40,
       borderRadius: 50,
       borderColor: color,
-      borderWidth: 2,
+      borderWidth: 1,
       backgroundColor: COLORS.clearWhite,
     }),
 

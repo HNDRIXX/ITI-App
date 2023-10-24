@@ -11,36 +11,6 @@ import Payslip from "../../../../components/section/profile/Payslip"
 import { AntDesign } from "@expo/vector-icons"
 import PendingItem from "../../../../components/use/home/pending/FiledItem"
 
-const width = Dimensions.get('window').width
-
-const data = [
-    { 
-        status: 'Overtime',  
-        date: '2023101',
-        appliedDate: '20231005',
-    },
-    { 
-        status: 'Overtime', 
-        date: '20230922',
-        appliedDate: '20230925',
-    },
-    { 
-        status: 'Overtime',
-        date: '20230923',
-        appliedDate: '20230927',
-    },
-    { 
-        status: 'Overtime',
-        date: '20230927',
-        appliedDate: '20230930',
-    },
-    { 
-        status: 'Overtime',
-        date: '20230930',
-        appliedDate: '20231001',
-    },
-]
-
 export default function PendingPage () {
     const [activePanel, setActivePanel] = useState(1)
     const [itemCount, setItemCount] = useState(0)
@@ -54,7 +24,7 @@ export default function PendingPage () {
             <View style={styles.topHeader}>
                 <TouchableOpacity 
                     style={styles.backButton} 
-                    onPress={() => router.push(`/pages/home/`)}
+                    onPress={() => router.push(`/pages/home/[home]`)}
                 >
                     <AntDesign name='arrowleft' size={30} color={COLORS.clearWhite} />
                 </TouchableOpacity>
@@ -64,20 +34,12 @@ export default function PendingPage () {
 
             <View style={styles.btnHorizontal}>
                 <TouchableOpacity
-                    style={[
-                        styles.button,
-                        activePanel ===  1  && styles.selectedButton,
-                    ]}
+                    style={[ styles.button, activePanel ===  1  && styles.selectedButton ]}
                     onPress={() => switchPanel(1)}
                 >
-                    <Text 
-                        style={[
-                            styles.buttonText,
-                            activePanel === 1 && styles.selectedTextButton
-                        ]}
-                    >Leave</Text>
+                    <Text style={[ styles.counterText, activePanel === 1 && styles.selectedCounter ]}>{itemCount}</Text>
 
-                    <Text style={styles.counterText}>{itemCount+1}</Text>
+                    <Text style={[ styles.buttonText, activePanel === 1 && styles.selectedTextButton ]}>Filed</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -106,9 +68,7 @@ export default function PendingPage () {
             )}
 
             { activePanel === 2 && (
-                <Payslip 
-                    onAnimate={true}
-                />
+                null
             )}
         </View>
     )
@@ -158,18 +118,20 @@ const styles = StyleSheet.create({
 
     counterText: {
         backgroundColor: COLORS.clearWhite,
-        color: COLORS.baseOrange,
-        marginLeft: 10,
+        color: COLORS.orange,
+        marginRight: 10,
         fontSize: 15,
         fontFamily: 'Inter_700Bold',
         padding: 5,
         paddingHorizontal: 10,
         borderRadius: 20,
+        display: 'none',
     },
   
     buttonText: {
         color: COLORS.tr_gray,
-        fontFamily: 'Inter_700Bold'
+        fontFamily: 'Inter_600SemiBold',
+        fontSize: 16,
     },
   
     selectedButton: {
@@ -182,6 +144,11 @@ const styles = StyleSheet.create({
     },
   
     selectedTextButton: {
-        color: COLORS.clearWhite
+        color: COLORS.clearWhite,
+        fontFamily: 'Inter_700Bold',
+    },
+
+    selectedCounter: {
+        display: 'flex',
     }
 })

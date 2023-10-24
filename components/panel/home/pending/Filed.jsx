@@ -34,6 +34,9 @@ export default function LeavePanel ({ onAnimate, itemCount, setItemCount} ) {
     const [isModalVisible, setIsModalVisible] = useState(false)
     const [filterText, setFilterText] = useState('')
 
+    const totalItems = data.length
+    setItemCount(totalItems)
+
     var totalMismo = 0;
     const currentDate = moment()
     const dateThreshold = currentDate.clone().subtract(7, 'days')
@@ -71,8 +74,6 @@ export default function LeavePanel ({ onAnimate, itemCount, setItemCount} ) {
                         const formattedDate = formattedDateString(item.date)
                         const itemDate = moment(formattedDate, 'MMMM DD YYYY')
 
-                        setItemCount(index)
-
                         return (
                             <FiledItem 
                                 onPanel={0}
@@ -94,8 +95,6 @@ export default function LeavePanel ({ onAnimate, itemCount, setItemCount} ) {
                     <Text>No Search Found.</Text>
                 </View>
             )}
-
-            
         </Animatable.View> 
     )
 }

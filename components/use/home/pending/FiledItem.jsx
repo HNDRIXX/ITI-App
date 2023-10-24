@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         marginBottom: 10,
         borderRadius: 20,
-        elevation: 2,
+        // elevation: 10,
     },
 
     dateRowWrapper: {

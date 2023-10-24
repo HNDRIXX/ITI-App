@@ -1,62 +1,79 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { Link } from 'expo-router';
 import { router } from 'expo-router';
-
+import moment from 'moment';
 import { Entypo, Ionicons } from '@expo/vector-icons';
 import { COLORS } from "../../../constant"
 
-export default function TimeInOutSection ({ clockStatus, setClockStatus }) {
+export default function TimeInOutSection ({ clockedValue, clockedStatus, clockedDate, clockedTime }) {
     const [currTime, setCurrTime] = useState(new Date())
-
-    const currDate = new Date()
-    const dateOptions = {
-        month: 'long',
-        day: 'numeric',
-        year: 'numeric',
-        weekday: 'long',
-    }
-
-    const formattedDay = currDate.toLocaleDateString(undefined, dateOptions)
-
-    const timeOptions = { 
-        hour: 'numeric', 
-        minute: 'numeric',
-        second: 'numeric', 
-        hour12: true 
-    }
-
-    const formattedDate = currDate.toLocaleDateString(undefined, dateOptions)
-    const formattedTime = currDate.toLocaleTimeString(undefined, timeOptions)
-
+    var [date, setDate] = useState(new Date())
 
     useEffect(() => {
-        const intervalId = setInterval(() => {
-          setCurrTime(new Date())
-        }, 1000)
+        var timer = setInterval(() => setDate(new Date()), 1000)
+        return function cleanup() {
+        clearInterval(timer)
+        }
+    })
 
-        return () => clearInterval(intervalId);
-    }, [])
+    const currentDate = moment().format('MMMM D, YYYY, dddd')
+
+    const formattedClocked = moment(clockedDate, 'LL, dddd').format('MMMM DD')
+    // useEffect(() => {
+    //     setIsClockStatus(clockedValue)
+    // }, [])
 
     return (
         <View style={styles.topBox}>
             <View style={styles.wrapperBox}>
-                <Text style={styles.dateText}>{formattedDate}</Text>
-                <Text style={styles.timeText}>{formattedTime}</Text>
+                <Text style={styles.dateText}>{currentDate}</Text>
+                <Text style={styles.timeText}>{date.toLocaleTimeString()}</Text>
 
-                <Text style={styles.clockInOutText}>Clocked Out: September 18 at 6:18:00 PM</Text>
+                {/* Clocked Out: September 18 at 6:18:00 PM */}
+                <Text style={styles.clockInOutText}>
+                    {/* { clockedStatus }
+                    { clockedDate != undefined && ( " : " + formattedClocked) }
+                    { clockedTime != undefined && (" at " + clockedTime)} */}
+                    Clocked Out: September 18 at 6:18:00 PM
+                </Text>
 
-                <TouchableOpacity
-                    style={styles.timeInOutButton}
-                    onPress={() => { router.push(`/access/access/geofence/${clockStatus}`)}}
-                >
-                    <Ionicons
-                        name='stopwatch'
-                        size={25}
-                        color={COLORS.clearWhite}
-                    />
 
-                    <Text style={styles.timeInOutText}>Clock-In</Text>
-                </TouchableOpacity>
+                { clockedValue == 0 && (
+                    <Link
+                        style={styles.clockOutButton}
+                        href={{
+                            pathname: `/access/access/geofence/[geofence]`,
+                            params: { clockedValue: clockedValue },
+                        }}
+                    >
+                        <Ionicons
+                            name='stopwatch'
+                            size={25}
+                            color={COLORS.clearWhite}
+                        />
+
+                        <Text style={styles.timeInOutText}>Clock-Out</Text>
+                    </Link>
+                )}
+                
+                { clockedValue == 1 && (
+                    <Link
+                        style={styles.clockInButton}
+                        href={{
+                            pathname: `/access/access/geofence/[geofence]`,
+                            params: { clockedValue: clockedValue },
+                        }} 
+                    >
+                        <Ionicons
+                            name='stopwatch'
+                            size={23}
+                            color={COLORS.clearWhite}
+                        />
+
+                        <Text style={styles.timeInOutText}>Clock-In</Text>
+                    </Link>
+                )}
             </View>
         </View>
     )
@@ -73,22 +90,29 @@ const styles = StyleSheet.create({
         borderWidth: 2,
     },
 
-    timeInOutButton: {
+    clockInButton: {
         backgroundColor: COLORS.orange,
         padding: 13,
         width: 270,
         borderRadius: 10,
         marginTop: 10,
         flexDirection: 'row',
-        alignItems: 'center',
-        alignSelf: 'center',
-        justifyContent: 'center'
+        textAlign: 'center',
+    },
+
+    clockOutButton: {
+        backgroundColor: COLORS.powderBlue,
+        padding: 13,
+        width: 270,
+        borderRadius: 10,
+        marginTop: 10,
+        flexDirection: 'row',
+        textAlign: 'center',
     },
 
     timeInOutText: {
         textAlign: 'center',
         fontSize: 17,
-        marginLeft: 10,
         color: COLORS.clearWhite,
         fontFamily: 'Inter_700Bold',
     },

@@ -52,13 +52,13 @@ export default function HomeButton () {
                                 />
                             </TouchableOpacity>
 
-                            <Text style={styles.textButton}>Ledger</Text>
+                            <Text style={styles.textButton}>Loan Ledger</Text>
                         </View>
 
                         <View style={styles.buttonContainer}>
                             <TouchableOpacity 
                                 style={styles.gridButton}
-                                onPress={() => router.push(`/access/navigation/home/pendings`)}
+                                onPress={() => router.push(`/access/navigation/home/pending`)}
                             >
                                 <Image 
                                     source={require('../../assets/img/icons/pending.png')}
@@ -76,7 +76,7 @@ export default function HomeButton () {
                         <View style={styles.buttonContainer}>
                             <TouchableOpacity 
                                 style={styles.gridButton}
-                                onPress={() => router.push(`/access/home/`)}
+                                onPress={() => router.push(`/access/navigation/home`)}
                             >
 
                                 <Image 
@@ -87,7 +87,7 @@ export default function HomeButton () {
                             
                             </TouchableOpacity>
 
-                            <Text style={[styles.textButton, { fontSize: 12 }]}>COS Request</Text>
+                            <Text style={styles.textButton}>COS Request</Text>
                         </View>
 
                         <View style={styles.buttonContainer}>
@@ -103,7 +103,7 @@ export default function HomeButton () {
                               
                             </TouchableOpacity>
 
-                            <Text style={[styles.textButton, { fontSize: 12 }]}>OB Request</Text>
+                            <Text style={styles.textButton}>OB Request</Text>
                         </View>
 
                         <View style={styles.buttonContainer}>
@@ -119,7 +119,7 @@ export default function HomeButton () {
                                
                             </TouchableOpacity>
 
-                            <Text style={[styles.textButton, { fontSize: 12 }]}>OT Request</Text>
+                            <Text style={styles.textButton}>OT Request</Text>
                         </View>
                     </View>
                 </>
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Inter_500Medium',
         color: COLORS.darkGray,
         paddingTop: 5,
-        fontSize: 13,
+        fontSize: 11,
         textAlign: 'center'
     },
 

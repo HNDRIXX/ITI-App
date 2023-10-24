@@ -2,8 +2,10 @@ import { View, Text, StyleSheet, Modal, TouchableOpacity } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'
 
 import { COLORS } from '../../constant'
+import { Link } from 'expo-router'
 
-export default function SuccessTimeClock ({ clockedTime, clockedStatus, clockedDate, subText, visible, onClose }) {
+export default function SuccessTimeClock ({ clockedTime, clockedStatus, clockedValue, clockedDate, subText, visible, onClose }) {
+
     return (
         <>
             <Modal
@@ -25,16 +27,25 @@ export default function SuccessTimeClock ({ clockedTime, clockedStatus, clockedD
 
                     <Text style={styles.subText}>You have successfully  
                         <Text style={{ fontFamily: 'Inter_700Bold' }}> {clockedStatus} </Text>
-                        from 
-                        <Text style={{ fontFamily: 'Inter_700Bold' }}> {subText}</Text>
+                        {/* from  */}
+                        {/* <Text style={{ fontFamily: 'Inter_700Bold' }}> {subText}</Text> */}
                     </Text>
                     
-                    <TouchableOpacity 
+                    <Link
+                      href={{
+                        pathname: "/pages/home/[index]",
+                        params: { 
+                          clockedValue: clockedValue,
+                          clockedStatus: clockedStatus,
+                          clockedDate: clockedDate,
+                          clockedTime: clockedTime
+                        },
+                      }} 
                       onPress={onClose}
                       style={styles.button}
                     >
                       <Text style={styles.buttonText}>OKAY</Text>
-                    </TouchableOpacity>
+                    </Link>
                   </View>
                 </View>
             </Modal>

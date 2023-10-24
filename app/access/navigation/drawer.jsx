@@ -12,7 +12,7 @@ export default function Drawer () {
                 <View style={styles.topHeader}>
                     <TouchableOpacity 
                         style={styles.backButton} 
-                        onPress={() => router.push(`/pages/home/`)}
+                        onPress={() => router.push(`/pages/home/[home]`)}
                     >
                         <AntDesign name='arrowleft' size={30} color={COLORS.clearWhite} />
                     </TouchableOpacity>

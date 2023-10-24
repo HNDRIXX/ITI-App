@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator, TouchableOpacity, Alert, ScrollView, } from 'react-native';
 import { Image } from 'expo-image';
-import { useRouter } from 'expo-router';
+import { useGlobalSearchParams, useRouter } from 'expo-router';
 import { COLORS, useFonts } from '../../../constant';
 import { AntDesign, Entypo, FontAwesome } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
@@ -20,11 +20,8 @@ export default function App () {
     const router = useRouter()
     const [fontsLoaded] = useFonts()
     const [isConnected, setIsConnected] = useState(null)
-    const [clockStatus, setClockStatus] = useState(1)
 
-    const params = useLocalSearchParams()
-    const paramsClockStatus = params.index
-    console.log(paramsClockStatus)
+    const params = useGlobalSearchParams()
 
     useEffect(() => {
         const unsubscribe = NetInfo.addEventListener((state) => {
@@ -56,35 +53,10 @@ export default function App () {
                     
                     <View style={styles.headerWrapper}>
                         <View style={styles.headerButtonWrapper}>
-                            {/* <TouchableOpacity
-                                style={styles.logOutButton}
-                                onPress={() => {
-                                    Alert.alert(
-                                        'Confirm Log-Out',
-                                        'Are you sure you want to log-out?',
-                                        [
-                                            {
-                                                text: 'Cancel',
-                                                style: 'cancel',
-                                            },
-                                            {
-                                                text: 'Logout',
-                                                onPress: () => router.push(`/authentication/base/login`),
-                                            },
-                                        ],
-                                        { cancelable: false }
-                                    )
-                                }}
-                            >
-                                <AntDesign 
-                                    name="logout"
-                                    size={20}
-                                    color={COLORS.clearWhite}
-                                />
-                            </TouchableOpacity> */}
 
                             <TouchableOpacity
                                 onPress={() => router.push('/access/navigation/drawer') }
+                
                             >
                                 <FontAwesome 
                                     name={'bars'}
@@ -133,12 +105,12 @@ export default function App () {
                         distance={20}
                         style={styles.timeInOutWrapper}
                     >
-                        <View >
-                            <TimeInOut 
-                                clockStatus={clockStatus}
-                                setClockStatus={setClockStatus}
-                            />         
-                        </View>
+                        <TimeInOut 
+                            clockedValue = { params.clockedValue == undefined ? 1 : params.clockedValue }
+                            clockedStatus = { params.clockedStatus == undefined ? null : params.clockedStatus }
+                            clockedDate = { params.clockedDate == undefined ? null : params.clockedDate }
+                            clockedTime = { params.clockedTime == undefined ? null : params.clockedTime }
+                        /> 
                     </Shadow>
                     
 
@@ -155,12 +127,6 @@ export default function App () {
                         <TimeOff />
                     </View>
                 </ScrollView>
-                {/* <View style={styles.belowContainer}>
-                    <Notification />
-                    <View style={styles.hairline} />
-                    
-                    <HomeButton />
-                </View> */}
             </View>
         </View>
     )
@@ -213,7 +179,7 @@ const styles = StyleSheet.create({
     belowHeaderText: {
         fontFamily: 'Inter_800ExtraBold',
         letterSpacing: -.5,
-        color: COLORS.white,
+        color: COLORS.clearWhite,
         fontSize: 20,
     },
 
@@ -230,9 +196,9 @@ const styles = StyleSheet.create({
 
     timeClockText: {
         color: COLORS.clearWhite,
-        fontSize: 16,
-        paddingHorizontal: 10,
-        marginTop: 15,
+        fontSize: 14,
+        paddingHorizontal: 20,
+        marginTop: 16,
         fontFamily: 'Inter_700Bold'
     },
 

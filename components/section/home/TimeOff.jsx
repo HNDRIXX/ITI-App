@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity} from "react-native";
 
 import { COLORS } from "../../../constant";
 import { AntDesign, FontAwesome5 } from "@expo/vector-icons";
@@ -7,7 +7,7 @@ import { Image } from "expo-image";
 export default function TimeOff () {
     return (
         <View style={styles.container}>
-            <View style={styles.wrapper}>
+            <TouchableOpacity style={styles.button}>
                 <View style={styles.alignWrapper}>
                     <Image 
                         source={require('../../../assets/img/icons/vacation.png')}
@@ -20,9 +20,9 @@ export default function TimeOff () {
                         <Text style={styles.title}>Vacation Leave</Text>
                     </View>
                 </View>
-            </View>
+            </TouchableOpacity>
 
-            <View style={[styles.wrapper, { padding: 15 }]}>
+            <TouchableOpacity style={[styles.button, { padding: 15 }]}>
                 <View style={styles.alignWrapper}>
                     <Image 
                         source={require('../../../assets/img/icons/health.png')}
@@ -35,7 +35,7 @@ export default function TimeOff () {
                         <Text style={styles.title}>Sick Leave</Text>
                     </View>
                 </View>
-            </View>
+            </TouchableOpacity>
         </View>
     )
 }
@@ -51,14 +51,14 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
 
-    wrapper: {
+    button: {
         flex: 1,
         backgroundColor: COLORS.clearWhite,
-        // elevation: 5,
-        // shadowColor: COLORS.darkGray,
-        // shadowOpacity: 0.1,
-        // shadowRadius: 2,
-        // shadowOffset : { width: 1, height: 5},
+        elevation: 5,
+        shadowColor: COLORS.darkGray,
+        shadowOpacity: 0.1,
+        shadowRadius: 2,
+        shadowOffset : { width: 1, height: 5},
         marginHorizontal: 6,
         flexDirection: 'row',
         borderRadius: 20,

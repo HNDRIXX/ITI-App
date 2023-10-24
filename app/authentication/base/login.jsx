@@ -46,7 +46,7 @@ export default function SignInIndex () {
 
                 <TouchableOpacity 
                     style={styles.loginBtn}
-                    onPress={() => router.push(`/pages/home/`)}
+                    onPress={() => router.push(`/pages/home/[home]`)}
                 >
                     <Text style={styles.loginText}>LOG IN</Text>
                 </TouchableOpacity>
