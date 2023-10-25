@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, ScrollView, RefreshControl } from "react-native
 import { Calendar } from "react-native-calendars";
 import { AntDesign, FontAwesome } from "@expo/vector-icons";
 import moment from "moment";
+import { Shadow } from "react-native-shadow-2";
 
 import { COLORS } from "../../../constant";
 import TimeSheetPrompt from "../../../components/note/CalendarPrompt";
@@ -149,7 +150,7 @@ export default function CalendarIndex() {
         <Text style={styles.textHeader}>Calendar</Text>
       </View>
 
-      <ScrollView
+      <View
         ref={scrollViewRef}
         contentContainerStyle={styles.scrollView}
         refreshControl={
@@ -176,7 +177,7 @@ export default function CalendarIndex() {
         />
 
         {selectedDate ? (
-          <ScrollView style={styles.agenda}>
+          <Shadow style={styles.agenda}>
             <View style={styles.agendaDateWrapper}>
               <Text style={styles.todayText}>
                 {
@@ -286,13 +287,13 @@ export default function CalendarIndex() {
                 })}
               </View>
             </View>
-          </ScrollView>
+          </Shadow>
         ) : (
           <View style={styles.promptView}>
             <TimeSheetPrompt />
           </View>
         )}
-      </ScrollView>
+      </View>
     </View>
   )
 }
@@ -318,7 +319,8 @@ const styles = StyleSheet.create({
 
   calendarView: {
     paddingTop: 5,
-    height: 380,
+    paddingBottom: 30,
+    height: 'auto'
   },
 
   agendaDateWrapper: {
@@ -328,11 +330,11 @@ const styles = StyleSheet.create({
   },
 
   agenda: {
-    flex: 1,
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
     paddingHorizontal: 10,
-    elevation: 15,
+    height: '100%',
+    width: '100%',
     shadowColor: COLORS.darkGray,
     shadowOpacity: 0.1,
     shadowRadius: 2,

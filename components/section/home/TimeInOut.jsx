@@ -38,7 +38,6 @@ export default function TimeInOutSection ({ clockedValue, clockedStatus, clocked
                     Clocked Out: September 18 at 6:18:00 PM
                 </Text>
 
-
                 { clockedValue == 0 && (
                     <Link
                         style={styles.clockOutButton}
@@ -82,12 +81,13 @@ export default function TimeInOutSection ({ clockedValue, clockedStatus, clocked
 const styles = StyleSheet.create({
     topBox: {
         backgroundColor: COLORS.clearWhite,
-        padding: 20,
+        paddingVertical: 20,
+        paddingHorizontal: 40,
         marginTop: -110,
         bottom: -20,
         borderRadius: 20,
         borderColor: COLORS.orange,
-        borderWidth: 2,
+        borderWidth: 1.5,
     },
 
     clockInButton: {
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Inter_700Bold', 
         fontSize: 23,
         textAlign: 'center',
-        color: COLORS.darkGray,
+        color: COLORS.black,
     },
 
     dateText: {
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     },
 
     clockInOutText: {
-        color: COLORS.darkGray,
+        color: COLORS.black,
         fontSize: 12,
         textAlign: 'center'
     }

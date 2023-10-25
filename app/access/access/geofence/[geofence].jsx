@@ -210,7 +210,6 @@ export default function GeofenceIndex () {
             </MapView>
             
             <Shadow style={styles.bottomContainer}>
-
               <View style={styles.dateTimeWrapper}>
                 <Text style={styles.dateText}>{currentDate}</Text>
                 <Text style={styles.timeText}>{date.toLocaleTimeString()}</Text>

@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
 
     buttonWrapper: {
         flexDirection: 'row',
-        marginHorizontal: 10,
+        marginHorizontal: 8,
     }, 
 
     buttonContainer: {
@@ -156,15 +156,15 @@ const styles = StyleSheet.create({
         shadowOffset : { width: 1, height: 5},
         alignItems: 'center',
         justifyContent: 'center',
-        width: 70,
-        height: 70,
+        width: 80,
+        height: 80,
     },
 
     textButton: {
         fontFamily: 'Inter_500Medium',
         color: COLORS.darkGray,
         paddingTop: 5,
-        fontSize: 11,
+        fontSize: 12,
         textAlign: 'center'
     },
 
@@ -182,10 +182,6 @@ const styles = StyleSheet.create({
         color: COLORS.clearWhite,
     },
 
-    rowWrapper: { 
-        
-    },
-    
     rowButton: {
         flex: 1,
         backgroundColor: COLORS.orange,

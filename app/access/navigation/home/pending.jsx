@@ -1,19 +1,18 @@
+import React, { useState } from "react"
 import { View, Text, StyleSheet, Dimensions, ImageBackground, FlatList, TouchableOpacity} from "react-native"
 import { Image } from "expo-image"
 import { StatusBar } from "expo-status-bar"
 import { router } from "expo-router"
+import { AntDesign } from "@expo/vector-icons"
 
 import { COLORS } from "../../../../constant"
-import { useState } from "react"
-import Filed from "../../../../components/panel/home/pending/Filed"
-import UserInfo from "../../../../components/section/profile/UserInfo"
-import Payslip from "../../../../components/section/profile/Payslip"
-import { AntDesign } from "@expo/vector-icons"
-import PendingItem from "../../../../components/use/home/pending/FiledItem"
+import ReviewedPanel from "../../../../components/panel/home/pending/Reviewed"
+import FiledPanel from "../../../../components/panel/home/pending/Filed"
 
 export default function PendingPage () {
     const [activePanel, setActivePanel] = useState(1)
-    const [itemCount, setItemCount] = useState(0)
+    const [filedCount, setFiledCount] = useState(0)
+    const [reviewedCount, setReviewedCount] = useState(0)
 
     const switchPanel = (panelNum) => {
         setActivePanel(panelNum)
@@ -37,38 +36,33 @@ export default function PendingPage () {
                     style={[ styles.button, activePanel ===  1  && styles.selectedButton ]}
                     onPress={() => switchPanel(1)}
                 >
-                    <Text style={[ styles.counterText, activePanel === 1 && styles.selectedCounter ]}>{itemCount}</Text>
+                    <Text style={[ styles.counterText, activePanel === 1 && styles.selectedCounter ]}>{filedCount}</Text>
 
                     <Text style={[ styles.buttonText, activePanel === 1 && styles.selectedTextButton ]}>Filed</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    style={[
-                        styles.button,
-                        activePanel ===  2  && styles.selectedButton,
-                    ]}
+                    style={[ styles.button, activePanel ===  2  && styles.selectedButton ]}
                     onPress={() => switchPanel(2)}
                 >
-                    <Text 
-                        style={[
-                            styles.buttonText,
-                            activePanel === 2 && styles.selectedTextButton
-                        ]}
-                    >Loan</Text>
-                </TouchableOpacity>
+                    <Text style={[ styles.counterText, activePanel === 2 && styles.selectedCounter ]}>{reviewedCount}</Text>
 
+                    <Text style={[ styles.buttonText, activePanel === 2 && styles.selectedTextButton ]}>Reviewed</Text>
+                </TouchableOpacity>
             </View>
 
             { activePanel === 1 && (
-                <Filed
+                <FiledPanel
                     onAnimate={true}
-                    itemCount={itemCount}
-                    setItemCount={setItemCount}
+                    setFiledCount={setFiledCount}
                 />
             )}
 
             { activePanel === 2 && (
-                null
+                <ReviewedPanel
+                    onAnimate={true}
+                    setReviewedCount={setReviewedCount}
+                />
             )}
         </View>
     )
@@ -111,7 +105,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         margin: 15,
-        padding: 10,
+        padding: 5,
         borderRadius: 20,
         alignItems: 'center',
     },
@@ -120,10 +114,9 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.clearWhite,
         color: COLORS.orange,
         marginRight: 10,
-        fontSize: 15,
+        fontSize: 18,
         fontFamily: 'Inter_700Bold',
-        padding: 5,
-        paddingHorizontal: 10,
+        paddingHorizontal: 7,
         borderRadius: 20,
         display: 'none',
     },
@@ -131,7 +124,7 @@ const styles = StyleSheet.create({
     buttonText: {
         color: COLORS.tr_gray,
         fontFamily: 'Inter_600SemiBold',
-        fontSize: 16,
+        fontSize: 17,
     },
   
     selectedButton: {

@@ -1,13 +1,17 @@
 import { View, Text, StyleSheet, TouchableOpacity} from "react-native";
-
-import { COLORS } from "../../../constant";
 import { AntDesign, FontAwesome5 } from "@expo/vector-icons";
 import { Image } from "expo-image";
+import { router } from "expo-router";
+
+import { COLORS } from "../../../constant";
 
 export default function TimeOff () {
     return (
         <View style={styles.container}>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity 
+                style={[styles.button, { paddingHorizontal: 15, paddingVertical: 6 }]}
+                onPress={() => router.push(`access/navigation/home/vacationleave`)}
+            >
                 <View style={styles.alignWrapper}>
                     <Image 
                         source={require('../../../assets/img/icons/vacation.png')}
@@ -17,12 +21,15 @@ export default function TimeOff () {
 
                     <View style={styles.textContent}>
                         <Text style={styles.totalText}>3.00</Text>
-                        <Text style={styles.title}>Vacation Leave</Text>
+                        <Text style={styles.title}>Vacation{'\n'}Leave</Text>
                     </View>
                 </View>
             </TouchableOpacity>
 
-            <TouchableOpacity style={[styles.button, { padding: 15 }]}>
+            <TouchableOpacity 
+                style={[styles.button, { paddingHorizontal: 15, paddingVertical: 12 }]}
+                onPress={() => router.push(`access/navigation/home/sickleave`)}
+            >
                 <View style={styles.alignWrapper}>
                     <Image 
                         source={require('../../../assets/img/icons/health.png')}
@@ -55,25 +62,25 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: COLORS.clearWhite,
         elevation: 5,
-        shadowColor: COLORS.darkGray,
+        shadowColor: COLORS.black,
         shadowOpacity: 0.1,
         shadowRadius: 2,
         shadowOffset : { width: 1, height: 5},
         marginHorizontal: 6,
         flexDirection: 'row',
         borderRadius: 20,
-        padding: 10,
         justifyContent: 'space-around',
 
     },
 
     textWrapper: {
-        color: COLORS.darkGray,
+        color: COLORS.black,
         fontFamily: 'Inter_600SemiBold',
     },
 
     alignWrapper: {
         padding: 10,
+        justifyContent: 'space-between',
         alignItems: 'center',
         flexDirection: 'row'
     },
@@ -84,13 +91,14 @@ const styles = StyleSheet.create({
 
     totalText: {
         fontFamily: 'Inter_700Bold',
-        fontSize: 17,
+        fontSize: 20,
         textAlign: 'center'
     },
 
     title: {
-        color: COLORS.darkGray,
-        fontSize: 10,
+        color: COLORS.black,
+        fontSize: 12,
+        lineHeight: 14,
         textAlign: 'center',
         fontFamily: 'Inter_500Medium',
     },

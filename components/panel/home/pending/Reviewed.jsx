@@ -14,23 +14,18 @@ const data = [
         appliedDate: '20231005',
     },
     { 
-        status: 'Overtime', 
+        status: 'Vacation Leave', 
         date: '20230922',
         appliedDate: '20230925',
     },
     { 
-        status: 'Overtime',
+        status: 'Vacation Leave',
         date: '20230923',
         appliedDate: '20230927',
     },
-    { 
-        status: 'Overtime',
-        date: '20230927',
-        appliedDate: '20230930',
-    },
 ] 
 
-export default function FiledPanel ({ onAnimate, setFiledCount} ) {
+export default function ReviewedPanel ({ onAnimate, setReviewedCount } ) {
     const [isModalVisible, setIsModalVisible] = useState(false)
     const [filterText, setFilterText] = useState('')
 
@@ -39,7 +34,7 @@ export default function FiledPanel ({ onAnimate, setFiledCount} ) {
 
     useEffect(() => {
         const totalItems = data.length
-        setFiledCount(totalItems)
+        setReviewedCount(totalItems)
     })
 
     const filteredData = data.filter((newItem) => {
@@ -102,11 +97,11 @@ export default function FiledPanel ({ onAnimate, setFiledCount} ) {
 }
 
 const formattedDateString = (date) => {
-    const year = date.substring(0, 4);
-    const month = date.substring(4, 6);
-    const day = date.substring(6);
+    const year = date.substring(0, 4)
+    const month = date.substring(4, 6)
+    const day = date.substring(6)
 
-    return moment(`${month}-${day}-${year}`, 'MM-DD-YYYY').format('MMMM DD YYYY');
+    return moment(`${month}-${day}-${year}`, 'MM-DD-YYYY').format('MMMM DD YYYY')
 }
 
 const styles = StyleSheet.create({

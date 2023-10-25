@@ -84,7 +84,7 @@ export default function App () {
 
                             <View>
                                 <Text style={styles.headerText}>Hello,</Text>
-                                <Text style={styles.belowHeaderText}>Lorem Ipsum!</Text>
+                                <Text style={styles.belowHeaderText}>Juan Dela Cruz!</Text>
 
                                 <View style={styles.statusContainer}>
                                     <Entypo 
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     headerWrapper: {
         padding: 20,
         paddingTop: 5,
-        height: 270,
+        height: 255,
         backgroundColor: COLORS.powderBlue,
     },
 
@@ -157,12 +157,12 @@ const styles = StyleSheet.create({
     headerContentWrapper: {
         flexDirection: 'row',
         alignItems: 'center',
-        padding: 10,
+        marginHorizontal: 10
     },
 
     userIcon: {
-        width: 70,
-        height: 70,
+        width: 75,
+        height: 75,
         borderWidth: 4,
         borderColor: COLORS.orange,
         borderRadius: 40,
@@ -173,32 +173,35 @@ const styles = StyleSheet.create({
         fontFamily: 'Inter_800ExtraBold',
         letterSpacing: -.5,
         color: COLORS.clearWhite,
-        fontSize: 18,
+        fontSize: 24,
     },
 
     belowHeaderText: {
         fontFamily: 'Inter_800ExtraBold',
         letterSpacing: -.5,
         color: COLORS.clearWhite,
-        fontSize: 20,
+        fontSize: 25,
+        lineHeight: 26,
     },
 
     statusContainer: {
         flexDirection: 'row',
-        marginTop: 5,
+        marginTop: 2,
+        alignItems: 'center'
     },
 
     statusText: {
         color: COLORS.clearWhite,
         fontFamily: 'Inter_600SemiBold',
-        marginLeft: 10,     
+        marginLeft: 10,    
+        fontSize: 15, 
     },
 
     timeClockText: {
         color: COLORS.clearWhite,
         fontSize: 14,
-        paddingHorizontal: 20,
-        marginTop: 16,
+        paddingHorizontal: 10,
+        marginTop: 15,
         fontFamily: 'Inter_700Bold'
     },
 
@@ -206,7 +209,6 @@ const styles = StyleSheet.create({
         alignContent: 'center',
         alignItems: 'center',
         justifyContent: 'center',
-        paddingHorizontal: 35,
         paddingBottom: 30,
         borderTopLeftRadius: 80,
         borderTopEndRadius: 80,

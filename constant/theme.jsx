@@ -22,6 +22,7 @@ const COLORS = {
 
     filed: '#967bb6',
     purple: '#8a2be2',
+    yellow: '#FFF52B',
 
     red: '#EE2C38',
 

@@ -4,11 +4,12 @@ import { FontAwesome5, MaterialCommunityIcons, AntDesign, Entypo } from '@expo/v
 import { router } from 'expo-router';
 
 import { COLORS } from '../../../../constant';
+import { Shadow } from 'react-native-shadow-2';
 
 export default function PendingItem ({onPanel, item, index, newItem}) {
     return (
         <View style={styles.itemContainer} key={index}>
-            <View style={styles.itemWrapper}>
+            <Shadow distance={3} style={styles.itemWrapper}>
                 <View style={styles.dateRowWrapper}>
                     <Text style={styles.statusText}>{item.status}</Text>
                     <Text style={styles.currDateText}>{newItem.formattedDate}</Text>    
@@ -17,10 +18,10 @@ export default function PendingItem ({onPanel, item, index, newItem}) {
                 <View style={styles.bodyWrapper}>
                     <View style={styles.rowWrapper}>
                         <Text style={styles.boldText}>Applied Date/s: </Text>
-                        <Text style={styles.valueText}>{item.appliedDate}</Text>
+                        <Text style={styles.valueText}>{newItem.appliedDate}</Text>
                     </View>
                 </View>
-            </View>
+            </Shadow>
         </View>
     )
 }
@@ -28,16 +29,23 @@ export default function PendingItem ({onPanel, item, index, newItem}) {
 const styles = StyleSheet.create({ 
     itemContainer: {
         backgroundColor: COLORS.clearWhite,
-        marginHorizontal: 20,
-        marginBottom: 10,
+        justifyContent: 'center',
+        alignSelf: 'center',
+        marginVertical: 5,
         borderRadius: 20,
+        width: '90%',
         // elevation: 10,
+    },
+
+    itemWrapper: {
+        width: '100%',
+        borderRadius: 20,
     },
 
     dateRowWrapper: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        padding: 10,
+        paddingTop: 10,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
         backgroundColor: COLORS.clearWhite,
@@ -46,17 +54,19 @@ const styles = StyleSheet.create({
 
     rowWrapper: {
         flexDirection: 'row',
+        marginLeft: 20,
         alignItems: 'center',
     },
 
     currDateText: {
-        fontFamily: 'Inter_700Bold',
-        color: COLORS.darkGray,
+        fontFamily: 'Inter_500Medium',
+        color: COLORS.black,
     },
 
     statusText: {
         fontFamily: 'Inter_700Bold',
-        color: COLORS.darkGray,
+        fontSize: 16,
+        color: COLORS.black,
     },
 
     bodyWrapper: {
@@ -70,11 +80,13 @@ const styles = StyleSheet.create({
     },
 
     boldText: {
-        fontFamily: 'Inter_600SemiBold'
+        fontFamily: 'Inter_500Medium',
+        color: COLORS.darkGray,
     },
 
     valueText: {
         fontFamily: 'Inter_400Regular',
+        color: COLORS.darkGray,
     },
 
 })
