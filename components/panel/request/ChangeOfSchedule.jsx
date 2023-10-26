@@ -13,33 +13,53 @@ import { ScrollView } from "react-native-gesture-handler";
 const data = [
     { 
         status: 'Filed',  
-        date: '20231014',
+        appliedDate: '20231014',
         requestedSched: '7:00 AM - 4:00 PM',
-        reason: '----'
+        reason: '----',
+        documentNo: 'COS',
+        filedDate: '20230916',
+        approvedBy: 'Mark Sasama',
+        reviewedBy: 'Benjamin Peralta'
     },
     { 
         status: 'Reviewed', 
-        date: '20230922',
+        appliedDate: '20230922',
         requestedSched: '7:00 AM - 4:00 PM',
-        reason: '----'
+        reason: '----',
+        documentNo: 'JJJ',
+        filedDate: '20230917',
+        approvedBy: 'Mark Sasama',
+        reviewedBy: 'Benjamin Peralta'
     },
     { 
         status: 'Approved',
-        date: '20230923',
-        requestedSched: '7:00 AM - 4:00 PM',
-        reason: '----'
-    },
-    { 
-        status: 'Cancelled',
-        date: '20230927',
-        requestedSched: '7:00 AM - 4:00 PM',
-        reason: '----'
-    },
-    { 
-        status: 'Cancelled',
-        date: '20230930',
+        appliedDate: '20230923',
         requestedSched: '7:00 AM - 4:00 PM',
         reason: '----',
+        documentNo: 'JJJ',
+        filedDate: '20230918',
+        approvedBy: 'Mark Sasama',
+        reviewedBy: 'Benjamin Peralta'
+    },
+    { 
+        status: 'Cancelled',
+        appliedDate: '20230927',
+        requestedSched: '7:00 AM - 4:00 PM',
+        reason: '----',
+        documentNo: 'JJJ',
+        filedDate: '20230919',
+        approvedBy: 'Mark Sasama',
+        reviewedBy: 'Benjamin Peralta'
+    },
+    { 
+        status: 'Cancelled',
+        appliedDate: '202309302',
+        requestedSched: '7:00 AM - 4:00 PM',
+        reason: '----',
+        documentNo: 'JJJ',
+        filedDate: '20230920',
+        approvedBy: 'Mark Sasama',
+        reviewedBy: 'Benjamin Peralta'
     },
 ]
 
@@ -48,15 +68,15 @@ export default function ChangeOfSchedulePanel ( onAnimate ) {
     const [filterText, setFilterText] = useState('')
 
     var totalMismo = 0;
-    const currentDate = moment()
-    const dateThreshold = currentDate.clone().subtract(7, 'days')
+    const currentappliedDate = moment()
+    const appliedDateThreshold = currentappliedDate.clone().subtract(7, 'days')
 
     const [newCount1, setNewCount1] = useState(0);
     const [newCount2, setNewCount2] = useState(0);
 
     const filteredData = data.filter((newItem) => {
-            const formattedDate = formattedDateString(newItem.date)
-            const itemDate = moment(formattedDate, 'MMMM DD YYYY')
+            const formattedDate = formattedDateString(newItem.appliedDate)
+            const itemAppliedDate = moment(formattedDate, 'MMMM DD YYYY')
 
             console.log(formattedDate)
 
@@ -68,25 +88,25 @@ export default function ChangeOfSchedulePanel ( onAnimate ) {
     )
 
     useEffect(() => {
-        let count1 = 0;
-        let count2 = 0;
+        let count1 = 0
+        let count2 = 0
     
         filteredData.forEach((item) => {
-          const formattedDate = formattedDateString(item.date)
-          const itemDate = moment(formattedDate, 'MMMM DD YYYY')
+          const formattedDate = formattedDateString(item.appliedDate)
+          const itemAppliedDate = moment(formattedDate, 'MMMM DD YYYY')
     
-          if (!itemDate.isBefore(dateThreshold)) {
+          if (!itemAppliedDate.isBefore(appliedDateThreshold)) {
             count1++
           }
     
-          if (itemDate.isBefore(dateThreshold)) {
+          if (itemAppliedDate.isBefore(appliedDateThreshold)) {
             count2++
           }
         })
     
         setNewCount1(count1)
         setNewCount2(count2)
-      }, [filteredData, dateThreshold])
+    }, [filteredData, appliedDateThreshold])
 
     const toggleModal = () => {
         setIsModalVisible(!isModalVisible)
@@ -109,18 +129,19 @@ export default function ChangeOfSchedulePanel ( onAnimate ) {
                     { newCount1 > 0 && (<Text style={styles.itemStatusText}>New</Text>) }
 
                     {filteredData.map((item, index) => {
-                        const formattedDate = formattedDateString(item.date)
-                        const itemDate = moment(formattedDate, 'MMMM DD YYYY')
+                        const formattedApplied = formattedDateString(item.appliedDate)
+                        const formattedFiled = formattedDateString(item.filedDate)
+                        const itemAppliedDate = moment(formattedApplied, 'MMMM DD YYYY')
 
-                        if (!itemDate.isBefore(dateThreshold)) {
+                        if (!itemAppliedDate.isBefore(appliedDateThreshold)) {
                             return (
                                 <RequestItem 
                                     onPanel={0}
                                     item={item}
                                     index={index}
-                                    newItem={{ ...item, formattedDate: formattedDate }}
+                                    newItem={{ ...item, formattedApplied: formattedApplied, formattedFiled: formattedFiled, requestType: "Change of Schedule"}}
                                     key={index}
-                                    formattedDate={formattedDate}
+                                    formattedApplied={formattedApplied}
                                 />
                             )
                         }
@@ -129,18 +150,19 @@ export default function ChangeOfSchedulePanel ( onAnimate ) {
                     { newCount2 > 0 && (<Text style={styles.itemStatusText}>Earlier</Text>) }
 
                     {filteredData.map((item, index) => {
-                        const formattedDate = formattedDateString(item.date)
-                        const itemDate = moment(formattedDate, 'MMMM DD YYYY')
+                        const formattedApplied = formattedDateString(item.appliedDate)
+                        const formattedFiled = formattedDateString(item.filedDate)
+                        const itemAppliedDate = moment(formattedApplied, 'MMMM DD YYYY')
 
-                        if (itemDate.isBefore(dateThreshold)) {
+                        if (itemAppliedDate.isBefore(appliedDateThreshold)) {
                             return (
                                 <RequestItem 
                                     onPanel={0}
                                     item={item}
                                     index={index}
-                                    newItem={{ ...item, formattedDate: formattedDate }}
+                                    newItem={{ ...item, formattedApplied: formattedApplied, formattedFiled: formattedFiled, requestType: "Change of Schedule" }}
                                     key={index}
-                                    formattedDate={formattedDate}
+                                    formattedApplied={formattedApplied}
                                 />
                             )
                         }
@@ -192,10 +214,10 @@ export default function ChangeOfSchedulePanel ( onAnimate ) {
     )
 }
 
-const formattedDateString = (date) => {
-    const year = date.substring(0, 4);
-    const month = date.substring(4, 6);
-    const day = date.substring(6);
+const formattedDateString = (appliedDate) => {
+    const year = appliedDate.substring(0, 4);
+    const month = appliedDate.substring(4, 6);
+    const day = appliedDate.substring(6);
 
     return moment(`${month}-${day}-${year}`, 'MM-DD-YYYY').format('MMMM DD YYYY');
 }

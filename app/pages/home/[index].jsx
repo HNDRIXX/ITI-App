@@ -14,6 +14,7 @@ import TimeInOut from '../../../components/section/home/TimeInOut'
 import Notification from '../../../components/section/Notification'
 import ConnectionPrompt from '../../../components/prompt/connection';
 import TimeOff from '../../../components/section/home/TimeOff';
+import BottomNavigation from '../../../components/button/BottomNavigation';
 
 
 export default function App () {
@@ -89,7 +90,7 @@ export default function App () {
                                 <View style={styles.statusContainer}>
                                     <Entypo 
                                         name={'briefcase'}
-                                        size={15}
+                                        size={20}
                                         color={COLORS.clearWhite}
                                     />
                                     <Text style={styles.statusText}>Work Day</Text>
@@ -112,8 +113,6 @@ export default function App () {
                             clockedTime = { params.clockedTime == undefined ? null : params.clockedTime }
                         /> 
                     </Shadow>
-                    
-
                 <ScrollView
                     style={styles.bodyWrapper}
                 > 
@@ -128,6 +127,8 @@ export default function App () {
                     </View>
                 </ScrollView>
             </View>
+
+            <BottomNavigation active={"home"} />
         </View>
     )
 }
@@ -135,6 +136,7 @@ export default function App () {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        paddingTop: 50,
     },
 
     logOutButton: {
@@ -144,7 +146,7 @@ const styles = StyleSheet.create({
     headerWrapper: {
         padding: 20,
         paddingTop: 5,
-        height: 255,
+        height: 280,
         backgroundColor: COLORS.powderBlue,
     },
 
@@ -157,12 +159,13 @@ const styles = StyleSheet.create({
     headerContentWrapper: {
         flexDirection: 'row',
         alignItems: 'center',
+        marginTop: 15,
         marginHorizontal: 10
     },
 
     userIcon: {
-        width: 75,
-        height: 75,
+        width: 83,
+        height: 83,
         borderWidth: 4,
         borderColor: COLORS.orange,
         borderRadius: 40,
@@ -174,6 +177,10 @@ const styles = StyleSheet.create({
         letterSpacing: -.5,
         color: COLORS.clearWhite,
         fontSize: 24,
+
+        textShadowColor: COLORS.tr_gray,
+        textShadowOffset: {width: 1.5, height: 2},
+        textShadowRadius: 17
     },
 
     belowHeaderText: {
@@ -182,6 +189,10 @@ const styles = StyleSheet.create({
         color: COLORS.clearWhite,
         fontSize: 25,
         lineHeight: 26,
+
+        textShadowColor: COLORS.tr_gray,
+        textShadowOffset: {width: 1.5, height: 2},
+        textShadowRadius: 17
     },
 
     statusContainer: {
@@ -199,7 +210,7 @@ const styles = StyleSheet.create({
 
     timeClockText: {
         color: COLORS.clearWhite,
-        fontSize: 14,
+        fontSize: 17,
         paddingHorizontal: 10,
         marginTop: 15,
         fontFamily: 'Inter_700Bold'

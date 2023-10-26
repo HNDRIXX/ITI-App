@@ -5,9 +5,9 @@ import { StatusBar } from "expo-status-bar"
 import { router } from "expo-router"
 import { AntDesign } from "@expo/vector-icons"
 
-import { COLORS } from "../../../../constant"
-import ReviewedPanel from "../../../../components/panel/home/pending/Reviewed"
-import FiledPanel from "../../../../components/panel/home/pending/Filed"
+import { COLORS } from "../../../../../constant"
+import ReviewedPanel from "../../../../../components/panel/home/pending/Reviewed"
+import FiledPanel from "../../../../../components/panel/home/pending/Filed"
 
 export default function PendingPage () {
     const [activePanel, setActivePanel] = useState(1)

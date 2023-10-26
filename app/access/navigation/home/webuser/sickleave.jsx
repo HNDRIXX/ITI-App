@@ -5,7 +5,7 @@ import { Shadow } from "react-native-shadow-2";
 import { router } from "expo-router";
 import moment from 'moment';
 
-import { COLORS } from "../../../../constant";
+import { COLORS } from "../../../../../constant";
 
 const data = [
     {
@@ -44,7 +44,7 @@ export default function SickLeavePage () {
 
             <View style={styles.topContainer}>
                 <Image 
-                    source={require('../../../../assets/img/icons/health.png')}
+                    source={require('../../../../../assets/img/icons/health.png')}
                     style={{ width: 70, height: 70, marginRight: 10 }}
                     contentFit="contain"
                 />
@@ -76,8 +76,13 @@ export default function SickLeavePage () {
                             </View>
 
                             <View style={styles.itemBody}>
-                                <Text style={styles.bodyText}>Date: <Text>{formattedDate}</Text></Text>
-                                <Text style={styles.bodyText}>Document No: <Text>{item.documentNo}</Text></Text>
+                                <Text style={styles.bodyText}>Date: 
+                                    <Text style={styles.itemText}> {formattedDate}</Text>
+                                </Text>
+
+                                <Text style={styles.bodyText}>Document No: 
+                                    <Text style={styles.itemText}> {item.documentNo}</Text>
+                                </Text>
                             </View>
                         </View>
                     )
@@ -214,6 +219,10 @@ const styles = StyleSheet.create({
     },
 
     bodyText: {
-        fontFamily: 'Inter_400Regular',
+        fontFamily: 'Inter_600SemiBold',
     },
+
+    itemText: {
+        fontFamily: 'Inter_400Regular'
+    }
 })

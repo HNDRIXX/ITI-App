@@ -3,14 +3,14 @@ import { View, Text, StyleSheet, TouchableOpacity,  } from 'react-native';
 import { FontAwesome5, MaterialCommunityIcons, AntDesign, Entypo } from '@expo/vector-icons';
 import { router } from 'expo-router';
 
-import { COLORS } from '../../../constant';
+import { COLORS } from '../../../../constant';
 
-export default function RequestItem ({onPanel, item, newItem, index}) {
+export default function LoanLedgerItem ({ newItem, index}) {
     return (
         <View style={styles.itemContainer} key={index}>
             <View style={styles.itemWrapper}>
                 <View style={styles.dateRowWrapper(item)}>
-                    <Text style={styles.currDateText}>{newItem.formattedApplied}</Text>
+                    <Text style={styles.currDateText}>{item}</Text>
 
                     <View style={styles.rowWrapper}>
                         { item.status == "Filed" ? (
@@ -47,18 +47,10 @@ export default function RequestItem ({onPanel, item, newItem, index}) {
                 <View style={styles.bodyWrapper}>
                     <View style={styles.rowWrapper}>
                         <Text style={styles.boldText}>
-                            { onPanel == 0 ? "Requested Schedule: "
-                                : onPanel == 1 ? "Location: "
-                                : onPanel == 2 ? "Overtime Hours: "
-                                : onPanel == 4 ? "Type: " 
-                                : null }
+                            
                         </Text>
                         <Text style={styles.valueText}>
-                            { onPanel == 0 ? item.requestedSched
-                                : onPanel == 1 ? item.location
-                                : onPanel == 2 ? item.overTimeHours
-                                : onPanel == 4 ? item.type
-                                : null }
+                            
                         </Text>
                     </View>
 

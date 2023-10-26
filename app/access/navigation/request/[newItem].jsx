@@ -4,7 +4,7 @@ import { AntDesign, Entypo, FontAwesome5, MaterialCommunityIcons } from "@expo/v
 import { useGlobalSearchParams } from "expo-router";
 import { router } from "expo-router";
 
-import { COLORS } from "../../../../../../constant";
+import { COLORS } from "../../../../constant";
 import { Shadow } from "react-native-shadow-2";
 
 export default function COSRequest () {
@@ -24,17 +24,17 @@ export default function COSRequest () {
                     <AntDesign name='arrowleft' size={30} color={COLORS.clearWhite} />
                 </TouchableOpacity>
 
-                <Text style={styles.textHeader}>New Request</Text>
+                <Text style={styles.textHeader}>Request Details</Text>
             </View>
 
             <Animatable.View
-                animation={'fadeInUpBig'}
+                animation={'fadeIn'}
                 duration={1000}
                 easing={'ease-in-out'}
                 style={{ opacity: 1, flex: 1 }}
             >
                 <View style={styles.topContent(item)}>
-                    <Text style={styles.topText}>{item.formattedDate}</Text>
+                    <Text style={styles.topText}>{item.formattedApplied}</Text>
                     
                     <View style={styles.rowWrapper}>
                         { item.status == "Filed" ? (
@@ -75,23 +75,54 @@ export default function COSRequest () {
                     <Shadow style={styles.content}>
                         <View style={styles.rowWrapper}>
                             <Text style={styles.titleText}>Type:</Text>
-                            <Text style={styles.valueText}>Change of Schedule</Text>
+                            <Text style={styles.valueText}>{item.requestType}</Text>
                         </View>
 
                         <View style={styles.rowWrapper}>
                             <Text style={styles.titleText}>Document No:</Text>
-                            <Text style={styles.valueText}>COS22307240207</Text>
-                        </View>
-
-                        <View style={[ styles.rowWrapper, { marginTop: 20 } ]}>
-                            <Text style={styles.titleText}>Applied Date/s Filed:</Text>
-                            <Text style={styles.valueText}>September 16, 2023</Text>
+                            <Text style={styles.valueText}>{item.documentNo}</Text>
                         </View>
 
                         <View style={styles.rowWrapper}>
-                            <Text style={styles.titleText}>Reason:</Text>
-                            <Text style={styles.valueText}>----</Text>
+                            <Text style={styles.titleText}>Date Filed:</Text>
+                            <Text style={styles.valueText}>{item.formattedFiled}</Text>
                         </View>
+
+                       { item.requestType == "Change of Schedule" ? (
+                            <>
+                                <View style={[ styles.rowWrapper, { marginTop: 20 } ]}>
+                                    <Text style={styles.titleText}>Applied Date/s Filed:</Text>
+                                    <Text style={styles.valueText}>{item.formattedApplied}</Text>
+                                </View>
+
+                                <View style={styles.rowWrapper}>
+                                    <Text style={styles.titleText}>Reason:</Text>
+                                    <Text style={styles.valueText}>{item.reason}</Text>
+                                </View>
+                            </>
+                        ) : item.requestType == "Official Work" ? ( 
+                            <>
+                                <View style={[ styles.rowWrapper, { marginTop: 20 } ]}>
+                                    <Text style={styles.titleText}>Official Work Date:</Text>
+                                    <Text style={styles.valueText}>{item.formattedWorkDate}</Text>
+                                </View>
+
+                                <View style={styles.rowWrapper}>
+                                    <Text style={styles.titleText}>Official Work Time:</Text>
+                                    <Text style={styles.valueText}>{item.workTime}</Text>
+                                </View>
+
+                                <View style={styles.rowWrapper}>
+                                    <Text style={styles.titleText}>Location:</Text>
+                                    <Text style={styles.valueText}>{item.location}</Text>
+                                </View>
+
+                                <View style={styles.rowWrapper}>
+                                    <Text style={styles.titleText}>Reason:</Text>
+                                    <Text style={styles.valueText}>{item.reason}</Text>
+                                </View>
+                            </>
+                        ) : ( null )}
 
                         <View style={styles.rowWrapper}>
                             <Text style={styles.titleText}>Attached File:</Text>
@@ -102,8 +133,8 @@ export default function COSRequest () {
                             <Text style={styles.titleText}>Status:</Text>
 
                             <View style={styles.statusWrapper}>
-                                <Text style={styles.valueText}>Approved by Mark Sasama on September 17, 2023</Text>
-                                <Text stye={styles.valueText}>Approved by Mark Sasama on September 17, 2023</Text>
+                                <Text style={[styles.valueText, { marginBottom: 10 }]}>Approved by {item.approvedBy} on September 17, 2023</Text>
+                                <Text stye={styles.valueText}>Reviewed by {item.reviewedBy} on September 17, 2023</Text>
                             </View>
                         </View>
                     </Shadow>
@@ -139,7 +170,7 @@ const styles = StyleSheet.create({
     topContent: (item) => ({
         backgroundColor: 
             item.status == "Filed" ?
-                COLORS.yellow :
+                COLORS.filed :
             item.status == "Reviewed" ?
                 COLORS.purple :
             item.status == "Approved" ?
@@ -150,7 +181,7 @@ const styles = StyleSheet.create({
 
         justifyContent: 'space-between',
         flexDirection: 'row',
-        padding: 20,
+        padding: 15,
     }),
 
     topText: {
@@ -181,6 +212,7 @@ const styles = StyleSheet.create({
 
     valueText: {
         fontFamily: 'Inter_400Regular',
+        color: COLORS.black,
     },
 
     statusWrapper: {

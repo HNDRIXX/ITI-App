@@ -9,7 +9,7 @@ import { Shadow } from 'react-native-shadow-2';
 export default function PendingItem ({onPanel, item, index, newItem}) {
     return (
         <View style={styles.itemContainer} key={index}>
-            <Shadow distance={3} style={styles.itemWrapper}>
+            <Shadow distance={1} startColor={COLORS.shadowGray} style={styles.itemWrapper}>
                 <View style={styles.dateRowWrapper}>
                     <Text style={styles.statusText}>{item.status}</Text>
                     <Text style={styles.currDateText}>{newItem.formattedDate}</Text>    
@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
 
     currDateText: {
         fontFamily: 'Inter_500Medium',
+        fontSize: 11,
         color: COLORS.black,
     },
 

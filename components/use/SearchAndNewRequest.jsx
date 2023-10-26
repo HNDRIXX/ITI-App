@@ -11,7 +11,7 @@ export const SearchAndNewRequest = ({ filterText, setFilterText, toggleModal }) 
 
         <TextInput
           style={styles.searchValueText}
-          placeholder="Search."
+          placeholder="Search"
           editable={false}
           onChangeText={(text) => setFilterText(text)}
           value={filterText}
@@ -19,7 +19,7 @@ export const SearchAndNewRequest = ({ filterText, setFilterText, toggleModal }) 
       </View>
 
       <TouchableOpacity style={styles.newRequestButton} onPress={toggleModal}>
-        <Entypo name="plus" size={26} color={COLORS.orange} />
+        <Entypo name="circle-with-plus" size={23} color={COLORS.orange} />
         <Text style={styles.newRequestText}>New Request</Text>
       </TouchableOpacity>
     </View>
@@ -33,22 +33,26 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
+
   searchContainer: {
     flexDirection: "row",
     alignItems: "center",
   },
+
   searchValueText: {
     fontFamily: "Inter_500Medium",
     marginLeft: 10,
     width: "50%",
   },
+
   newRequestButton: {
     flexDirection: "row",
     alignItems: "center",
   },
+
   newRequestText: {
-    fontFamily: "Inter_600SemiBold",
+    fontFamily: "Inter_500Medium",
     marginStart: 5,
-    color: COLORS.tr_gray,
+    color: COLORS.darkGray,
   },
 });

@@ -40,37 +40,42 @@ export default function TimeInOutSection ({ clockedValue, clockedStatus, clocked
 
                 { clockedValue == 0 && (
                     <Link
-                        style={styles.clockOutButton}
+                        style={styles.linkButton}
                         href={{
                             pathname: `/access/access/geofence/[geofence]`,
                             params: { clockedValue: clockedValue },
                         }}
                     >
-                        <Ionicons
-                            name='stopwatch'
-                            size={25}
-                            color={COLORS.clearWhite}
-                        />
+                        <View style={styles.clockOutButton}>
+                            <Ionicons
+                                name='stopwatch'
+                                size={25}
+                                color={COLORS.clearWhite}
+                            />
 
-                        <Text style={styles.timeInOutText}>Clock-Out</Text>
+                            <Text style={styles.timeInOutText}>Clock-Out</Text>
+                        </View>
                     </Link>
                 )}
                 
                 { clockedValue == 1 && (
                     <Link
-                        style={styles.clockInButton}
+                        style={styles.linkButton}
                         href={{
                             pathname: `/access/access/geofence/[geofence]`,
                             params: { clockedValue: clockedValue },
                         }} 
                     >
-                        <Ionicons
-                            name='stopwatch'
-                            size={23}
-                            color={COLORS.clearWhite}
-                        />
+                        <View style={styles.clockInButton}>
+                            <Ionicons
+                                name='stopwatch'
+                                size={23}
+                                color={COLORS.clearWhite}
+                                allo
+                            />
 
-                        <Text style={styles.timeInOutText}>Clock-In</Text>
+                            <Text style={styles.timeInOutText}>Clock-In</Text>
+                        </View>
                     </Link>
                 )}
             </View>
@@ -82,39 +87,44 @@ const styles = StyleSheet.create({
     topBox: {
         backgroundColor: COLORS.clearWhite,
         paddingVertical: 20,
-        paddingHorizontal: 40,
+        paddingHorizontal: 50,
         marginTop: -110,
         bottom: -20,
         borderRadius: 20,
         borderColor: COLORS.orange,
         borderWidth: 1.5,
     },
+    
+    linkButton: {
+        alignSelf: 'center',
+        marginTop: 10,
+    },
 
     clockInButton: {
         backgroundColor: COLORS.orange,
-        padding: 13,
-        width: 270,
-        borderRadius: 10,
-        marginTop: 10,
+        width: 170,
+        borderRadius: 15,
+        paddingVertical: 5,
         flexDirection: 'row',
-        textAlign: 'center',
+        justifyContent: 'center',
+        elevation: 2,
     },
 
     clockOutButton: {
         backgroundColor: COLORS.powderBlue,
-        padding: 13,
-        width: 270,
-        borderRadius: 10,
-        marginTop: 10,
+        width: 170,
+        borderRadius: 15,
+        paddingVertical: 5,
         flexDirection: 'row',
-        textAlign: 'center',
+        justifyContent: 'center',
+        elevation: 2,
     },
 
     timeInOutText: {
-        textAlign: 'center',
         fontSize: 17,
+        marginLeft: 5,
         color: COLORS.clearWhite,
-        fontFamily: 'Inter_700Bold',
+        fontFamily: 'Inter_600SemiBold',
     },
 
     timeText: {
@@ -125,13 +135,15 @@ const styles = StyleSheet.create({
     },
 
     dateText: {
-        fontFamily: 'Inter_400Regular',
+        fontFamily: 'Inter_600SemiBold',
+        color: COLORS.black,
         textAlign: 'center',
-        fontSize: 11,
+        fontSize: 12,
     },
 
     clockInOutText: {
-        color: COLORS.black,
+        fontFamily: 'Inter_500Medium',
+        color: COLORS.darkGray,
         fontSize: 12,
         textAlign: 'center'
     }

@@ -43,7 +43,7 @@ export default function HomeButton () {
                         <View style={styles.buttonContainer}>
                             <TouchableOpacity 
                                 style={styles.gridButton}
-                                onPress={() => router.push(``)}
+                                onPress={() => router.push(`/access/navigation/home/webuser/loanledger`)}
                             >
                                  <Image 
                                     source={require('../../assets/img/icons/ledger.png')}
@@ -58,7 +58,7 @@ export default function HomeButton () {
                         <View style={styles.buttonContainer}>
                             <TouchableOpacity 
                                 style={styles.gridButton}
-                                onPress={() => router.push(`/access/navigation/home/pending`)}
+                                onPress={() => router.push(`/access/navigation/home/webuser/pending`)}
                             >
                                 <Image 
                                     source={require('../../assets/img/icons/pending.png')}
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
 
     textButton: {
         fontFamily: 'Inter_500Medium',
-        color: COLORS.darkGray,
+        color: COLORS.black,
         paddingTop: 5,
         fontSize: 12,
         textAlign: 'center'

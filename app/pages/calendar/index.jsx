@@ -1,12 +1,15 @@
 import React, { useState, useRef } from "react";
 import { View, Text, StyleSheet, ScrollView, RefreshControl } from "react-native";
 import { Calendar } from "react-native-calendars";
+import * as Animatable from 'react-native-animatable';
+import { StatusBar } from "expo-status-bar";
 import { AntDesign, FontAwesome } from "@expo/vector-icons";
 import moment from "moment";
 import { Shadow } from "react-native-shadow-2";
 
 import { COLORS } from "../../../constant";
 import TimeSheetPrompt from "../../../components/note/CalendarPrompt";
+import BottomNavigation from "../../../components/button/BottomNavigation";
 
 export default function CalendarIndex() {
   const [currDate, setCurrDate] = useState(null)
@@ -48,7 +51,7 @@ export default function CalendarIndex() {
   const addMarkedDates = () => {
     const marked = {}
     for (const date in updatedValueEvents) {
-      marked[date] = { marked: true }
+      marked[date] = { marked: true, }
     }
     return marked
   }
@@ -145,163 +148,174 @@ export default function CalendarIndex() {
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.topHeader}>
-        <Text style={styles.textHeader}>Calendar</Text>
-      </View>
-
-      <View
-        ref={scrollViewRef}
-        contentContainerStyle={styles.scrollView}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={refresh}
-            tintColor={COLORS.powderBlue}
-          />
-        }
+    <>
+      <Animatable.View
+          animation={'fadeIn'}
+          duration={900}
+          style={{ opacity: 1, flex: 1 }}
       >
-        <Calendar
-          onDayPress={dayPress}
-          style={styles.calendarView}
-          enableSwipeMonths
-          headerStyle={{
-            backgroundColor: COLORS.clearWhite,
-          }}
-          theme={{
-            dotColor: COLORS.orange,
-            todayTextColor: COLORS.powderBlue,
-            arrowColor: COLORS.orange,
-          }}
-          markedDates={addMarkedDates()}
-        />
+        <View style={styles.container}>
+          <StatusBar style="light"/>
 
-        {selectedDate ? (
-          <Shadow style={styles.agenda}>
-            <View style={styles.agendaDateWrapper}>
-              <Text style={styles.todayText}>
-                {
-                  (formatDate(selectedDate) == moment().format("MMMM DD, YYYY")) ?
-                    "Today" : 
-                  (formatDate(selectedDate) == yesterday.format("MMMM DD, YYYY")) ?
-                    "Yesterday" :
-                  (formatDate(selectedDate) == tomorrow.format("MMMM DD, YYYY")) ?
-                    "Tommorow" : "Event"
-                }
-              </Text>
-              <Text style={styles.dayAgenda}>{formatDate(selectedDate)}</Text>
-            </View>
-
-            <View style={styles.itemWrapper}>
-                {events.map((event, index) => {
-                  const valueColor = event.status
-                  const color = checkColor(valueColor)
-
-                  return (
-                    <View style={styles.dayStatusWrapper(color)} key={index}>
-                      <FontAwesome
-                        name="circle"
-                        size={40}
-                        color={color}
-                        style={styles.topCircle}
-                      />
-
-                      <Text style={styles.dayStatusText}>
-                        {event.status}
-                      </Text>
-                    </View>
-                  )
-                })}
-
-              <View style={styles.dayContentWrapper}>
-                {events.length === 0 ? (
-                  <Text style={styles.noEventsText}>
-                    No agenda or event
-                  </Text>
-                ) : (
-                  events.map((event, index) => (
-                    <Text key={index} style={styles.dayContentText}>
-                      {event.event}
-                    </Text>
-                  ))
-                )}
-              </View>
-
-              <View style={styles.prevNextContainer}>
-                <View style={styles.prevNextDateWrapper}>
-                  <Text style={styles.prevNextText}>Previous</Text>
-                  <Text style={styles.prevNextDayText}>{previousDate}</Text>
-                </View>
-
-                {events.map((event, index) => {
-                  const valueColor = updatedValueEvents[defaultDate(previousDate)] ? updatedValueEvents[defaultDate(previousDate)][0].status : null
-
-                  const color = checkColor(valueColor)
-
-                  return (
-                    <View style={styles.dayBelowStatusWrapper(color)} key={index}>
-                      <FontAwesome
-                        name="circle"
-                        size={27}
-                        color={color}
-                        style={styles.topCircle}
-                      />
-
-                      <Text style={styles.belowDayStatusText}>
-                        {updatedValueEvents[defaultDate(previousDate)] ? (
-                          updatedValueEvents[defaultDate(previousDate)][0].status
-                        ) : 'Empty'}
-                      </Text>
-                    </View>
-                  )
-                })}
-              </View>
-
-              <View style={styles.prevNextContainer}>
-                <View style={styles.prevNextDateWrapper}>
-                  <Text style={styles.prevNextText}>Upcoming</Text>
-                  <Text style={styles.prevNextDayText}>{nextDate}</Text>
-                </View>
-
-                {events.map((event, index) => {
-                  const valueColor = updatedValueEvents[defaultDate(nextDate)] ? updatedValueEvents[defaultDate(nextDate)][0].status : null
-
-                  const color = checkColor(valueColor)
-
-                  return (
-                    <View style={styles.dayBelowStatusWrapper(color)} key={index}>
-                      <FontAwesome
-                        name="circle"
-                        size={27}
-                        color={color}
-                        style={styles.topCircle}
-                      />
-
-                      <Text style={styles.belowDayStatusText}>
-                        {updatedValueEvents[defaultDate(nextDate)] ? (
-                          updatedValueEvents[defaultDate(nextDate)][0].status
-                        ) : 'Empty'}
-                      </Text>
-                    </View>
-                  )
-                })}
-              </View>
-            </View>
-          </Shadow>
-        ) : (
-          <View style={styles.promptView}>
-            <TimeSheetPrompt />
+          <View style={styles.topHeader}>
+            <Text style={styles.textHeader}>Calendar</Text>
           </View>
-        )}
-      </View>
-    </View>
+
+          <View
+            ref={scrollViewRef}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={refresh}
+                tintColor={COLORS.powderBlue}
+              />
+            }
+          >
+            <Calendar
+              onDayPress={dayPress}
+              style={styles.calendarView}
+              enableSwipeMonths
+              headerStyle={{
+                backgroundColor: COLORS.clearWhite,
+              }}
+              theme={{
+                dotColor: COLORS.orange,
+                todayTextColor: COLORS.baseOrange,
+                arrowColor: COLORS.powderBlue,
+              }}
+              markedDates={addMarkedDates()}
+            />
+
+            {selectedDate ? (
+              <Shadow distance={20} style={styles.agenda}>
+                <View style={styles.agendaDateWrapper}>
+                  <Text style={styles.todayText}>
+                    {
+                      (formatDate(selectedDate) == moment().format("MMMM DD, YYYY")) ?
+                        "Today" : 
+                      (formatDate(selectedDate) == yesterday.format("MMMM DD, YYYY")) ?
+                        "Yesterday" :
+                      (formatDate(selectedDate) == tomorrow.format("MMMM DD, YYYY")) ?
+                        "Tommorow" : "Event"
+                    }
+                  </Text>
+                  <Text style={styles.dayAgenda}>{formatDate(selectedDate)}</Text>
+                </View>
+
+                <View style={styles.itemWrapper}>
+                    {events.map((event, index) => {
+                      const valueColor = event.status
+                      const color = checkColor(valueColor)
+
+                      return (
+                        <View style={styles.dayStatusWrapper(color)} key={index}>
+                          <FontAwesome
+                            name="circle"
+                            size={40}
+                            color={color}
+                            style={styles.topCircle}
+                          />
+
+                          <Text style={styles.dayStatusText}>
+                            {event.status}
+                          </Text>
+                        </View>
+                      )
+                    })}
+
+                  <View style={styles.dayContentWrapper}>
+                    {events.length === 0 ? (
+                      <Text style={styles.noEventsText}>
+                        No agenda or event
+                      </Text>
+                    ) : (
+                      events.map((event, index) => (
+                        <Text key={index} style={styles.dayContentText}>
+                          {event.event}
+                        </Text>
+                      ))
+                    )}
+                  </View>
+
+                  <View style={styles.prevNextContainer}>
+                    <View style={styles.prevNextDateWrapper}>
+                      <Text style={styles.prevNextText}>Previous</Text>
+                      <Text style={styles.prevNextDayText}>{previousDate}</Text>
+                    </View>
+
+                    {events.map((event, index) => {
+                      const valueColor = updatedValueEvents[defaultDate(previousDate)] ? updatedValueEvents[defaultDate(previousDate)][0].status : null
+
+                      const color = checkColor(valueColor)
+
+                      return (
+                        <View style={styles.dayBelowStatusWrapper(color)} key={index}>
+                          <FontAwesome
+                            name="circle"
+                            size={27}
+                            color={color}
+                            style={styles.topCircle}
+                          />
+
+                          <Text style={styles.belowDayStatusText}>
+                            {updatedValueEvents[defaultDate(previousDate)] ? (
+                              updatedValueEvents[defaultDate(previousDate)][0].status
+                            ) : 'Empty'}
+                          </Text>
+                        </View>
+                      )
+                    })}
+                  </View>
+
+                  <View style={styles.prevNextContainer}>
+                    <View style={styles.prevNextDateWrapper}>
+                      <Text style={styles.prevNextText}>Upcoming</Text>
+                      <Text style={styles.prevNextDayText}>{nextDate}</Text>
+                    </View>
+
+                    {events.map((event, index) => {
+                      const valueColor = updatedValueEvents[defaultDate(nextDate)] ? updatedValueEvents[defaultDate(nextDate)][0].status : null
+
+                      const color = checkColor(valueColor)
+
+                      return (
+                        <View style={styles.dayBelowStatusWrapper(color)} key={index}>
+                          <FontAwesome
+                            name="circle"
+                            size={27}
+                            color={color}
+                            style={styles.topCircle}
+                          />
+
+                          <Text style={styles.belowDayStatusText}>
+                            {updatedValueEvents[defaultDate(nextDate)] ? (
+                              updatedValueEvents[defaultDate(nextDate)][0].status
+                            ) : 'Empty'}
+                          </Text>
+                        </View>
+                      )
+                    })}
+                  </View>
+                </View>
+              </Shadow>
+            ) : (
+              <View style={styles.promptView}>
+                <TimeSheetPrompt />
+              </View>
+            )}
+          </View>
+        </View>
+
+        <BottomNavigation active={"calendar"} />
+      </Animatable.View>
+    </>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.clearWhite
+    backgroundColor: COLORS.clearWhite,
   },
 
   topHeader: {
@@ -309,6 +323,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     alignItems: 'center',
     backgroundColor: COLORS.powderBlue,
+    paddingTop: 50,
   },
 
   textHeader: {
@@ -319,12 +334,13 @@ const styles = StyleSheet.create({
 
   calendarView: {
     paddingTop: 5,
-    paddingBottom: 30,
-    height: 'auto'
+    paddingBottom: 50,
+    height: 'auto',
   },
 
   agendaDateWrapper: {
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingBottom: 10,
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
@@ -333,8 +349,9 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
     paddingHorizontal: 10,
-    height: '100%',
+    paddingVertical: 40,
     width: '100%',
+    height: '100%',
     shadowColor: COLORS.darkGray,
     shadowOpacity: 0.1,
     shadowRadius: 2,
@@ -345,12 +362,12 @@ const styles = StyleSheet.create({
   todayText: {
     fontFamily: 'Inter_600SemiBold',
     fontSize: 18,
-    color: COLORS.darkGray,
+    color: COLORS.black,
   },  
 
   dayAgenda: {
     fontSize: 12,
-    color: COLORS.darkGray,
+    color: COLORS.black,
     textAlign: 'center',
     fontFamily: 'Inter_400Regular',
   },
@@ -411,9 +428,9 @@ const styles = StyleSheet.create({
   },
 
   dayContentWrapper: {
-    padding: 20,
-    borderBottomColor: COLORS.orange,
-    borderBottomWidth: 2,
+    paddingVertical: 10,
+    borderBottomColor: COLORS.tr_gray,
+    borderBottomWidth: 1.5,
   },
 
   dayContentText: {
@@ -433,13 +450,16 @@ const styles = StyleSheet.create({
   },
 
   prevNextText: {
-    fontFamily: 'Inter_500Medium'
+    fontFamily: 'Inter_500Medium',
+    color: COLORS.black,
+    fontWeight: '700',
+    fontStyle: 'italic',
   },
 
   prevNextDayText: {
     marginTop: 5,
     fontFamily: 'Inter_400Regular',
-    color: COLORS.darkGray,
+    color: COLORS.black,
     fontSize: 12,
   },
 
@@ -449,8 +469,4 @@ const styles = StyleSheet.create({
     color: COLORS.darkGray,
     fontFamily: 'Inter_400Regular',
   },
-
-  scrollView: {
-    flexGrow: 1,
-  },
-});
+})

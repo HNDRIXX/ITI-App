@@ -1,45 +1,39 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Modal, TextInput } from "react-native";
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Modal, TextInput } from "react-native";
 import * as Animatable from 'react-native-animatable';
-import { AntDesign, Entypo, FontAwesome } from "@expo/vector-icons";
+import { AntDesign, Entypo, FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import moment from "moment";
+import moment from "moment/moment";
 
 import { COLORS } from "../../../constant";
-import RequestItem from "../../use/request/RequestItem";
 import { SearchAndNewRequest } from "../../use/SearchAndNewRequest";
+import RequestItem from "../../use/request/RequestItem";
+import { ScrollView } from "react-native-gesture-handler";
 
-// Filed, Reviewed, Approved, Cancelled (Denied)
 const data = [
     { 
-        status: 'Reviewed',
-        date: '20231018',
-        location: 'Sofitel Philippine Plaza, Manila',
-        reason: 'Client Meeting'
+        status: 'Approved',  
+        appliedDate: '20230911',
+        location: 'Sofitel Philippine Plaza Manila',
+        reason: 'Client Meeting',
+        documentNo: 'OB22309270277',
+        workTime: '7:00 AM to 4:00 PM',
+        workDate: '20230911',
+        filedDate: '20230915',
+        approvedBy: 'Kenneth Parungao',
+        reviewedBy: 'Mark Sasama'
     },
     { 
-        status: 'Reviewed',
-        date: '20230930',
-        location: '2138 Roxas Blvd, Manila',
-        reason: 'Client Meeting'
-    },
-    { 
-        status: 'Cancelled',
-        date: '20231001',
-        location: 'Sofitel Philippine Plaza, Manila',
-        reason: 'Client Meeting'
-    },
-    { 
-        status: 'Approved',
-        date: '20230902',
-        location: 'Sofitel Philippine Plaza, Manila',
-        reason: 'Client Meeting'
-    },
-    { 
-        status: 'Filed',
-        date: '20231030',
-        location: 'Sofitel Philippine Plaza, Manila',
-        reason: 'Client Meeting'
+        status: 'Cancelled',  
+        appliedDate: '20230904',
+        location: '2138 Roxas Blvd., Manila',
+        reason: 'Client Meeting',
+        documentNo: 'OB2323232323',
+        workTime: '7:00 AM to 4:00 PM',
+        workDate: '20230904',
+        filedDate: '20230901',
+        approvedBy: 'Kenneth Parungao',
+        reviewedBy: 'Mark Sasama'
     },
 ]
 
@@ -47,12 +41,15 @@ export default function OfficialWorkPanel ( onAnimate ) {
     const [isModalVisible, setIsModalVisible] = useState(false)
     const [filterText, setFilterText] = useState('')
 
-    const currentDate = moment()
-    const dateThreshold = currentDate.clone().subtract(7, 'days')
+    const currentappliedDate = moment()
+    const appliedDateThreshold = currentappliedDate.clone().subtract(7, 'days')
+
+    const [newCount1, setNewCount1] = useState(0)
+    const [newCount2, setNewCount2] = useState(0)
 
     const filteredData = data.filter((newItem) => {
-            const formattedDate = formattedDateString(newItem.date)
-            const itemDate = moment(formattedDate, 'MMMM DD YYYY')
+            const formattedDate = formattedDateString(newItem.appliedDate)
+            const itemAppliedDate = moment(formattedDate, 'MMMM DD YYYY')
 
             console.log(formattedDate)
 
@@ -63,10 +60,31 @@ export default function OfficialWorkPanel ( onAnimate ) {
         }
     )
 
+    useEffect(() => {
+        let count1 = 0
+        let count2 = 0
+    
+        filteredData.forEach((item) => {
+          const formattedDate = formattedDateString(item.appliedDate)
+          const itemAppliedDate = moment(formattedDate, 'MMMM DD YYYY')
+    
+          if (!itemAppliedDate.isBefore(appliedDateThreshold)) {
+            count1++
+          }
+    
+          if (itemAppliedDate.isBefore(appliedDateThreshold)) {
+            count2++
+          }
+        })
+    
+        setNewCount1(count1)
+        setNewCount2(count2)
+    }, [filteredData, appliedDateThreshold])
+
     const toggleModal = () => {
         setIsModalVisible(!isModalVisible)
     }    
-
+      
     return (
         <Animatable.View
             animation={onAnimate ? 'fadeIn' : ''}
@@ -79,45 +97,49 @@ export default function OfficialWorkPanel ( onAnimate ) {
                 toggleModal={toggleModal}
             />
 
-
             { filteredData.length > 0 ? (
                 <ScrollView>
-                    <Text style={styles.itemStatusText}>New</Text>
+                    { newCount1 > 0 && (<Text style={styles.itemStatusText}>New</Text>) }
 
                     {filteredData.map((item, index) => {
-                        const formattedDate = formattedDateString(item.date)
-                        const itemDate = moment(formattedDate, 'MMMM DD YYYY')
+                        const itemAppliedDate = moment(formattedDateString(item.appliedDate), 'MMMM DD YYYY')
 
-                        console.log(itemDate)
-                        if (!itemDate.isBefore(dateThreshold)) {
+                        if (!itemAppliedDate.isBefore(appliedDateThreshold)) {
                             return (
                                 <RequestItem 
                                     onPanel={1}
                                     item={item}
                                     index={index}
-                                    newItem={{ ...item, formattedDate: formattedDate }}
+                                    newItem={{ ...item, 
+                                        formattedApplied: formattedDateString(item.appliedDate), 
+                                        formattedFiled: formattedDateString(item.filedDate), 
+                                        formattedWorkDate: formattedDateString(item.workDate),
+                                        requestType: "Official Work"  
+                                    }}
                                     key={index}
-                                    formattedDate={formattedDate}
                                 />
                             )
                         }
                     })}
 
-                    <Text style={styles.itemStatusText}>Earlier</Text>
+                    { newCount2 > 0 && (<Text style={styles.itemStatusText}>Earlier</Text>) }
 
                     {filteredData.map((item, index) => {
-                        const formattedDate = formattedDateString(item.date)
-                        const itemDate = moment(formattedDate, 'MMMM DD YYYY')
+                        const itemAppliedDate = moment(formattedDateString(item.appliedDate), 'MMMM DD YYYY')
 
-                        if (itemDate.isBefore(dateThreshold)) {
+                        if (itemAppliedDate.isBefore(appliedDateThreshold)) {
                             return (
                                 <RequestItem 
                                     onPanel={1}
                                     item={item}
                                     index={index}
-                                    newItem={{ ...item, formattedDate: formattedDate }}
+                                    newItem={{ ...item, 
+                                        formattedApplied: formattedDateString(item.appliedDate), 
+                                        formattedFiled: formattedDateString(item.filedDate), 
+                                        formattedWorkDate: formattedDateString(item.workDate),
+                                        requestType: "Official Work" 
+                                    }}
                                     key={index}
-                                    formattedDate={formattedDate}
                                 />
                             )
                         }
@@ -155,6 +177,13 @@ export default function OfficialWorkPanel ( onAnimate ) {
                         </TouchableOpacity>
 
                         <Text>This is a Modal</Text>
+
+                        {/* <TouchableOpacity 
+                            style={styles.closeBtn}
+                            onPress={toggleModal}
+                        >
+                            <Text style={styles.closeText}>CLOSE</Text>
+                        </TouchableOpacity> */}
                     </View>
                 </View>
             </Modal>
@@ -162,13 +191,13 @@ export default function OfficialWorkPanel ( onAnimate ) {
     )
 }
 
-const formattedDateString = (date) => {
-    const year = date.substring(0, 4);
-    const month = date.substring(4, 6);
-    const day = date.substring(6);
+const formattedDateString = (appliedDate) => {
+    const year = appliedDate.substring(0, 4);
+    const month = appliedDate.substring(4, 6);
+    const day = appliedDate.substring(6);
 
-    return moment(`${month}-${day}-${year}`, 'MM-DD-YYYY').format('MMMM DD, YYYY');
-}    
+    return moment(`${month}-${day}-${year}`, 'MM-DD-YYYY').format('MMMM DD YYYY');
+}
 
 const styles = StyleSheet.create({
     bodyContainer: {
@@ -179,6 +208,13 @@ const styles = StyleSheet.create({
         fontSize: 25,
         fontFamily: 'Inter_600SemiBold',
         margin: 10,
+    },
+
+  
+    moreText: {
+        fontSize: 12,
+        color: COLORS.tr_gray,
+        paddingTop: 10,
     },
 
     itemStatusText: {

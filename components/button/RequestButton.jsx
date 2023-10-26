@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
 
     buttonText: {
         color: COLORS.tr_gray,
-        fontFamily: 'Inter_700Bold'
+        fontFamily: 'Inter_500Medium'
     },
     
     selectedButton: {

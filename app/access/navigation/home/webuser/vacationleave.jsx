@@ -5,7 +5,7 @@ import { Shadow } from "react-native-shadow-2";
 import { router } from "expo-router";
 import moment from 'moment';
 
-import { COLORS } from "../../../../constant";
+import { COLORS } from "../../../../../constant";
 
 const data = [
     {
@@ -29,6 +29,15 @@ const data = [
 ]
 
 export default function VacationLeavePage () {
+
+    const formattedDateString = (date) => {
+        const year = date.substring(0, 4)
+        const month = date.substring(4, 6)
+        const day = date.substring(6)
+
+        return moment(`${month}-${day}-${year}`, 'MM-DD-YYYY').format('MMMM DD YYYY')
+    }
+    
     return (
         <View style={styles.container}>
             <View style={styles.topHeader}>
@@ -44,7 +53,7 @@ export default function VacationLeavePage () {
 
             <View style={styles.topContainer}>
                 <Image 
-                    source={require('../../../../assets/img/icons/vacation.png')}
+                    source={require('../../../../../assets/img/icons/vacation.png')}
                     style={{ width: 70, height: 70, marginRight: 10 }}
                     contentFit="contain"
                 />
@@ -76,8 +85,13 @@ export default function VacationLeavePage () {
                             </View>
 
                             <View style={styles.itemBody}>
-                                <Text style={styles.bodyText}>Date: <Text>{item.date}</Text></Text>
-                                <Text style={styles.bodyText}>Document No: <Text>{item.documentNo}</Text></Text>
+                                <Text style={styles.bodyText}>Date: 
+                                    <Text style={styles.itemText}> {formattedDate}</Text>
+                                </Text>
+
+                                <Text style={styles.bodyText}>Document No: 
+                                    <Text style={styles.itemText}> {item.documentNo}</Text>
+                                </Text>
                             </View>
                         </View>
                     )
@@ -86,14 +100,6 @@ export default function VacationLeavePage () {
             />
         </View>
     )
-}
-
-const formattedDateString = (date) => {
-    const year = date.substring(0, 4)
-    const month = date.substring(4, 6)
-    const day = date.substring(6)
-
-    return moment(`${month}-${day}-${year}`, 'MM-DD-YYYY').format('MMMM DD YYYY')
 }
 
 const styles = StyleSheet.create({
@@ -214,6 +220,10 @@ const styles = StyleSheet.create({
     },
 
     bodyText: {
-        fontFamily: 'Inter_400Regular',
+        fontFamily: 'Inter_600SemiBold',
     },
+
+    itemText: {
+        fontFamily: 'Inter_400Regular'
+    }
 })

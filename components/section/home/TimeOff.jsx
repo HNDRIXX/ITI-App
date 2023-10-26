@@ -9,13 +9,13 @@ export default function TimeOff () {
     return (
         <View style={styles.container}>
             <TouchableOpacity 
-                style={[styles.button, { paddingHorizontal: 15, paddingVertical: 6 }]}
-                onPress={() => router.push(`access/navigation/home/vacationleave`)}
+                style={[styles.button, { paddingHorizontal: 15, paddingVertical: 0 }]}
+                onPress={() => router.push(`access/navigation/home/webuser/vacationleave`)}
             >
                 <View style={styles.alignWrapper}>
                     <Image 
                         source={require('../../../assets/img/icons/vacation.png')}
-                        style={{ width: 50, height: 50, marginRight: 10 }}
+                        style={{ width: 55, height: 55, marginRight: 10 }}
                         contentFit="contain"
                     />
 
@@ -27,19 +27,19 @@ export default function TimeOff () {
             </TouchableOpacity>
 
             <TouchableOpacity 
-                style={[styles.button, { paddingHorizontal: 15, paddingVertical: 12 }]}
-                onPress={() => router.push(`access/navigation/home/sickleave`)}
+                style={[styles.button, { paddingHorizontal: 15, paddingVertical: 0 }]}
+                onPress={() => router.push(`access/navigation/home/webuser/sickleave`)}
             >
                 <View style={styles.alignWrapper}>
                     <Image 
                         source={require('../../../assets/img/icons/health.png')}
-                        style={{ width: 45, height: 45, marginRight: 10, }}
+                        style={{ width: 50, height: 50, marginRight: 10, }}
                         contentFit="contain"
                     />
 
                     <View style={styles.textContent}>
                         <Text style={styles.totalText}>1.50</Text>
-                        <Text style={styles.title}>Sick Leave</Text>
+                        <Text style={styles.title}>Sick{'\n'}Leave</Text>
                     </View>
                 </View>
             </TouchableOpacity>
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     },
 
     alignWrapper: {
-        padding: 10,
+        padding: 15,
         justifyContent: 'space-between',
         alignItems: 'center',
         flexDirection: 'row'

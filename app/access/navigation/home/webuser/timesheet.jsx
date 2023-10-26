@@ -7,8 +7,8 @@ import { Calendar } from 'react-native-big-calendar'
 import { Entypo, FontAwesome } from '@expo/vector-icons'
 import DashedLine from 'react-native-dashed-line'
 
-import { COLORS } from '../../../../constant'
-import CalendarPrompt from '../../../../components/note/CalendarPrompt'
+import { COLORS } from '../../../../../constant'
+import CalendarPrompt from '../../../../../components/note/CalendarPrompt'
 
 export default function Timesheet () {
     const [isLoading, setIsLoading] = useState(true)
