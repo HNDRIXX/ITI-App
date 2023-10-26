@@ -70,6 +70,7 @@ export default function LoanLedgerPage () {
 
             <FlatList 
                 data={data}
+                style={styles.loanLedgerList}
                 renderItem={({item, index}) => {
 
                     return (
@@ -78,8 +79,8 @@ export default function LoanLedgerPage () {
                             newItem={{ 
                                 ...item, 
                                 formattedTransactionDate: formattedDateString(item.transactionDate), 
-                                formattedApproveDate: formattedDateString(item.approvedDate),
-                                formattedgrantedDate: formattedDateString(item.grantedDate),
+                                formattedApprovedDate: formattedDateString(item.approvedDate),
+                                formattedGrantedDate: formattedDateString(item.grantedDate),
                                 formattedFirstDueDate: formattedDateString(item.firstDueDate),
                             }}
                         />
@@ -118,7 +119,8 @@ const styles = StyleSheet.create({
         marginRight: 40,
     },
 
-    container: {
-        flex: 1,
-    },
+    loanLedgerList: {
+        marginHorizontal: 10,
+        marginTop: 20,
+    }
 })

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity,  } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Link } from 'react-native';
 import { FontAwesome5, MaterialCommunityIcons, AntDesign, Entypo } from '@expo/vector-icons';
 import { router } from 'expo-router';
 
@@ -9,29 +9,29 @@ export default function LoanLedgerItem ({ newItem, index}) {
     return (
         <View style={styles.itemContainer} key={index}>
             <View style={styles.itemWrapper}>
-                <View style={styles.dateRowWrapper(item)}>
-                    <Text style={styles.currDateText}>{item}</Text>
+                <View style={styles.dateRowWrapper(newItem)}>
+                    <Text style={styles.currDateText}>{newItem.loanTitle}</Text>
 
                     <View style={styles.rowWrapper}>
-                        { item.status == "Filed" ? (
+                        { newItem.status == "Filed" ? (
                             <FontAwesome5 
                                 name="file-import" 
                                 size={17} 
                                 color={COLORS.clearWhite}
                             />
-                        ) : item.status == "Reviewed" ? (
+                        ) : newItem.status == "Reviewed" ? (
                             <MaterialCommunityIcons 
                                 name="file-find" 
                                 size={20} 
                                 color={COLORS.clearWhite} 
                             />
-                        ) : item.status == "Approved" ? (
+                        ) : newItem.status == "Approved" ? (
                             <AntDesign
                                 name="checkcircle"
                                 size={17}
                                 color={COLORS.clearWhite}
                             />
-                        ) : item.status == "Cancelled" ? (
+                        ) : newItem.status == "Cancelled" ? (
                             <Entypo
                                 name="circle-with-cross"
                                 size={19}
@@ -39,7 +39,7 @@ export default function LoanLedgerItem ({ newItem, index}) {
                             /> 
                         ) : ( null )}
 
-                        <Text style={styles.statusText}>{item.status}</Text>
+                        <Text style={styles.statusText}>{newItem.status}</Text>
                     </View>
 
                 </View>
@@ -57,11 +57,11 @@ export default function LoanLedgerItem ({ newItem, index}) {
                     <View style={styles.reasonWrapper}>
                         <View style={styles.rowWrapper}>
                             <Text style={styles.boldText}>Reason: </Text>
-                            <Text style={styles.valueText}>{item.reason}</Text>
+                            <Text style={styles.valueText}></Text>
                         </View>
 
                         <TouchableOpacity
-                            onPress={() => router.push(`access/navigation/request/${encodeURIComponent(JSON.stringify(newItem))}`)}
+                            onPress={() => router.push(`access/navigation/home/webuser/items/${encodeURIComponent(JSON.stringify(newItem))}`)}
                         >
                             <Text style={styles.moreText}>More {'>'}</Text>
                         </TouchableOpacity>
@@ -81,17 +81,17 @@ const styles = StyleSheet.create({
         elevation: 2,
     },
 
-    dateRowWrapper: (item)  => ({
+    dateRowWrapper: (newItem)  => ({
         flexDirection: 'row',
         justifyContent: 'space-between',
         padding: 10,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
         backgroundColor: 
-            item.status == "Approved" ? COLORS.green :
-            item.status == "Reviewed" ? COLORS.purple :
-            item.status == "Filed" ? COLORS.filed :
-            item.status == "Cancelled" ? COLORS.red 
+            newItem.status == "Approved" ? COLORS.green :
+            newItem.status == "Reviewed" ? COLORS.purple :
+            newItem.status == "Filed" ? COLORS.filed :
+            newItem.status == "Cancelled" ? COLORS.red 
             : COLORS.orange
         ,
         paddingHorizontal: 20,
